@@ -4,9 +4,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import stocks.AlphaVantageAPI;
+import stocks.api.AlphaVantageAPI;
+import stocks.model.macros.StockMacro;
 
-public class StocksImpl implements Stocks {
+public class StocksImpl<T> implements Stocks<T> {
   private final Map<Date, StockDayStatus> data;
   private final String symbol;
 
@@ -16,13 +17,18 @@ public class StocksImpl implements Stocks {
   }
 
   @Override
-  public void execute(StockMacro stockMacro) {
-    stockMacro.apply(this);
+  public T execute(StockMacro<T> stockMacro) {
+    return stockMacro.apply(this);
   }
 
   @Override
   public StockDayStatus getStockDayStatus(Date date) {
     return data.get(date);
+  }
+
+  @Override
+  public String getSymbol() {
+    return this.symbol;
   }
 
   private static Map<Date, StockDayStatus> loadData(String symbol) {

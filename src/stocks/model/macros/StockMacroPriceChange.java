@@ -1,8 +1,11 @@
-package stocks.model;
+package stocks.model.macros;
+
+import stocks.model.StockDayStatus;
+import stocks.model.Stocks;
 
 import java.util.Date;
 
-public class StockMacroPriceChange implements StockMacro {
+public class StockMacroPriceChange implements StockMacro<Double> {
   Date startDate;
   Date endDate;
 
@@ -12,10 +15,10 @@ public class StockMacroPriceChange implements StockMacro {
   }
 
   @Override
-  public Double apply(Stocks stock) {
+  public Double apply(Stocks<Double> stock) {
     StockDayStatus start = stock.getStockDayStatus(startDate);
     StockDayStatus end = stock.getStockDayStatus(endDate);
 
-    return (end.getClosingTime() - start.getClosingTime());
+    return end.getClosingTime() - start.getClosingTime();
   }
 }

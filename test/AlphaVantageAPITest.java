@@ -1,8 +1,6 @@
 import org.junit.Test;
 
-import java.sql.Date;
-
-import stocks.AlphaVantageAPI;
+import stocks.api.AlphaVantageAPI;
 
 import static org.junit.Assert.*;
 
