@@ -22,8 +22,12 @@ public class StocksImpl<T> implements Stocks<T> {
   }
 
   @Override
-  public StockDayStatus getStockDayStatus(Date date) {
-    return data.get(date);
+  public StockDayStatus getStockDayStatus(Date date) throws IllegalArgumentException {
+    if (!this.data.containsKey(date)) {
+      throw new IllegalArgumentException("Date does not exist.");
+    } else {
+      return this.data.get(date);
+    }
   }
 
   @Override
