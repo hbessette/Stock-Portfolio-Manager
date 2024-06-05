@@ -3,6 +3,7 @@ package stocks.model;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import stocks.api.AlphaVantageAPI;
 import stocks.model.macros.StockMacro;
@@ -33,6 +34,11 @@ public class StocksImpl<T> implements Stocks<T> {
   @Override
   public String getSymbol() {
     return this.symbol;
+  }
+
+  @Override
+  public Set<Date> getValidDates() {
+    return this.data.keySet();
   }
 
   private static Map<Date, StockDayStatus> loadData(String symbol) {
