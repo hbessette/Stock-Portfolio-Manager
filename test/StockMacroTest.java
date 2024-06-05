@@ -44,6 +44,19 @@ public class StockMacroTest {
             3
     ));
     double expected = (173.8800 + 171.9300 + 170.9000) / 3;
+    assertEquals(String.valueOf(result), String.valueOf(expected));
+  }
+
+  @Test
+  public void testXDayMovingAverageMacro2() {
+    Stocks<Double> stock = new StocksImpl<>("GOOG");
+    StockMacro<Double> macro = new StockMacroXDayMovingAverage(
+            new Date(2024,5,15),
+            3
+    );
+    double result = macro.apply(stock);
+    double expected = (173.8800 + 171.9300 + 170.9000) / 3;
+    assertEquals(String.valueOf(result), String.valueOf(expected));
   }
 
   @Test
@@ -55,6 +68,21 @@ public class StockMacroTest {
     ));
     Date[] expected = new Date[] {
       new Date(2024,05,15)
+    };
+
+    assertEquals(expected[0], result[0]);
+  }
+
+  @Test
+  public void testXDayCrossoverMacro2() {
+    Stocks<Date[]> stock = new StocksImpl<>("GOOG");
+    StockMacro<Date[]> macro = new StockMacroXDayCrossovers(
+            new Date(2024,5,15),
+            3
+    );
+    Date[] result = macro.apply(stock);
+    Date[] expected = new Date[] {
+            new Date(2024,05,15)
     };
 
     assertEquals(expected[0], result[0]);
