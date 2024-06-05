@@ -5,9 +5,7 @@ import java.util.Set;
 
 import stocks.model.macros.StockMacro;
 
-public interface Stocks<T> {
-  public T execute(StockMacro<T> stockMacro);
-
+public interface Stocks {
   public StockDayStatus getStockDayStatus(Date date);
 
   public Set<Date> getValidDates();

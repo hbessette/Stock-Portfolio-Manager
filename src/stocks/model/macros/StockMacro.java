@@ -16,5 +16,5 @@ public interface StockMacro<T> {
    * @param stock the stock to apply the macro to
    * @return the result of the macro
    */
-  public T apply(Stocks<T> stock);
+  public T apply(Stocks stock);
 }

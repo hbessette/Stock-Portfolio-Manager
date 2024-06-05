@@ -10,7 +10,7 @@ import java.util.Set;
 import stocks.model.Stocks;
 
 public abstract class AbstractStockMacroXDay {
-  protected Double getXDayAverage(Stocks<Double> stock, Date startDate, int xDays) {
+  protected Double getXDayAverage(Stocks stock, Date startDate, int xDays) {
     List<Date> computedDates = getDatesInRange(stock, startDate, xDays);
 
     double xDayAverage = 0;
@@ -20,7 +20,7 @@ public abstract class AbstractStockMacroXDay {
     return xDayAverage / xDays;
   }
 
-  protected List<Date> getDatesInRange(Stocks<Double> stock, Date startDate, int xDays) {
+  protected List<Date> getDatesInRange(Stocks stock, Date startDate, int xDays) {
     Set<Date> validDatesSet = stock.getValidDates();
 
     if (!validDatesSet.contains(startDate)) {

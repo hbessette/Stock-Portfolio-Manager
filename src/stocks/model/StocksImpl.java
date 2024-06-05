@@ -8,18 +8,13 @@ import java.util.Set;
 import stocks.api.AlphaVantageAPI;
 import stocks.model.macros.StockMacro;
 
-public class StocksImpl<T> implements Stocks<T> {
+public class StocksImpl implements Stocks {
   private final Map<Date, StockDayStatus> data;
   private final String symbol;
 
   public StocksImpl(String symbol) {
     this.symbol = symbol;
     data = loadData(this.symbol);
-  }
-
-  @Override
-  public T execute(StockMacro<T> stockMacro) {
-    return stockMacro.apply(this);
   }
 
   @Override

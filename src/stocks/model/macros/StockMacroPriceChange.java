@@ -36,7 +36,7 @@ public class StockMacroPriceChange implements StockMacro<Double> {
    * @return the gain (or loss) of the stock as a decimal
    */
   @Override
-  public Double apply(Stocks<Double> stock) {
+  public Double apply(Stocks stock) {
     StockDayStatus start = stock.getStockDayStatus(startDate);
     StockDayStatus end = stock.getStockDayStatus(endDate);
 

@@ -42,7 +42,7 @@ public class StockMacroXDayMovingAverage extends AbstractStockMacroXDay
    * @throws IllegalArgumentException if the start date is not valid
    */
   @Override
-  public Double apply(Stocks<Double> stock) throws IllegalArgumentException {
+  public Double apply(Stocks stock) throws IllegalArgumentException {
     return getXDayAverage(stock, this.startDate, this.xDays);
   }
 }

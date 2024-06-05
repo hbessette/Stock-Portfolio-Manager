@@ -4,33 +4,33 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-public class StockPortfolioImpl<T> implements StockPortfolio<T> {
-  private List<Stocks<T>> portfolio;
+public class StockPortfolioImpl implements StockPortfolio {
+  private List<Stocks> portfolio;
   private StringBuilder log;
 
   StockPortfolioImpl() {
-    this.portfolio = new ArrayList<Stocks<T>>();
+    this.portfolio = new ArrayList<Stocks>();
     this.log = new StringBuilder();
   }
 
   @Override
-  public List<Stocks<T>> getAllStocks() {
+  public List<Stocks> getAllStocks() {
     return new ArrayList<>(this.portfolio);
   }
 
   @Override
-  public void addStock(Stocks<T> stock) {
+  public void addStock(Stocks stock) {
     this.portfolio.add(stock);
     this.log.append(stock.toString());
   }
 
   @Override
-  public void removeStock(Stocks<T> stock) {
+  public void removeStock(Stocks stock) {
     this.portfolio.remove(stock);
   }
 
-  public Stocks<T> getStockByName(String symbol) throws NoSuchElementException {
-    for (Stocks<T> stock : this.portfolio) {
+  public Stocks getStockByName(String symbol) throws NoSuchElementException {
+    for (Stocks stock : this.portfolio) {
       if (stock.getSymbol().equals(symbol)) {
         return stock;
       }

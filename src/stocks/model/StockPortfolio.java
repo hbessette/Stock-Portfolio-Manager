@@ -2,14 +2,14 @@ package stocks.model;
 
 import java.util.List;
 
-public interface StockPortfolio<T> {
-  List<Stocks<T>> getAllStocks();
+public interface StockPortfolio {
+  List<Stocks> getAllStocks();
 
-  void addStock(Stocks<T> stock);
+  void addStock(Stocks stock);
 
-  void removeStock(Stocks<T> stock);
+  void removeStock(Stocks stock);
 
-  Stocks<T> getStockByName(String symbol);
+  Stocks getStockByName(String symbol);
 
   String returnLog();
 }
