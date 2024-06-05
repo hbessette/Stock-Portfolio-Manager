@@ -60,6 +60,9 @@ public class AlphaVantageAPI {
   /**
    * Gets the data of the stock with this symbol.
    * Data is collected in the format timestamp, open, high, low, close, volume.
+   * Gets the data either from an API call or local files.
+   * If no local files exist, it will create one after the API call.
+   * Also deletes any outdated local data.
    *
    * @return the resulting data
    * @throws IllegalStateException if no data exists for this stock
@@ -76,7 +79,28 @@ public class AlphaVantageAPI {
     if (data.length <= 1) {
       throw new IllegalStateException("No data exists for this stock.");
     }
+
+    removeOutdatedFiles();
+
     return Arrays.copyOfRange(data, 1, data.length - 1);
+  }
+
+  private void removeOutdatedFiles() {
+    File folderPath = new File("StockData");
+    File[] filesInFolder = folderPath.listFiles();
+
+    if (filesInFolder == null) {
+      return;
+    }
+
+    for (File file : filesInFolder) {
+      if (
+              file.getName().startsWith(this.symbol)
+              && file.getName() != symbol + "-" + LocalDate.now() + ".csv"
+      ) {
+        file.delete();
+      }
+    }
   }
 
   private String[] getFileData() throws FileNotFoundException {
@@ -121,6 +145,7 @@ public class AlphaVantageAPI {
       while ((b=in.read())!=-1) {
         output.append((char)b);
       }
+
     }
     catch (IOException e) {
       throw new IllegalArgumentException("No price data found for " + this.symbol);
