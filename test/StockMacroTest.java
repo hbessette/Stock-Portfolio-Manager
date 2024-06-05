@@ -4,6 +4,7 @@ import java.util.Date;
 
 import stocks.model.Stocks;
 import stocks.model.StocksImpl;
+import stocks.model.macros.StockMacro;
 import stocks.model.macros.StockMacroPriceChange;
 import stocks.model.macros.StockMacroXDayCrossovers;
 import stocks.model.macros.StockMacroXDayMovingAverage;
@@ -18,6 +19,19 @@ public class StockMacroTest {
             new Date(2024,5,17),
             new Date(2024, 5, 28)
     ));
+    double expected = 178.0200 - 177.2900;
+    assertEquals(String.valueOf(expected), String.valueOf(result));
+  }
+
+  @Test // using the program like this might allow us to remove <T> from Stocks.
+  public void testPriceChangeMacro2() {
+    Stocks<Double> stock = new StocksImpl<>("GOOG");
+    StockMacro<Double> macro = new StockMacroPriceChange(
+            new Date(2024,5,17),
+            new Date(2024, 5, 28)
+    );
+
+    double result = macro.apply(stock);
     double expected = 178.0200 - 177.2900;
     assertEquals(String.valueOf(expected), String.valueOf(result));
   }
