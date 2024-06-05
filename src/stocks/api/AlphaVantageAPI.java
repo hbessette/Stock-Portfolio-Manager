@@ -10,6 +10,7 @@ import java.net.MalformedURLException;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.time.LocalDate;
+import java.util.Arrays;
 
 /**
  * Allows the collection of stock data from the StockData folder,
@@ -59,22 +60,27 @@ public class AlphaVantageAPI {
   /**
    * Gets the data of the stock with this symbol.
    * Data is collected in the format timestamp, open, high, low, close, volume.
-   * The first line of the data is text describing this format.
    *
    * @return the resulting data
+   * @throws IllegalStateException if no data exists for this stock
    */
-  public String[] getData() {
+  public String[] getData() throws IllegalStateException {
+    String[] data;
     try {
-      return getFileData();
+      data = getFileData();
     }
     catch (FileNotFoundException exception) {
-      return getURLData();
+      data = getURLData();
     }
+
+    if (data.length <= 1) {
+      throw new IllegalStateException("No data exists for this stock.");
+    }
+    return Arrays.copyOfRange(data, 1, data.length - 1);
   }
 
   private String[] getFileData() throws FileNotFoundException {
     StringBuilder output = new StringBuilder();
-    System.out.println("here");
     try {
       BufferedReader reader = new BufferedReader(new FileReader(
               "StockData/" + symbol +
@@ -88,11 +94,9 @@ public class AlphaVantageAPI {
       }
     }
     catch (IOException e) {
-      System.out.println("exception");
       throw new FileNotFoundException("File does not exist");
     }
 
-    System.out.println("worked");
     return output.toString().split(System.lineSeparator());
   }
 
