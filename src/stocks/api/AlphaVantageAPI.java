@@ -11,11 +11,22 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.time.LocalDate;
 
+/**
+ * Allows the collection of stock data from the StockData folder,
+ * or the Alpha Vantage API if stock data is not found in the StockData folder.
+ * Data is collected in the format timestamp, open, high, low, close, volume.
+ * The first line of the data is text describing this format.
+ */
 public class AlphaVantageAPI {
   private String symbol;
   private final String apiKey;
 
 
+  /**
+   * Creates a new AlphaVantageAPI object with the specified stock symbol.
+   *
+   * @param symbol the stock symbol
+   */
   public AlphaVantageAPI(String symbol) {
     this.symbol = symbol;
     this.apiKey = "TJ5Y749LPC0JJLYJ";
@@ -45,6 +56,13 @@ public class AlphaVantageAPI {
     return url;
   }
 
+  /**
+   * Gets the data of the stock with this symbol.
+   * Data is collected in the format timestamp, open, high, low, close, volume.
+   * The first line of the data is text describing this format.
+   *
+   * @return the resulting data
+   */
   public String[] getData() {
     try {
       return getFileData();
