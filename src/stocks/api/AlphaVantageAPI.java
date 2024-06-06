@@ -30,7 +30,7 @@ public class AlphaVantageAPI {
    */
   public AlphaVantageAPI(String symbol) {
     this.symbol = symbol;
-    this.apiKey = "TJ5Y749LPC0JJLYJ";
+    this.apiKey = "M9FOYCG9AWQJW14G";
   }
 
   private URL makeURL() {

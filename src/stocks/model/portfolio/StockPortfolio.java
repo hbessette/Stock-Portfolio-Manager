@@ -4,6 +4,7 @@ import stocks.model.stock.Stocks;
 
 import java.util.Date;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public interface StockPortfolio {
   List<Stocks> getAllStocks();
@@ -12,7 +13,7 @@ public interface StockPortfolio {
 
   void removeStock(Stocks stock);
 
-  Stocks getStockByName(String symbol);
+  Stocks getStockByName(String symbol) throws NoSuchElementException;
 
   String returnLog();
 
