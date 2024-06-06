@@ -57,9 +57,9 @@ public interface StockModel {
   public Stocks getStockByName(String symbol);
 
   /**
-   * Gets a list of all portfolios.
+   * Gets a set of all portfolios names.
    *
-   * @return a list of all portfolios
+   * @return a set of all portfolios names.
    */
   public Set<String> getAllPortfolios();
 
