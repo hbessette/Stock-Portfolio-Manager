@@ -13,10 +13,6 @@ public class ShowPortfolio extends APortfolioCommand {
 
   @Override
   public void start(StockView view, StockModel model) {
-    try {
-      view.show(model.getPortfolioByName(this.portfolioName).getAllStocks().toString());
-    } catch (NoSuchElementException e) {
-      view.show(e.getMessage());
-    }
+    view.show(model.getPortfolioByName(this.portfolioName).getAllStocks().toString());
   }
 }

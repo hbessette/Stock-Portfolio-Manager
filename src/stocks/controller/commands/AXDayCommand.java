@@ -11,7 +11,7 @@ abstract class AXDayCommand extends ASymbolControllerCommand {
 
   protected AXDayCommand(String symbol, int month, int day, int year, int xDays) {
     super(symbol);
-    this.startDate = new Date(month, day, year);
+    this.startDate = new Date(year, month, day);
     this.xDays = xDays;
   }
   @Override

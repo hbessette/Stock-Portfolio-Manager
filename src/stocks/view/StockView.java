@@ -17,4 +17,10 @@ public interface StockView {
    */
   public void welcomeMessage();
 
+  void welcomeMessage();
+
+  void printHelp();
+
+  void goodbyeMessage();
+
 }

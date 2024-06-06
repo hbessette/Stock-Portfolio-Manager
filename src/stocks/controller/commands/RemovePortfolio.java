@@ -11,11 +11,7 @@ public class RemovePortfolio extends APortfolioCommand {
 
   @Override
   public void start(StockView view, StockModel model) {
-    try {
       model.removePortfolio(this.portfolioName);
-      view.show(model.returnLog());
-    } catch (Exception e) {
-      view.show(e.getMessage());
-    }
+      view.show("Successfully removed portfolio " + this.portfolioName);
   }
 }

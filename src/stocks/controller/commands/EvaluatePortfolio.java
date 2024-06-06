@@ -16,12 +16,8 @@ public class EvaluatePortfolio extends APortfolioCommand {
 
   @Override
   public void start(StockView view, StockModel model) {
-    try {
       double evaluation = model.evaluatePortfolio(this.portfolioName, this.date);
-      view.show("Evaluation of " + this.portfolioName + " on " + this.date.toString() + " is " +
+      view.show("Evaluation of " + this.portfolioName + " on " + (this.date.getMonth() + 1) + "-" + this.date.getDate() + "-" + this.date.getYear() + " is " +
               evaluation + ".");
-    } catch (NoSuchElementException e) {
-      view.show(e.getMessage());
-    }
   }
 }
