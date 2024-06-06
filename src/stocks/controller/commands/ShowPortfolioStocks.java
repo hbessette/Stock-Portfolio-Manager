@@ -23,7 +23,7 @@ public class ShowPortfolioStocks extends APortfolioCommand {
   /**
    * Displays the stock symbols and their shares in the portfolio used to construct this object.
    *
-   * @param view a view to display to
+   * @param view  a view to display to
    * @param model a model to get portfolios from
    */
   @Override

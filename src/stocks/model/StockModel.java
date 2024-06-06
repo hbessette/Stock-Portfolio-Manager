@@ -4,7 +4,6 @@ import stocks.model.portfolio.StockPortfolio;
 import stocks.model.stock.Stocks;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 /**

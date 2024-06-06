@@ -19,6 +19,7 @@ public class StockViewImpl implements StockView {
 
   /**
    * Prints the given text to the PrintStream.
+   *
    * @param input the text to display
    */
   @Override

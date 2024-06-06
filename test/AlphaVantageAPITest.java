@@ -4,9 +4,7 @@ import java.util.Arrays;
 
 import stocks.api.AlphaVantageAPI;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 /**
  * Tests the AlphaVantageAPI class.

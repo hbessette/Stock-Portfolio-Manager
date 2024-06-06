@@ -14,7 +14,7 @@ public class StockAndShares {
   /**
    * Creates a new StockAndShares.
    *
-   * @param stock a stock
+   * @param stock  a stock
    * @param shares a number of shares
    */
   public StockAndShares(Stocks stock, int shares) {

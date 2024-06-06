@@ -21,9 +21,9 @@ public abstract class AbstractStockMacroXDay {
    * An x-day average is the average closing price of a stock over the last x days,
    * starting from the given date.
    *
-   * @param stock a stock to use as data
+   * @param stock     a stock to use as data
    * @param startDate the start date
-   * @param xDays the number of days to include. Goes backwards in time from startDate.
+   * @param xDays     the number of days to include. Goes backwards in time from startDate.
    * @return the x-day average
    */
   protected Double getXDayAverage(Stocks stock, Date startDate, int xDays) {
@@ -39,9 +39,9 @@ public abstract class AbstractStockMacroXDay {
   /**
    * Gets all the valid dates (dates with stock data) for a given stock over a given time period.
    *
-   * @param stock the stock to use as data
+   * @param stock     the stock to use as data
    * @param startDate the start date
-   * @param xDays the number of days to include. Goes backwards in time from startDate.
+   * @param xDays     the number of days to include. Goes backwards in time from startDate.
    * @return the valid dates
    * @throws IllegalArgumentException if the start date is not valid
    */
@@ -59,7 +59,7 @@ public abstract class AbstractStockMacroXDay {
 
     return sortedValidDates.subList(
             sortedValidDates.indexOf(startDate),
-            sortedValidDates.indexOf(startDate)+xDays
+            sortedValidDates.indexOf(startDate) + xDays
     );
   }
 

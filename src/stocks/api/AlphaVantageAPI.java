@@ -49,8 +49,7 @@ public class AlphaVantageAPI {
               + "&outputsize=" + "full"
               + "&symbol"
               + "=" + this.symbol + "&apikey=" + this.apiKey + "&datatype=csv");
-    }
-    catch (MalformedURLException e) {
+    } catch (MalformedURLException e) {
       throw new RuntimeException("the alphavantage API has either changed or "
               + "no longer works");
     }
@@ -71,8 +70,7 @@ public class AlphaVantageAPI {
     String[] data;
     try {
       data = getFileData();
-    }
-    catch (FileNotFoundException exception) {
+    } catch (FileNotFoundException exception) {
       data = getURLData();
     }
 
@@ -100,7 +98,7 @@ public class AlphaVantageAPI {
     for (File file : filesInFolder) {
       if (
               file.getName().startsWith(this.symbol)
-              && file.getName() != symbol + "-" + LocalDate.now() + ".csv"
+                      && file.getName() != symbol + "-" + LocalDate.now() + ".csv"
       ) {
         file.delete();
       }
@@ -109,6 +107,7 @@ public class AlphaVantageAPI {
 
   private String[] getFileData() throws FileNotFoundException {
     StringBuilder output = new StringBuilder();
+
     try {
       BufferedReader reader = new BufferedReader(new FileReader(
               "StockData/" + symbol +
@@ -120,8 +119,7 @@ public class AlphaVantageAPI {
         output.append(line + System.lineSeparator());
         line = reader.readLine();
       }
-    }
-    catch (IOException e) {
+    } catch (IOException e) {
       throw new FileNotFoundException("File does not exist");
     }
 
@@ -146,12 +144,11 @@ public class AlphaVantageAPI {
       in = makeURL().openStream();
       int b;
 
-      while ((b=in.read())!=-1) {
-        output.append((char)b);
+      while ((b = in.read()) != -1) {
+        output.append((char) b);
       }
 
-    }
-    catch (IOException e) {
+    } catch (IOException e) {
       throw new IllegalArgumentException("No price data found for " + this.symbol);
     }
     String[] returnValue = output.toString().split(System.lineSeparator());
@@ -167,7 +164,8 @@ public class AlphaVantageAPI {
     File file = new File("StockData/" + this.symbol + "-" + LocalDate.now() + ".csv");
     try {
       file.createNewFile();
-      FileWriter fileWriter = new FileWriter("StockData/" + this.symbol + "-" + LocalDate.now() + ".csv");
+      FileWriter fileWriter = new FileWriter("StockData/" + this.symbol + "-" +
+              LocalDate.now() + ".csv");
       for (String line : output) {
         fileWriter.write(line + System.lineSeparator());
       }

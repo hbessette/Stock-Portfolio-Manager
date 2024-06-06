@@ -20,10 +20,10 @@ public class XDayCrossovers extends AXDayCommand {
    * Constructs this command.
    *
    * @param symbol The symbol of the stock to check
-   * @param month the month of the date to check
-   * @param day the day of the date to check
-   * @param year the year of the date to check
-   * @param xDays the X number of days to go *back* from the starting date, minus 1.
+   * @param month  the month of the date to check
+   * @param day    the day of the date to check
+   * @param year   the year of the date to check
+   * @param xDays  the X number of days to go *back* from the starting date, minus 1.
    */
   public XDayCrossovers(String symbol, int month, int day, int year, int xDays) {
     super(symbol, month, day, year, xDays);
@@ -32,15 +32,16 @@ public class XDayCrossovers extends AXDayCommand {
   /**
    * Shows the x-day crossovers to the view.
    *
-   * @param view the view to display to
+   * @param view  the view to display to
    * @param model the model to use to process the command
    */
   @Override
   public void start(StockView view, StockModel model) {
-      Date[] dates =
-              new StockMacroXDayCrossovers(this.startDate, this.xDays).apply(model.getStockByName(this.symbol));
-      for (Date date : dates) {
-        view.show((date.getMonth() + 1) + "-" + date.getDate() + "-" + date.getYear());
-      }
+    Date[] dates =
+            new StockMacroXDayCrossovers(this.startDate, this.xDays)
+                    .apply(model.getStockByName(this.symbol));
+    for (Date date : dates) {
+      view.show((date.getMonth() + 1) + "-" + date.getDate() + "-" + date.getYear());
+    }
   }
 }

@@ -13,9 +13,9 @@ public class StockDayStatusImpl implements StockDayStatus {
   /**
    * Creates a new StockDayStatus.
    *
-   * @param date the date this data corresponds with
+   * @param date    the date this data corresponds with
    * @param closing the closing price of this stock
-   * @param volume the volume of trade
+   * @param volume  the volume of trade
    */
   public StockDayStatusImpl(Date date, double closing, int volume) {
     this.date = date;

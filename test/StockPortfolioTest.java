@@ -1,4 +1,3 @@
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -12,7 +11,8 @@ import stocks.model.portfolio.shares.StockAndShares;
 import stocks.model.stock.Stocks;
 import stocks.model.stock.StocksImpl;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Tests for StockPortfolios.

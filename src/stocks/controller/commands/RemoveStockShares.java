@@ -12,9 +12,10 @@ public class RemoveStockShares extends ASymbolControllerCommand {
 
   /**
    * To create a removeStockShares command.
+   *
    * @param portfolioName target portfolio
-   * @param symbol target stock
-   * @param shares number of shares to remove
+   * @param symbol        target stock
+   * @param shares        number of shares to remove
    */
   public RemoveStockShares(String portfolioName, String symbol, int shares) {
     super(symbol);
@@ -24,7 +25,9 @@ public class RemoveStockShares extends ASymbolControllerCommand {
 
   @Override
   public void start(StockView view, StockModel model) {
-      model.getPortfolioByName(this.portfolioName).removeStockShares(model.getStockByName(this.symbol), this.shares);
-      view.show("Removed " + this.shares + " shares from " + this.symbol + " in " + this.portfolioName + ".");
+    model.getPortfolioByName(this.portfolioName).removeStockShares(
+            model.getStockByName(this.symbol), this.shares);
+    view.show("Removed " + this.shares + " shares from " + this.symbol + " in "
+            + this.portfolioName + ".");
   }
 }

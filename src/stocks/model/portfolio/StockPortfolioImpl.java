@@ -61,15 +61,14 @@ public class StockPortfolioImpl implements StockPortfolio {
   /**
    * Adds a stock to the portfolio, or adds more of it if it has already been added.
    *
-   * @param stock the stock to add
+   * @param stock  the stock to add
    * @param shares the amount of shares to add
    */
   @Override
   public void addStock(Stocks stock, int shares) {
     if (this.portfolio.containsKey(stock)) {
       this.portfolio.put(stock, this.portfolio.get(stock) + shares);
-    }
-    else {
+    } else {
       this.portfolio.put(stock, shares);
     }
     this.log.append("Added:").append(stock.getSymbol())
@@ -90,7 +89,7 @@ public class StockPortfolioImpl implements StockPortfolio {
    * Removes shares from a stock in the portfolio.
    * If the amount of shares is reduced to 0, the stock is fully removed.
    *
-   * @param stock the stock to remove shares from
+   * @param stock  the stock to remove shares from
    * @param shares the amount of shares to remove
    * @throws IllegalArgumentException if the amount of shares to remove exceeds the owned shares
    */

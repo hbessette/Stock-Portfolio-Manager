@@ -5,7 +5,12 @@ import stocks.model.portfolio.StockPortfolioImpl;
 import stocks.model.stock.Stocks;
 import stocks.model.stock.StocksImpl;
 
-import java.util.*;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Date;
+import java.util.NoSuchElementException;
+import java.util.Set;
+
 
 /**
  * A model which allows the user to create portfolios.

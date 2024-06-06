@@ -12,7 +12,7 @@ public interface StockControllerCommand {
   /**
    * Executes this command, displaying whatever happened to the view.
    *
-   * @param view the view to display to
+   * @param view  the view to display to
    * @param model the model to use to process the command
    */
   void start(StockView view, StockModel model);

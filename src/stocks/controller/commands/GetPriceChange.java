@@ -15,13 +15,14 @@ public class GetPriceChange extends ASymbolControllerCommand {
 
   /**
    * To create a new GetPriceChange object.
-   * @param symbol target stock symbol
+   *
+   * @param symbol     target stock symbol
    * @param startMonth target start month
-   * @param startDay target start day
-   * @param startYear target start year
-   * @param endMonth target end month
-   * @param endDay target end day
-   * @param endYear target end year
+   * @param startDay   target start day
+   * @param startYear  target start year
+   * @param endMonth   target end month
+   * @param endDay     target end day
+   * @param endYear    target end year
    */
   public GetPriceChange(String symbol, int startMonth, int startDay, int startYear, int endMonth,
                         int endDay, int endYear) {
@@ -32,14 +33,14 @@ public class GetPriceChange extends ASymbolControllerCommand {
 
   @Override
   public void start(StockView view, StockModel model) {
-      double priceChange =
-              new StockMacroPriceChange(this.startDate, this.endDate).apply(
-                      model.getStockByName(this.symbol));
-      priceChange = Math.round(priceChange * 100.00) / 100.00;
-      view.show("Price change for " + this.symbol + " between " + (this.startDate.getMonth() + 1) +
-              "-" + this.startDate.getDate() + "-" + this.startDate.getYear() +
-              " and " + (this.endDate.getMonth() + 1) +
-              "-" + this.endDate.getDate() + "-" + this.endDate.getYear() + " is " + priceChange +
-              ".");
+    double priceChange =
+            new StockMacroPriceChange(this.startDate, this.endDate).apply(
+                    model.getStockByName(this.symbol));
+    priceChange = Math.round(priceChange * 100.00) / 100.00;
+    view.show("Price change for " + this.symbol + " between " + (this.startDate.getMonth() + 1) +
+            "-" + this.startDate.getDate() + "-" + this.startDate.getYear() +
+            " and " + (this.endDate.getMonth() + 1) +
+            "-" + this.endDate.getDate() + "-" + this.endDate.getYear() + " is " + priceChange +
+            ".");
   }
 }

@@ -14,10 +14,11 @@ public class EvaluatePortfolio extends APortfolioCommand {
 
   /**
    * To create an EvaluatePortfolio object.
+   *
    * @param portfolioName target portfolio
-   * @param month target month
-   * @param day target day
-   * @param year target year
+   * @param month         target month
+   * @param day           target day
+   * @param year          target year
    */
   public EvaluatePortfolio(String portfolioName, int month, int day, int year) {
     super(portfolioName);
@@ -26,8 +27,9 @@ public class EvaluatePortfolio extends APortfolioCommand {
 
   @Override
   public void start(StockView view, StockModel model) {
-      double evaluation = model.evaluatePortfolio(this.portfolioName, this.date);
-      view.show("Evaluation of " + this.portfolioName + " on " + (this.date.getMonth() + 1) + "-" + this.date.getDate() + "-" + this.date.getYear() + " is " +
-              evaluation + ".");
+    double evaluation = model.evaluatePortfolio(this.portfolioName, this.date);
+    view.show("Evaluation of " + this.portfolioName + " on " + (this.date.getMonth() + 1)
+            + "-" + this.date.getDate() + "-" + this.date.getYear() + " is "
+            + evaluation + ".");
   }
 }

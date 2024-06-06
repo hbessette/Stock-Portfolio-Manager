@@ -7,8 +7,12 @@ import stocks.model.StockModelImpl;
 import stocks.view.StockView;
 import stocks.view.StockViewImpl;
 
-import javax.print.DocFlavor;
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
+import java.io.PrintStream;
+import java.io.Reader;
+import java.io.StringReader;
+
 
 import static org.junit.Assert.assertEquals;
 

@@ -1,8 +1,22 @@
 package stocks.controller;
 
-import stocks.controller.commands.*;
+import stocks.controller.commands.AddPortfolio;
+import stocks.controller.commands.AddStock;
+import stocks.controller.commands.EvaluatePortfolio;
+import stocks.controller.commands.GetPriceChange;
+import stocks.controller.commands.RemovePortfolio;
+import stocks.controller.commands.RemoveStock;
+import stocks.controller.commands.RemoveStockShares;
+import stocks.controller.commands.ShowAllPortfolios;
+import stocks.controller.commands.ShowPortfolio;
+import stocks.controller.commands.ShowPortfolioStocks;
+import stocks.controller.commands.XDayCrossovers;
+import stocks.controller.commands.XDayMovingAverage;
+import stocks.controller.commands.StockControllerCommand;
+
 import stocks.model.StockModel;
 import stocks.view.StockView;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -20,8 +34,8 @@ public class StockControllerImpl implements StockController {
   /**
    * Creates a controller.
    *
-   * @param in some Readable to take in input
-   * @param view a view to display results
+   * @param in    some Readable to take in input
+   * @param view  a view to display results
    * @param model a model to process commands using
    */
   public StockControllerImpl(Readable in, StockView view, StockModel model) {
@@ -55,8 +69,7 @@ public class StockControllerImpl implements StockController {
           try {
             StockControllerCommand cmd = commands.get(command).apply(this.in);
             cmd.start(this.view, this.model);
-          }
-          catch (NullPointerException e) {
+          } catch (NullPointerException e) {
             this.view.show("Invalid command.");
           } catch (Exception e) {
             this.view.show(e.getMessage());
@@ -74,7 +87,7 @@ public class StockControllerImpl implements StockController {
     commands.put("remove-stock-shares",
             (Scanner s) -> new RemoveStockShares(s.next(), s.next(), s.nextInt()));
     commands.put("get-x-day-average",
-            (Scanner s) -> new XDayMovingAverage(s.next(), s.nextInt() - 1 , s.nextInt(),
+            (Scanner s) -> new XDayMovingAverage(s.next(), s.nextInt() - 1, s.nextInt(),
                     s.nextInt(), s.nextInt()));
     commands.put("get-x-day-crossovers",
             (Scanner s) -> new XDayCrossovers(s.next(), s.nextInt() - 1, s.nextInt(),

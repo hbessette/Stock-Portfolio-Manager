@@ -5,10 +5,10 @@ import stocks.model.portfolio.shares.StockAndShares;
 import stocks.model.stock.Stocks;
 import stocks.model.stock.StocksImpl;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
- * Tests the StockAndShares class
+ * Tests the StockAndShares class.
  */
 public class StockAndSharesTest {
   private Stocks appleStock;

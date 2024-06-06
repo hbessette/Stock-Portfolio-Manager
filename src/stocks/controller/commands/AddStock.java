@@ -15,10 +15,11 @@ public class AddStock extends ASymbolControllerCommand {
 
   /**
    * To create an addStock object.
+   *
    * @param portfolioName name of target portfolio
-   * @param symbol name of target stock symbol
-   * @param shares number of shares to add
-   * @exception IllegalArgumentException if shares is negative
+   * @param symbol        name of target stock symbol
+   * @param shares        number of shares to add
+   * @throws IllegalArgumentException if shares is negative
    */
   public AddStock(String portfolioName, String symbol, int shares) throws IllegalArgumentException {
     super(symbol);

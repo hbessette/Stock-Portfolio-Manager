@@ -17,6 +17,7 @@ abstract class AXDayCommand extends ASymbolControllerCommand {
     this.startDate = new Date(year, month, day);
     this.xDays = xDays;
   }
+
   @Override
   public abstract void start(StockView view, StockModel model);
 }

@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>C:/Users/maxse/Northeastern/CS3500/Stocks/HW4/src</OriginalElement>
+  <nodes>
+    <node x="1820.3969939761485" y="372.3709546814744">stocks.model.macros.StockMacroXDayCrossovers</node>
+    <node x="2326.0773674456245" y="947.3201895399972">stocks.controller.commands.EvaluatePortfolio</node>
+    <node x="1324.4761822266537" y="597.4251042239023">stocks.controller.commands.RemoveStock</node>
+    <node x="2234.7353706196063" y="382.74025509937843">stocks.view.StockViewImpl</node>
+    <node x="1087.9322682419877" y="262.9826788971463">stocks.model.daystatus.StockDayStatus</node>
+    <node x="2422.3437142550165" y="815.7727581431259">stocks.model.macros.StockMacroPriceChange</node>
+    <node x="24.139136760591327" y="972.1744346271539">stocks.controller.commands.AXDayCommand</node>
+    <node x="998.4576627859644" y="626.7974239355821">stocks.controller.commands.RemoveStockShares</node>
+    <node x="2496.8397351988015" y="475.8944682065056">stocks.model.macros.StockMacro</node>
+    <node x="1148.520897814127" y="433.6128639589161">stocks.model.daystatus.StockDayStatusImpl</node>
+    <node x="1443.6559374265998" y="742.1039592183087">stocks.Main</node>
+    <node x="1393.2848074388291" y="240.14534682738747">stocks.model.stock.StocksImpl</node>
+    <node x="2066.6273362938837" y="739.2092772534447">stocks.controller.commands.ShowPortfolio</node>
+    <node x="2013.2502176278344" y="565.9628086105754">stocks.controller.commands.ShowPortfolioStocks</node>
+    <node x="1679.5455393303278" y="596.7747124740571">stocks.controller.commands.RemovePortfolio</node>
+    <node x="-49.23586908528853" y="662.5066528756064">stocks.controller.commands.StockControllerCommand</node>
+    <node x="1103.5778755390013" y="748.3077133835108">stocks.controller.commands.XDayMovingAverage</node>
+    <node x="663.7579209086593" y="698.2122067618988">stocks.controller.commands.AddStock</node>
+    <node x="814.371977888562" y="819.1992018488643">stocks.api.AlphaVantageAPI</node>
+    <node x="2359.4318118928213" y="199.14496017853185">stocks.view.StockView</node>
+    <node x="810.7907844230008" y="537.5524940417483">stocks.controller.commands.APortfolioCommand</node>
+    <node x="-151.4994219725627" y="853.0036256192863">stocks.controller.commands.ASymbolControllerCommand</node>
+    <node x="1493.776754125117" y="480.5407378654195">stocks.controller.commands.AddPortfolio</node>
+    <node x="995.6404848041104" y="102.33232214421417">stocks.controller.StockControllerImpl</node>
+    <node x="1118.2121661323704" y="-13.432695160168791">stocks.controller.StockController</node>
+    <node x="207.52490124152519" y="1086.7381478813304">stocks.controller.commands.XDayCrossovers</node>
+    <node x="714.8602288680437" y="285.28558461397813">stocks.model.StockModelImpl</node>
+    <node x="277.3474732984073" y="378.515793492067">stocks.model.portfolio.StockPortfolioImpl</node>
+    <node x="186.56702831468886" y="800.7078497433005">stocks.controller.commands.GetPriceChange</node>
+    <node x="623.5067881209875" y="33.10178685924026">stocks.model.StockModel</node>
+    <node x="319.0449443593566" y="677.6228254678479">stocks.controller.commands.ShowAllPortfolios</node>
+    <node x="1583.6543666875841" y="5.206352534840576">stocks.model.stock.Stocks</node>
+    <node x="533.9873511271695" y="843.0399678109176">stocks.model.portfolio.shares.StockAndShares</node>
+    <node x="2343.3372173716134" y="623.4955677547151">stocks.model.macros.StockMacroXDayMovingAverage</node>
+    <node x="1956.2682317229262" y="147.78276990577513">stocks.model.macros.AbstractStockMacroXDay</node>
+    <node x="171.87497192670116" y="79.65703211120001">stocks.model.portfolio.StockPortfolio</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="stocks.controller.commands.RemoveStockShares" target="stocks.controller.commands.ASymbolControllerCommand" relationship="GENERALIZATION">
+      <point x="-50.95766278596443" y="26.999576064417965" />
+      <point x="1080.5" y="777.0" />
+      <point x="-13.499000000000024" y="777.0" />
+      <point x="4.219725626626314E-4" y="-26.999625619286235" />
+    </edge>
+    <edge source="stocks.model.daystatus.StockDayStatusImpl" target="stocks.model.daystatus.StockDayStatus" relationship="REALIZATION">
+      <point x="-62.08862957213938" y="-50.0" />
+      <point x="0.0" y="50.0" />
+    </edge>
+    <edge source="stocks.controller.commands.XDayCrossovers" target="stocks.controller.commands.AXDayCommand" relationship="GENERALIZATION">
+      <point x="9.875847479179356E-5" y="-27.00014788133035" />
+      <point x="340.525" y="1071.0" />
+      <point x="172.139" y="1071.0" />
+      <point x="14.999863239408683" y="26.999565372846064" />
+    </edge>
+    <edge source="stocks.controller.commands.AXDayCommand" target="stocks.controller.commands.ASymbolControllerCommand" relationship="GENERALIZATION">
+      <point x="-1.3676059131739748E-4" y="26.999565372846064" />
+      <point x="157.139" y="1054.0" />
+      <point x="460.067" y="1054.0" />
+      <point x="460.067" y="777.0" />
+      <point x="-13.499000000000024" y="777.0" />
+      <point x="4.219725626626314E-4" y="-26.999625619286235" />
+    </edge>
+    <edge source="stocks.model.StockModelImpl" target="stocks.model.StockModel" relationship="REALIZATION">
+      <point x="-91.3534407470562" y="-96.0" />
+      <point x="0.0" y="96.0" />
+    </edge>
+    <edge source="stocks.model.macros.StockMacroXDayCrossovers" target="stocks.model.macros.AbstractStockMacroXDay" relationship="GENERALIZATION">
+      <point x="6.023851483405451E-6" y="-26.999954681474435" />
+      <point x="1956.397" y="289.0" />
+      <point x="2127.268" y="289.0" />
+      <point x="-2.3172292617346102E-4" y="38.50023009422486" />
+    </edge>
+    <edge source="stocks.controller.commands.APortfolioCommand" target="stocks.controller.commands.StockControllerCommand" relationship="REALIZATION">
+      <point x="2.1557699921359585E-4" y="13.999505958251689" />
+      <point x="913.791" y="640.0" />
+      <point x="83.76400000000001" y="640.0" />
+      <point x="-1.3091471146253753E-4" y="-26.999652875606444" />
+    </edge>
+    <edge source="stocks.controller.commands.AddStock" target="stocks.controller.commands.ASymbolControllerCommand" relationship="GENERALIZATION">
+      <point x="7.90913407087146E-5" y="26.999793238101233" />
+      <point x="796.758" y="777.0" />
+      <point x="-13.499000000000024" y="777.0" />
+      <point x="4.219725626626314E-4" y="-26.999625619286235" />
+    </edge>
+    <edge source="stocks.controller.commands.RemovePortfolio" target="stocks.controller.commands.APortfolioCommand" relationship="GENERALIZATION">
+      <point x="4.6066967240676604E-4" y="-26.999712474057105" />
+      <point x="1812.546" y="551.0" />
+      <point x="1306.976" y="551.0" />
+      <point x="1306.976" y="711.0" />
+      <point x="952.5" y="711.0" />
+      <point x="38.70921557699921" y="13.999505958251689" />
+    </edge>
+    <edge source="stocks.controller.commands.XDayMovingAverage" target="stocks.controller.commands.AXDayCommand" relationship="GENERALIZATION">
+      <point x="1.2446099867702287E-4" y="27.000286616489234" />
+      <point x="1236.578" y="1071.0" />
+      <point x="172.139" y="1071.0" />
+      <point x="14.999863239408683" y="26.999565372846064" />
+    </edge>
+    <edge source="stocks.model.macros.StockMacroXDayCrossovers" target="stocks.model.macros.StockMacro" relationship="REALIZATION">
+      <point x="6.649006023851598" y="27.000045318525565" />
+      <point x="1963.046" y="695.0" />
+      <point x="2665.837" y="695.0" />
+      <point x="80.49726480119853" y="26.999531793494384" />
+    </edge>
+    <edge source="stocks.controller.StockControllerImpl" target="stocks.controller.StockController" relationship="REALIZATION">
+      <point x="-55.4283186717401" y="-38.5" />
+      <point x="0.0" y="27.0" />
+    </edge>
+    <edge source="stocks.view.StockViewImpl" target="stocks.view.StockView" relationship="REALIZATION">
+      <point x="93.0" y="-61.5" />
+      <point x="-31.696441273214987" y="61.5" />
+    </edge>
+    <edge source="stocks.controller.commands.ASymbolControllerCommand" target="stocks.controller.commands.StockControllerCommand" relationship="REALIZATION">
+      <point x="-14.999578027437337" y="-26.999625619286235" />
+      <point x="-28.499000000000024" y="755.0" />
+      <point x="234.264" y="755.0" />
+      <point x="234.264" y="640.0" />
+      <point x="83.76400000000001" y="640.0" />
+      <point x="-1.3091471146253753E-4" y="-26.999652875606444" />
+    </edge>
+    <edge source="stocks.controller.commands.AddPortfolio" target="stocks.controller.commands.APortfolioCommand" relationship="GENERALIZATION">
+      <point x="2.458748831486446E-4" y="27.00026213458051" />
+      <point x="1626.777" y="551.0" />
+      <point x="1306.976" y="551.0" />
+      <point x="1306.976" y="711.0" />
+      <point x="952.5" y="711.0" />
+      <point x="38.70921557699921" y="13.999505958251689" />
+    </edge>
+    <edge source="stocks.model.macros.StockMacroPriceChange" target="stocks.model.macros.StockMacro" relationship="REALIZATION">
+      <point x="2.8574498378475255E-4" y="-26.99975814312586" />
+      <point x="2543.844" y="695.0" />
+      <point x="2665.837" y="695.0" />
+      <point x="80.49726480119853" y="26.999531793494384" />
+    </edge>
+    <edge source="stocks.controller.commands.EvaluatePortfolio" target="stocks.controller.commands.APortfolioCommand" relationship="GENERALIZATION">
+      <point x="-54.23336744562448" y="-27.00018953999711" />
+      <point x="2404.844" y="711.0" />
+      <point x="952.5" y="711.0" />
+      <point x="38.70921557699921" y="13.999505958251689" />
+    </edge>
+    <edge source="stocks.model.macros.StockMacroXDayMovingAverage" target="stocks.model.macros.AbstractStockMacroXDay" relationship="GENERALIZATION">
+      <point x="-16.497217371613488" y="-26.999567754715144" />
+      <point x="2479.34" y="354.645" />
+      <point x="2067.0" y="354.645" />
+      <point x="2067.0" y="289.0" />
+      <point x="2127.268" y="289.0" />
+      <point x="-2.3172292617346102E-4" y="38.50023009422486" />
+    </edge>
+    <edge source="stocks.controller.commands.ShowPortfolioStocks" target="stocks.controller.commands.APortfolioCommand" relationship="GENERALIZATION">
+      <point x="-2.176278344450111E-4" y="-26.99980861057543" />
+      <point x="2146.25" y="551.0" />
+      <point x="1306.976" y="551.0" />
+      <point x="1306.976" y="711.0" />
+      <point x="952.5" y="711.0" />
+      <point x="38.70921557699921" y="13.999505958251689" />
+    </edge>
+    <edge source="stocks.model.portfolio.StockPortfolioImpl" target="stocks.model.portfolio.StockPortfolio" relationship="REALIZATION">
+      <point x="-105.47250137170613" y="-119.0" />
+      <point x="0.0" y="119.0" />
+    </edge>
+    <edge source="stocks.controller.commands.GetPriceChange" target="stocks.controller.commands.ASymbolControllerCommand" relationship="GENERALIZATION">
+      <point x="-2.8314688847785874E-5" y="-26.9998497433005" />
+      <point x="319.567" y="777.0" />
+      <point x="-13.499000000000024" y="777.0" />
+      <point x="4.219725626626314E-4" y="-26.999625619286235" />
+    </edge>
+    <edge source="stocks.controller.commands.ShowPortfolio" target="stocks.controller.commands.APortfolioCommand" relationship="GENERALIZATION">
+      <point x="-3.3629388394729176E-4" y="-27.00027725344478" />
+      <point x="2199.627" y="711.0" />
+      <point x="952.5" y="711.0" />
+      <point x="38.70921557699921" y="13.999505958251689" />
+    </edge>
+    <edge source="stocks.model.stock.StocksImpl" target="stocks.model.stock.Stocks" relationship="REALIZATION">
+      <point x="161.0" y="-61.5" />
+      <point x="-16.869559248754967" y="50.0" />
+    </edge>
+    <edge source="stocks.model.macros.StockMacroXDayMovingAverage" target="stocks.model.macros.StockMacro" relationship="REALIZATION">
+      <point x="-2.1737161341661704E-4" y="27.000432245284856" />
+      <point x="2495.837" y="695.0" />
+      <point x="2665.837" y="695.0" />
+      <point x="80.49726480119853" y="26.999531793494384" />
+    </edge>
+    <edge source="stocks.controller.commands.RemoveStock" target="stocks.controller.commands.ASymbolControllerCommand" relationship="GENERALIZATION">
+      <point x="-31.320182226653742" y="26.999895776097674" />
+      <point x="1426.156" y="1054.0" />
+      <point x="460.067" y="1054.0" />
+      <point x="460.067" y="777.0" />
+      <point x="-13.499000000000024" y="777.0" />
+      <point x="4.219725626626314E-4" y="-26.999625619286235" />
+    </edge>
+    <edge source="stocks.controller.commands.ShowAllPortfolios" target="stocks.controller.commands.StockControllerCommand" relationship="REALIZATION">
+      <point x="5.564064343843711E-5" y="27.000174532152187" />
+      <point x="452.045" y="755.0" />
+      <point x="234.264" y="755.0" />
+      <point x="234.264" y="640.0" />
+      <point x="83.76400000000001" y="640.0" />
+      <point x="-1.3091471146253753E-4" y="-26.999652875606444" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Compact" zoom="0.6505841531974703" showDependencies="false" x="1438.8333796648103" y="462.51210172793225" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

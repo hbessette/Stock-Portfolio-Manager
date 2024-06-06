@@ -10,6 +10,7 @@ public class RemovePortfolio extends APortfolioCommand {
 
   /**
    * To create a RemovePortfolio command.
+   *
    * @param portfolioName target portfolio to remove
    */
   public RemovePortfolio(String portfolioName) {
@@ -18,7 +19,7 @@ public class RemovePortfolio extends APortfolioCommand {
 
   @Override
   public void start(StockView view, StockModel model) {
-      model.removePortfolio(this.portfolioName);
-      view.show("Successfully removed portfolio " + this.portfolioName);
+    model.removePortfolio(this.portfolioName);
+    view.show("Successfully removed portfolio " + this.portfolioName);
   }
 }

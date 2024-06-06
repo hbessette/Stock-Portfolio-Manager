@@ -17,11 +17,11 @@ public class StockMacroPriceChange implements StockMacro<Double> {
    * Initializes this macro with a specified start and end date.
    *
    * @param startDate the beginning date
-   * @param endDate the ending date
+   * @param endDate   the ending date
    * @throws IllegalArgumentException if the end date is less than the start date
    */
   public StockMacroPriceChange(Date startDate, Date endDate) throws IllegalArgumentException {
-    if (startDate.compareTo(endDate)>0) {
+    if (startDate.compareTo(endDate) > 0) {
       throw new IllegalArgumentException("End date cannot be less than start date.");
     }
 

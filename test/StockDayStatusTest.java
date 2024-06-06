@@ -6,7 +6,7 @@ import java.util.Date;
 import stocks.model.daystatus.StockDayStatus;
 import stocks.model.daystatus.StockDayStatusImpl;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Tests for the StockDayStatus class.

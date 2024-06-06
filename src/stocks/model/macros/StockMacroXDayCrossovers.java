@@ -22,7 +22,7 @@ public class StockMacroXDayCrossovers extends AbstractStockMacroXDay
    * Initializes this macro with a specified start date and X value.
    *
    * @param startDate the start date
-   * @param xDays the number of days to compute the average of
+   * @param xDays     the number of days to compute the average of
    */
   public StockMacroXDayCrossovers(Date startDate, int xDays) {
     this.startDate = startDate;

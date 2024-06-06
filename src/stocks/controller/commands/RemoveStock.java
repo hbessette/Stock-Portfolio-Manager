@@ -12,8 +12,9 @@ public class RemoveStock extends ASymbolControllerCommand {
 
   /**
    * To create a RemoveStock command.
+   *
    * @param portfolioName target portfolio
-   * @param symbol target stock to remove from portfolio
+   * @param symbol        target stock to remove from portfolio
    */
   public RemoveStock(String portfolioName, String symbol) {
     super(symbol);

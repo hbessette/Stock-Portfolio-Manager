@@ -3,7 +3,6 @@ package stocks.controller.commands;
 import stocks.model.StockModel;
 import stocks.view.StockView;
 
-import java.util.NoSuchElementException;
 
 /**
  * A command to display the contents of a single portfolio.
@@ -23,7 +22,7 @@ public class ShowPortfolio extends APortfolioCommand {
   /**
    * Displays the contents of the portfolio used to construct this object.
    *
-   * @param view a view to display to
+   * @param view  a view to display to
    * @param model a model to get portfolios from
    */
   @Override
