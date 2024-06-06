@@ -54,8 +54,8 @@ public class StockModelImpl implements StockModel {
   }
 
   @Override
-  public List<StockPortfolio> getAllPortfolios() {
-    return List.of();
+  public Set<String> getAllPortfolios() {
+    return this.portfolios.keySet();
   }
 
   @Override

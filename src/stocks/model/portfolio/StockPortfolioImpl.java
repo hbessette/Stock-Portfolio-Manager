@@ -22,7 +22,7 @@ public class StockPortfolioImpl implements StockPortfolio {
 
   @Override
   public List<Stocks> getAllStocks() {
-    Set<Stocks> setStocks = portfolio.keySet();
+    Set<Stocks> setStocks = this.portfolio.keySet();
     return new ArrayList<Stocks>(setStocks);
   }
 
@@ -41,13 +41,18 @@ public class StockPortfolioImpl implements StockPortfolio {
 
   @Override
   public void addStock(Stocks stock, int shares) {
-    this.portfolio.put(stock, shares);
-    this.log.append(stock.toString()).append(shares);
+    if (!this.portfolio.containsKey(stock)) {
+      this.portfolio.put(stock, shares);
+    } else {
+      this.portfolio.put(stock, this.portfolio.get(stock) + shares);
+    }
+    this.log.append(stock.getSymbol()).append(" added shares: ").append(shares);
   }
 
   @Override
   public void removeStock(Stocks stock) {
     this.portfolio.remove(stock);
+    this.log.append(stock.getSymbol()).append(" removed.");
   }
 
   @Override
@@ -57,6 +62,7 @@ public class StockPortfolioImpl implements StockPortfolio {
     }
 
     this.portfolio.put(stock, this.portfolio.get(stock) - shares);
+    this.log.append(stock.getSymbol()).append(" removed shares: ").append(shares);
   }
 
   public Stocks getStockByName(String symbol) throws NoSuchElementException {

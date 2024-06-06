@@ -5,6 +5,7 @@ import stocks.model.stock.Stocks;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 public interface StockModel {
   void addPortfolio(String name);
@@ -17,7 +18,7 @@ public interface StockModel {
 
   Stocks getStockByName(String symbol);
 
-  List<StockPortfolio> getAllPortfolios();
+  Set<String> getAllPortfolios();
 
   String returnLog();
 }

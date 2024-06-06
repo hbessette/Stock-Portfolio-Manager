@@ -15,12 +15,10 @@ public class XDayCrossovers extends AXDayCommand {
 
   @Override
   public void start(StockView view, StockModel model) {
-    try {
       Date[] dates =
               new StockMacroXDayCrossovers(this.startDate, this.xDays).apply(model.getStockByName(this.symbol));
-      view.show(Arrays.toString(dates));
-    } catch (IllegalStateException e) {
-      view.show(e.getMessage());
-    }
+      for (Date date : dates) {
+        view.show((date.getMonth() + 1) + "-" + date.getDate() + "-" + date.getYear());
+      }
   }
 }

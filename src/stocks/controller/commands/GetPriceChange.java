@@ -10,22 +10,22 @@ public class GetPriceChange extends ASymbolControllerCommand {
   private final Date startDate;
   private final Date endDate;
 
-  public GetPriceChange(String symbol, Date startDate, Date endDate) {
+  public GetPriceChange(String symbol, int startMonth, int startDay, int startYear, int endMonth,
+                        int endDay, int endYear) {
     super(symbol);
-    this.startDate = startDate;
-    this.endDate = endDate;
+    this.startDate = new Date(startYear, startMonth, startDay);
+    this.endDate = new Date(endYear, endMonth, endDay);
   }
 
   @Override
   public void start(StockView view, StockModel model) {
-    try {
       double priceChange =
               new StockMacroPriceChange(this.startDate, this.endDate).apply(
                       model.getStockByName(this.symbol));
-      view.show("Price change for " + this.symbol + " between" + this.startDate.toString() + " " +
-              "and " + this.endDate.toString() + " is" + priceChange + ".");
-    } catch (IllegalStateException e) {
-      view.show(e.getMessage());
-    }
+      view.show("Price change for " + this.symbol + " between" + (this.startDate.getMonth() + 1) +
+              "-" + this.startDate.getDate() + "-" + this.startDate.getYear() +
+              "and " + (this.endDate.getMonth() + 1) +
+              "-" + this.endDate.getDate() + "-" + this.endDate.getYear() + " is" + priceChange +
+              ".");
   }
 }

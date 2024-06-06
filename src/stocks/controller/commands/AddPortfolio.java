@@ -11,11 +11,7 @@ public class AddPortfolio extends APortfolioCommand {
 
   @Override
   public void start(StockView view, StockModel model) {
-    try {
       model.addPortfolio(this.portfolioName);
-      view.show(model.returnLog());
-    } catch (Exception e) {
-      view.show(e.getMessage());
-    }
+      view.show("Successfully added " + this.portfolioName + ".");
   }
 }

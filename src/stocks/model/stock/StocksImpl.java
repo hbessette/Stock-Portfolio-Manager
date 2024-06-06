@@ -48,7 +48,7 @@ public class StocksImpl implements Stocks {
       String[] dateNumbers = dataPoints[0].split("-");
       Date date = new Date(
               Integer.parseInt(dateNumbers[0]),
-              Integer.parseInt(dateNumbers[1]),
+              Integer.parseInt(dateNumbers[1]) - 1,
               Integer.parseInt(dateNumbers[2])
       );
       double closingPrice = Double.parseDouble(dataPoints[4]);

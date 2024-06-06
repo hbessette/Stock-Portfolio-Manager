@@ -14,14 +14,11 @@ public class XDayMovingAverage extends AXDayCommand {
 
   @Override
   public void start(StockView view, StockModel model) {
-    try {
       double average =
               new StockMacroXDayMovingAverage(this.startDate, this.xDays).apply(
                       model.getStockByName(this.symbol));
-      view.show("Moving average for " + this.symbol + " from " + this.startDate.toString() +
-              " is " + average + ".");
-    } catch (IllegalStateException e) {
-      view.show(e.getMessage());
-    }
+      view.show("Moving average for " + this.symbol + " from " + (this.startDate.getMonth() + 1) +
+              "-" + this.startDate.getDate() + "-" + this.startDate.getYear() +
+              " is " + (Math.round(average * 100.00) / 100.00) + ".");
   }
 }

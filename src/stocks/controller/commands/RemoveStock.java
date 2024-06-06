@@ -14,10 +14,7 @@ public class RemoveStock extends ASymbolControllerCommand {
 
   @Override
   public void start(StockView view, StockModel model) {
-    try {
-      model.getPortfolioByName(this.portfolioName).removeStock(new StocksImpl(this.symbol));
-    } catch (IllegalStateException e) {
-      view.show(e.getMessage());
-    }
+    model.getPortfolioByName(this.portfolioName).removeStock(new StocksImpl(this.symbol));
+    view.show("Successfully removed " + this.symbol + " from " + this.portfolioName);
   }
 }

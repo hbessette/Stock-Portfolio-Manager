@@ -115,7 +115,5 @@ public class StockPortfolioTest {
   @Test
   public void testEvaluate() {
     StockPortfolio portfolio = new StockPortfolioImpl();
-
-//    portfolio.addStock();
   }
 }
