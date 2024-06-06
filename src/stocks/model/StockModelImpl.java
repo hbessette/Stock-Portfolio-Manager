@@ -64,7 +64,8 @@ public class StockModelImpl implements StockModel {
   @Override
   public StockPortfolio getPortfolioByName(String name) throws NoSuchElementException {
     try {
-      this.log.append("Portfolio ").append(name).append(" received.").append(System.lineSeparator());
+      this.log.append("Portfolio ").append(name).append(" received.")
+              .append(System.lineSeparator());
       return this.portfolios.get(name);
     } catch (NullPointerException e) {
       throw new NoSuchElementException("No portfolio exists.");
