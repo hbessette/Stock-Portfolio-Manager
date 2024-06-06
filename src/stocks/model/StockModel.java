@@ -5,6 +5,7 @@ import stocks.model.stock.Stocks;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 /**
  * A model which allows the user to create portfolios.
@@ -60,7 +61,7 @@ public interface StockModel {
    *
    * @return a list of all portfolios
    */
-  public List<StockPortfolio> getAllPortfolios();
+  public Set<String> getAllPortfolios();
 
   /**
    * Gets the log of what has been added and removed.
