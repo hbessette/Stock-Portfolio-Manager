@@ -29,7 +29,7 @@ public interface StockModel {
   public void removePortfolio(String name);
 
   /**
-   * Gets a portfolio by its name.
+   * Gets a portfolio by its name, if it exists in this model.
    *
    * @param name the name of the portfolio
    * @return the portfolio

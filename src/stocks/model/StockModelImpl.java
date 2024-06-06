@@ -8,8 +8,8 @@ import stocks.model.stock.StocksImpl;
 import java.util.*;
 
 public class StockModelImpl implements StockModel {
-  Map<String, StockPortfolio> portfolios;
-  StringBuilder log;
+  private Map<String, StockPortfolio> portfolios;
+  private StringBuilder log;
 
   public StockModelImpl() {
     this.portfolios = new HashMap<String, StockPortfolio>();

@@ -6,10 +6,15 @@ package stocks.view;
 public interface StockView {
 
   /**
-   * display text to the user.
+   * Display text to the user.
    *
    * @param input the text to display
    */
-  void show(String input);
+  public void show(String input);
+
+  /**
+   * Displays some welcome message.
+   */
+  public void welcomeMessage();
 
 }

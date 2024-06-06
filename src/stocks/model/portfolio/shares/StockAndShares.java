@@ -62,4 +62,14 @@ public class StockAndShares {
 
     return this.shares == 0;
   }
+
+  /**
+   * Returns a string representation of the stock symbol and the shares.
+   *
+   * @return a string representation of the stock symbol and the shares
+   */
+  @Override
+  public String toString() {
+    return "Stock symbol: " + this.stock.getSymbol() + ", shares: " + String.valueOf(this.shares);
+  }
 }
