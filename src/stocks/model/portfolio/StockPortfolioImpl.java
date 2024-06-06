@@ -72,7 +72,8 @@ public class StockPortfolioImpl implements StockPortfolio {
     else {
       this.portfolio.put(stock, shares);
     }
-    this.log.append(stock.toString()).append(shares);
+    this.log.append("Added:").append(stock.getSymbol())
+            .append(",Shares:").append(shares).append(".");
   }
 
   /**
@@ -104,6 +105,8 @@ public class StockPortfolioImpl implements StockPortfolio {
     }
 
     this.portfolio.put(stock, this.portfolio.get(stock) - shares);
+    this.log.append("Removed:").append(stock.getSymbol())
+            .append(",Shares:").append(shares).append(".");
   }
 
   /**

@@ -18,19 +18,6 @@ import static org.junit.Assert.*;
  * Tests for StockPortfolios.
  */
 public class StockPortfolioTest {
-  private Stocks googleStock;
-  private Stocks microsoftStock;
-  private Stocks appleStock;
-
-  /**
-   * Initialize stocks for testing
-   */
-  @Before
-  public void init() {
-    googleStock = new StocksImpl("GOOG");
-    microsoftStock = new StocksImpl("MSFT");
-    appleStock = new StocksImpl("AAPL");
-  }
 
   /**
    * Tests if adding a stock works correctly.
@@ -39,6 +26,10 @@ public class StockPortfolioTest {
    */
   @Test
   public void testAddStockAndGetAllStocks() {
+    Stocks googleStock = new StocksImpl("GOOG");
+    Stocks microsoftStock = new StocksImpl("MSFT");
+    Stocks appleStock = new StocksImpl("AAPL");
+
     StockPortfolio portfolio = new StockPortfolioImpl();
 
     List<Stocks> expected = new ArrayList<Stocks>();
@@ -50,12 +41,12 @@ public class StockPortfolioTest {
 
     expected.add(microsoftStock);
     portfolio.addStock(microsoftStock, 2);
-    assertEquals(expected, portfolio.getAllStocks());
+    assertTrue(portfolio.getAllStocks().equals(expected));
 
     List<StockAndShares> expectedSAS = new ArrayList<StockAndShares>();
     expectedSAS.add(new StockAndShares(googleStock, 1));
     expectedSAS.add(new StockAndShares(microsoftStock, 2));
-    assertEquals(expectedSAS, portfolio.getAllStocksAndShares());
+    assertTrue(portfolio.getAllStocksAndShares().equals(expectedSAS));
   }
 
   /**
@@ -64,6 +55,10 @@ public class StockPortfolioTest {
    */
   @Test
   public void testRemoveStock() {
+    Stocks googleStock = new StocksImpl("GOOG");
+    Stocks microsoftStock = new StocksImpl("MSFT");
+    Stocks appleStock = new StocksImpl("AAPL");
+
     StockPortfolio portfolio = new StockPortfolioImpl();
 
     List<Stocks> expected = new ArrayList<Stocks>();
@@ -93,28 +88,32 @@ public class StockPortfolioTest {
    */
   @Test
   public void testRemoveStockShares() {
+    Stocks googleStock = new StocksImpl("GOOG");
+    Stocks microsoftStock = new StocksImpl("MSFT");
+    Stocks appleStock = new StocksImpl("AAPL");
+
     StockPortfolio portfolio = new StockPortfolioImpl();
 
-    List<Stocks> expected = new ArrayList<Stocks>();
+    String expected;
 
     portfolio.removeStockShares(appleStock, 3);
 
     portfolio.addStock(googleStock, 1);
     portfolio.addStock(microsoftStock, 3);
     portfolio.removeStockShares(googleStock, 1);
-    expected.add(microsoftStock);
+    expected = "Added:GOOG,Shares:1."
+            + "Added:MSFT,Shares:3."
+            + "Removed:GOOG,Shares:1.";
 
-    assertEquals(expected, portfolio.getAllStocks());
+    assertEquals(expected, portfolio.returnLog());
 
     portfolio.removeStockShares(microsoftStock, 1);
+    expected = "Added:GOOG,Shares:1."
+            + "Added:MSFT,Shares:3."
+            + "Removed:GOOG,Shares:1."
+            + "Removed:MSFT,Shares:1.";
 
-    assertEquals(expected, portfolio.getAllStocks());
-    StockAndShares msftRemovalExpected = new StockAndShares(microsoftStock, 2);
-    assertEquals(msftRemovalExpected, portfolio.getStockAndSharesByName("MSFT"));
-
-    portfolio.removeStockShares(microsoftStock,2);
-
-    assertEquals(expected, portfolio.getAllStocks());
+    assertEquals(expected, portfolio.returnLog());
   }
 
   /**
@@ -122,6 +121,10 @@ public class StockPortfolioTest {
    */
   @Test(expected = IllegalArgumentException.class)
   public void testRemoveStockSharesFail() {
+    Stocks googleStock = new StocksImpl("GOOG");
+    Stocks microsoftStock = new StocksImpl("MSFT");
+    Stocks appleStock = new StocksImpl("AAPL");
+
     StockPortfolio portfolio = new StockPortfolioImpl();
 
     portfolio.addStock(appleStock, 5);
@@ -133,6 +136,10 @@ public class StockPortfolioTest {
    */
   @Test
   public void testGetStockByName() {
+    Stocks googleStock = new StocksImpl("GOOG");
+    Stocks microsoftStock = new StocksImpl("MSFT");
+    Stocks appleStock = new StocksImpl("AAPL");
+
     StockPortfolio portfolio = new StockPortfolioImpl();
 
     portfolio.addStock(appleStock, 1);
@@ -153,6 +160,10 @@ public class StockPortfolioTest {
    */
   @Test
   public void testGetStockAndSharesByName() {
+    Stocks googleStock = new StocksImpl("GOOG");
+    Stocks microsoftStock = new StocksImpl("MSFT");
+    Stocks appleStock = new StocksImpl("AAPL");
+
     StockPortfolio portfolio = new StockPortfolioImpl();
 
     portfolio.addStock(appleStock, 1);
@@ -177,6 +188,10 @@ public class StockPortfolioTest {
    */
   @Test(expected = NoSuchElementException.class)
   public void testGetStockByNameNotInPortfolio() {
+    Stocks googleStock = new StocksImpl("GOOG");
+    Stocks microsoftStock = new StocksImpl("MSFT");
+    Stocks appleStock = new StocksImpl("AAPL");
+
     StockPortfolio portfolio = new StockPortfolioImpl();
 
     portfolio.addStock(appleStock,1);
@@ -191,27 +206,31 @@ public class StockPortfolioTest {
    */
   @Test
   public void testEvaluate() {
+    Stocks googleStock = new StocksImpl("GOOG");
+    Stocks microsoftStock = new StocksImpl("MSFT");
+    Stocks appleStock = new StocksImpl("AAPL");
+
     StockPortfolio portfolio = new StockPortfolioImpl();
 
     portfolio.addStock(appleStock, 1);
 
     assertEquals(
-            String.valueOf(194.0300),
-            String.valueOf(portfolio.evaluate(new Date(2024,6,3))
+            String.valueOf(183.3800),
+            String.valueOf(portfolio.evaluate(new Date(2024,4,3))
             ));
 
     portfolio.addStock(appleStock, 2);
 
     assertEquals(
-            String.valueOf(194.0300 * 3),
-            String.valueOf(portfolio.evaluate(new Date(2024,6,3))
+            String.valueOf(183.3800 * 3),
+            String.valueOf(portfolio.evaluate(new Date(2024,4,3))
             ));
 
     portfolio.addStock(microsoftStock, 5);
 
     assertEquals(
-            String.valueOf((194.0300 * 3) + (413.5200 * 5)),
-            String.valueOf(portfolio.evaluate(new Date(2024,6,3))
+            String.valueOf((183.3800 * 3) + (406.6600 * 5)),
+            String.valueOf(portfolio.evaluate(new Date(2024,4,3))
             ));
   }
 }

@@ -1,5 +1,7 @@
 package stocks.model.portfolio.shares;
 
+import java.util.Objects;
+
 import stocks.model.stock.Stocks;
 
 /**
@@ -71,5 +73,31 @@ public class StockAndShares {
   @Override
   public String toString() {
     return "Stock symbol: " + this.stock.getSymbol() + ", shares: " + String.valueOf(this.shares);
+  }
+
+  /**
+   * Ensures two StockAndShares are equal if their stock and their shares are the same.
+   *
+   * @param o other object to check
+   * @return true if equal
+   */
+  @Override
+  public boolean equals(Object o) {
+    if (o == null || this.getClass() != o.getClass()) {
+      return false;
+    }
+
+    return this.getStock() == ((StockAndShares) o).getStock()
+            && this.getShares() == ((StockAndShares) o).getShares();
+  }
+
+  /**
+   * Overrides hashCode.
+   *
+   * @return integer hashcode
+   */
+  @Override
+  public int hashCode() {
+    return Objects.hash(getShares(), getStock());
   }
 }
