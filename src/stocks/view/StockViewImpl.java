@@ -40,7 +40,7 @@ public class StockViewImpl implements StockView {
     out.println("remove-portfolio (portfolioName)");
     out.println("show-portfolio (portfolioName)");
     out.println("show-all-portfolios");
-    out.println("evaluate-portfolio (portfolioName) (date)");
+    out.println("evaluate-portfolio (portfolioName) (startDay) (startYear) (endMonth)");
     out.println("show-portfolio-stocks (portfolioName)");
     out.println("add-stock (portfolioName) (stockName) (shares)");
     out.println("remove-stock (portfolioName) (stockName)");
