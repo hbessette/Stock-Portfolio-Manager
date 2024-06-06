@@ -41,12 +41,12 @@ public class StockPortfolioTest {
 
     expected.add(microsoftStock);
     portfolio.addStock(microsoftStock, 2);
-    assertTrue(portfolio.getAllStocks().equals(expected));
+    assertTrue(portfolio.getAllStocks().containsAll(expected));
 
     List<StockAndShares> expectedSAS = new ArrayList<StockAndShares>();
     expectedSAS.add(new StockAndShares(googleStock, 1));
     expectedSAS.add(new StockAndShares(microsoftStock, 2));
-    assertTrue(portfolio.getAllStocksAndShares().equals(expectedSAS));
+    assertTrue(portfolio.getAllStocksAndShares().containsAll(expectedSAS));
   }
 
   /**

@@ -18,22 +18,6 @@ import static org.junit.Assert.*;
  * Tests for the stockModel class.
  */
 public class StockModelTest {
-  private StockModel model;
-  private Stocks googleStock;
-  private Stocks microsoftStock;
-  private Stocks appleStock;
-
-  /**
-   * Setup for testing.
-   */
-  @Before
-  public void init() {
-    googleStock = new StocksImpl("GOOG");
-    microsoftStock = new StocksImpl("MSFT");
-    appleStock = new StocksImpl("AAPL");
-    model = new StockModelImpl();
-  }
-
   /**
    * Tests that multiple portfolios can be added to the model with addPortfolio(),
    * and that they work correctly.
@@ -41,14 +25,21 @@ public class StockModelTest {
    */
   @Test
   public void testAddPortfolio() {
+    Stocks googleStock = new StocksImpl("GOOG");
+    Stocks microsoftStock = new StocksImpl("MSFT");
+    Stocks appleStock = new StocksImpl("AAPL");
+    StockModel model = new StockModelImpl();
+
     model.addPortfolio("Tester");
     model.addPortfolio("A");
     model.addPortfolio("B");
     model.getPortfolioByName("Tester").addStock(appleStock, 5);
 
-    String expected = "Successfully added Tester" + System.lineSeparator()
-            + "Successfully added A" + System.lineSeparator()
-            + "Successfully added B" + System.lineSeparator();
+    String expected = "Portfolio Tester added." + System.lineSeparator()
+            + "Portfolio A added." + System.lineSeparator()
+            + "Portfolio B added." + System.lineSeparator()
+            + "Portfolio Tester received." + System.lineSeparator()
+            + "Portfolio Tester received." + System.lineSeparator();
 
     assertEquals(appleStock, model.getPortfolioByName("Tester").getStockByName("AAPL"));
     assertEquals(expected, model.returnLog());
@@ -60,12 +51,17 @@ public class StockModelTest {
    */
   @Test
   public void testRemovePortfolio() {
+    Stocks googleStock = new StocksImpl("GOOG");
+    Stocks microsoftStock = new StocksImpl("MSFT");
+    Stocks appleStock = new StocksImpl("AAPL");
+    StockModel model = new StockModelImpl();
+
     model.addPortfolio("Tester");
     model.removePortfolio("Tester");
     model.removePortfolio("Something");
 
-    String expected = "Successfully added Tester" + System.lineSeparator()
-            + "Successfully removed Tester" + System.lineSeparator();
+    String expected = "Portfolio Tester added." + System.lineSeparator()
+            + "Portfolio Tester removed." + System.lineSeparator();
 
     assertEquals(expected, model.returnLog());
   }
@@ -75,6 +71,11 @@ public class StockModelTest {
    */
   @Test
   public void testEvaluatePortfolio() {
+    Stocks googleStock = new StocksImpl("GOOG");
+    Stocks microsoftStock = new StocksImpl("MSFT");
+    Stocks appleStock = new StocksImpl("AAPL");
+    StockModel model = new StockModelImpl();
+
     model.addPortfolio("Tester");
     model.getPortfolioByName("Tester").addStock(appleStock, 1);
     double expected = 189.9900;
@@ -86,6 +87,8 @@ public class StockModelTest {
 
   @Test(expected = NoSuchElementException.class)
   public void testEvaluatePortfolioFail() {
+    StockModel model = new StockModelImpl();
+
     model.evaluatePortfolio("Nonexistant", new Date(2024,11,2));
   }
 }
