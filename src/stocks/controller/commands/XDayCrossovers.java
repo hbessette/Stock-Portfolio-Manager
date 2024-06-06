@@ -4,7 +4,7 @@ import stocks.model.StockModel;
 import stocks.model.macros.StockMacroXDayCrossovers;
 import stocks.view.StockView;
 
-import java.util.Arrays;
+
 import java.util.Date;
 
 public class XDayCrossovers extends AXDayCommand {

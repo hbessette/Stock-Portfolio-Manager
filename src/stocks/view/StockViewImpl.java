@@ -40,7 +40,11 @@ public class StockViewImpl implements StockView {
     out.println("remove-portfolio (portfolioName)");
     out.println("show-portfolio (portfolioName)");
     out.println("show-all-portfolios");
+<<<<<<< Updated upstream
     out.println("evaluate-portfolio (portfolioName) (startDay) (startYear) (endMonth)");
+=======
+    out.println("evaluate-portfolio (portfolioName) (month) (day) (year)");
+>>>>>>> Stashed changes
     out.println("show-portfolio-stocks (portfolioName)");
     out.println("add-stock (portfolioName) (stockName) (shares)");
     out.println("remove-stock (portfolioName) (stockName)");
@@ -49,7 +53,6 @@ public class StockViewImpl implements StockView {
             "(endDay) (endYear)");
     out.println("get-x-day-crossovers (stockName) (startMonth) (startDay) (startYear) (xDays)");
     out.println("get-x-day-average (stockName) (startMonth) (startDay) (startYear) (xDays)");
-
   }
 
   @Override

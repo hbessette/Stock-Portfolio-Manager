@@ -22,10 +22,11 @@ public class GetPriceChange extends ASymbolControllerCommand {
       double priceChange =
               new StockMacroPriceChange(this.startDate, this.endDate).apply(
                       model.getStockByName(this.symbol));
-      view.show("Price change for " + this.symbol + " between" + (this.startDate.getMonth() + 1) +
+      priceChange = Math.round(priceChange * 100.00) / 100.00;
+      view.show("Price change for " + this.symbol + " between " + (this.startDate.getMonth() + 1) +
               "-" + this.startDate.getDate() + "-" + this.startDate.getYear() +
-              "and " + (this.endDate.getMonth() + 1) +
-              "-" + this.endDate.getDate() + "-" + this.endDate.getYear() + " is" + priceChange +
+              " and " + (this.endDate.getMonth() + 1) +
+              "-" + this.endDate.getDate() + "-" + this.endDate.getYear() + " is " + priceChange +
               ".");
   }
 }
