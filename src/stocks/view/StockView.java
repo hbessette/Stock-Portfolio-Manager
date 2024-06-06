@@ -15,7 +15,6 @@ public interface StockView {
   /**
    * Displays some welcome message.
    */
-  public void welcomeMessage();
 
   void welcomeMessage();
 

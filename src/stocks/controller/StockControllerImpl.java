@@ -4,7 +4,6 @@ import stocks.controller.commands.*;
 import stocks.model.StockModel;
 import stocks.view.StockView;
 import java.io.InputStream;
-import java.lang.ref.SoftReference;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -15,7 +14,7 @@ public class StockControllerImpl implements StockController {
   private StockView view;
   private StockModel model;
 
-  public StockControllerImpl(InputStream in, StockView view, StockModel model) {
+  public StockControllerImpl(Readable in, StockView view, StockModel model) {
     this.in = new Scanner(in);
     this.view = view;
     this.model = model;
@@ -56,31 +55,31 @@ public class StockControllerImpl implements StockController {
   private static Map<String, Function<Scanner, StockControllerCommand>> getCommands() {
     Map<String, Function<Scanner, StockControllerCommand>> commands = new HashMap<>();
     commands.put("add-stock",
-            (Scanner s) -> { return new AddStock(s.next(), s.next(), s.nextInt()); });
+            (Scanner s) -> new AddStock(s.next(), s.next(), s.nextInt()));
     commands.put("remove-stock",
-            (Scanner s) -> { return new RemoveStock(s.next(), s.next()); });
+            (Scanner s) -> new RemoveStock(s.next(), s.next()));
     commands.put("get-x-day-average",
-            (Scanner s) -> { return new XDayMovingAverage(s.next(), s.nextInt() - 1 , s.nextInt(),
-                    s.nextInt(), s.nextInt()); });
+            (Scanner s) -> new XDayMovingAverage(s.next(), s.nextInt() - 1 , s.nextInt(),
+                    s.nextInt(), s.nextInt()));
     commands.put("get-x-day-crossovers",
-            (Scanner s) -> { return new XDayCrossovers(s.next(), s.nextInt() - 1, s.nextInt(),
-                    s.nextInt(), s.nextInt()); });
+            (Scanner s) -> new XDayCrossovers(s.next(), s.nextInt() - 1, s.nextInt(),
+                    s.nextInt(), s.nextInt()));
     commands.put("show-portfolio",
-            (Scanner s) -> { return new ShowPortfolio(s.next()); });
+            (Scanner s) -> new ShowPortfolio(s.next()));
     commands.put("evaluate-portfolio",
-            (Scanner s) -> { return new EvaluatePortfolio(s.next(), s.nextInt() - 1, s.nextInt(),
-                    s.nextInt()); });
+            (Scanner s) -> new EvaluatePortfolio(s.next(), s.nextInt() - 1, s.nextInt(),
+                    s.nextInt()));
     commands.put("add-portfolio",
-            (Scanner s) -> { return new AddPortfolio(s.next()); });
+            (Scanner s) -> new AddPortfolio(s.next()));
     commands.put("remove-portfolio",
-            (Scanner s) -> { return new RemovePortfolio(s.next()); });
+            (Scanner s) -> new RemovePortfolio(s.next()));
     commands.put("show-all-portfolios",
-            (Scanner s) -> { return new ShowAllPortfolios(); });
+            (Scanner s) -> new ShowAllPortfolios());
     commands.put("get-price-change",
-            (Scanner s) -> { return new GetPriceChange(s.next(), s.nextInt() - 1, s.nextInt(),
-                    s.nextInt(), s.nextInt() - 1, s.nextInt(), s.nextInt()); });
+            (Scanner s) -> new GetPriceChange(s.next(), s.nextInt() - 1, s.nextInt(),
+                    s.nextInt(), s.nextInt() - 1, s.nextInt(), s.nextInt()));
     commands.put("show-portfolio-stocks",
-            (Scanner s) -> { return new ShowPortfolioStocks(s.next()); });
+            (Scanner s) -> new ShowPortfolioStocks(s.next()));
     return commands;
   }
 }
