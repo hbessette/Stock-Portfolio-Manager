@@ -12,6 +12,7 @@ import java.util.Date;
  * of the last x days (starting from the given date).
  * This is determined by the last x days when stock prices are available.
  */
+
 public class XDayMovingAverage extends AXDayCommand {
 
   /**

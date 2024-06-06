@@ -6,10 +6,23 @@ import stocks.view.StockView;
 
 import java.util.Date;
 
+/**
+ * To get the price change of a certain stock between two dates. Value can be negative or positive.
+ */
 public class GetPriceChange extends ASymbolControllerCommand {
   private final Date startDate;
   private final Date endDate;
 
+  /**
+   * To create a new GetPriceChange object.
+   * @param symbol target stock symbol
+   * @param startMonth target start month
+   * @param startDay target start day
+   * @param startYear target start year
+   * @param endMonth target end month
+   * @param endDay target end day
+   * @param endYear target end year
+   */
   public GetPriceChange(String symbol, int startMonth, int startDay, int startYear, int endMonth,
                         int endDay, int endYear) {
     super(symbol);

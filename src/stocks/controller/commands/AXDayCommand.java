@@ -5,6 +5,9 @@ import stocks.view.StockView;
 
 import java.util.Date;
 
+/**
+ * To abstract classes that need xDays and a startDate.
+ */
 abstract class AXDayCommand extends ASymbolControllerCommand {
   protected final Date startDate;
   protected final int xDays;
