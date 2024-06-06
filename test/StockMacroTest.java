@@ -2,8 +2,8 @@ import org.junit.Test;
 
 import java.util.Date;
 
-import stocks.model.Stocks;
-import stocks.model.StocksImpl;
+import stocks.model.stock.Stocks;
+import stocks.model.stock.StocksImpl;
 import stocks.model.macros.StockMacro;
 import stocks.model.macros.StockMacroPriceChange;
 import stocks.model.macros.StockMacroXDayCrossovers;

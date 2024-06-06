@@ -1,5 +1,8 @@
-package stocks.model;
+package stocks.model.portfolio;
 
+import stocks.model.stock.Stocks;
+
+import java.util.Date;
 import java.util.List;
 
 public interface StockPortfolio {
@@ -12,4 +15,6 @@ public interface StockPortfolio {
   Stocks getStockByName(String symbol);
 
   String returnLog();
+
+  double evaluate(Date date);
 }

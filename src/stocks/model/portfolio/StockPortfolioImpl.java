@@ -1,6 +1,9 @@
-package stocks.model;
+package stocks.model.portfolio;
+
+import stocks.model.stock.Stocks;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -43,5 +46,12 @@ public class StockPortfolioImpl implements StockPortfolio {
     return this.log.toString();
   }
 
-
+  @Override
+  public double evaluate(Date date) {
+    double sum = 0;
+    for (Stocks stock : this.portfolio) {
+      sum += stock.getStockDayStatus(date).getClosingTime();
+    }
+    return sum;
+  }
 }

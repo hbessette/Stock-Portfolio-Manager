@@ -1,7 +1,7 @@
 package stocks.model.macros;
 
-import stocks.model.StockDayStatus;
-import stocks.model.Stocks;
+import stocks.model.daystatus.StockDayStatus;
+import stocks.model.stock.Stocks;
 
 import java.util.Date;
 

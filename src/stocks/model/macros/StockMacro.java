@@ -1,6 +1,6 @@
 package stocks.model.macros;
 
-import stocks.model.Stocks;
+import stocks.model.stock.Stocks;
 
 /**
  * Represents a stock macro.

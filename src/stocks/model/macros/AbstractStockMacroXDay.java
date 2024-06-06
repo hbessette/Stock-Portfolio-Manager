@@ -7,7 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import stocks.model.Stocks;
+import stocks.model.stock.Stocks;
 
 public abstract class AbstractStockMacroXDay {
   protected Double getXDayAverage(Stocks stock, Date startDate, int xDays) {

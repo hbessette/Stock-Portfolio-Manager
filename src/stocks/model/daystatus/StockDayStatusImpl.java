@@ -1,4 +1,4 @@
-package stocks.model;
+package stocks.model.daystatus;
 
 import java.util.Date;
 

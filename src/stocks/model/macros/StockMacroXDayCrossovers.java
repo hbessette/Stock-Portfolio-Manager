@@ -1,6 +1,6 @@
 package stocks.model.macros;
 
-import stocks.model.Stocks;
+import stocks.model.stock.Stocks;
 
 import java.util.ArrayList;
 import java.util.Date;

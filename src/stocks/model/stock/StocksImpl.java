@@ -1,4 +1,4 @@
-package stocks.model;
+package stocks.model.stock;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -6,7 +6,8 @@ import java.util.Map;
 import java.util.Set;
 
 import stocks.api.AlphaVantageAPI;
-import stocks.model.macros.StockMacro;
+import stocks.model.daystatus.StockDayStatus;
+import stocks.model.daystatus.StockDayStatusImpl;
 
 public class StocksImpl implements Stocks {
   private final Map<Date, StockDayStatus> data;
@@ -14,7 +15,7 @@ public class StocksImpl implements Stocks {
 
   public StocksImpl(String symbol) {
     this.symbol = symbol;
-    data = loadData(this.symbol);
+    this.data = loadData(this.symbol);
   }
 
   @Override
