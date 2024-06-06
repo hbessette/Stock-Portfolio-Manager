@@ -76,6 +76,10 @@ public class AlphaVantageAPI {
       data = getURLData();
     }
 
+    if (data[0].contains("rate limit")) {
+      throw new IllegalStateException("Rate limited.");
+    }
+
     if (data.length <= 1) {
       throw new IllegalStateException("No data exists for this stock.");
     }
@@ -152,7 +156,10 @@ public class AlphaVantageAPI {
     }
     String[] returnValue = output.toString().split(System.lineSeparator());
 
-    writeFile(returnValue);
+    if (!returnValue[0].contains("rate limit")) {
+      writeFile(returnValue);
+    }
+
     return returnValue;
   }
 

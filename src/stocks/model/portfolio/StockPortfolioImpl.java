@@ -11,7 +11,7 @@ public class StockPortfolioImpl implements StockPortfolio {
   private List<Stocks> portfolio;
   private StringBuilder log;
 
-  StockPortfolioImpl() {
+  public StockPortfolioImpl() {
     this.portfolio = new ArrayList<Stocks>();
     this.log = new StringBuilder();
   }
