@@ -12,10 +12,14 @@ public interface StockView {
    */
   public void show(String input);
 
-  public void welcomeMessage();
+  /**
+   * Displays some welcome message.
+   */
 
-  public void printHelp();
+  void welcomeMessage();
 
-  public void goodbyeMessage();
+  void printHelp();
+
+  void goodbyeMessage();
 
 }
