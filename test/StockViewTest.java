@@ -8,8 +8,14 @@ import java.io.PrintStream;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * To test the stock view.
+ */
 public class StockViewTest {
 
+  /**
+   * To test the outputs that stock view sends out from its methods.
+   */
   @Test
   public void testStockView() {
     OutputStream out = new ByteArrayOutputStream();

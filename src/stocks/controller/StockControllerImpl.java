@@ -3,7 +3,6 @@ package stocks.controller;
 import stocks.controller.commands.*;
 import stocks.model.StockModel;
 import stocks.view.StockView;
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -72,6 +71,8 @@ public class StockControllerImpl implements StockController {
             (Scanner s) -> new AddStock(s.next(), s.next(), s.nextInt()));
     commands.put("remove-stock",
             (Scanner s) -> new RemoveStock(s.next(), s.next()));
+    commands.put("remove-stock-shares",
+            (Scanner s) -> new RemoveStockShares(s.next(), s.next(), s.nextInt()));
     commands.put("get-x-day-average",
             (Scanner s) -> new XDayMovingAverage(s.next(), s.nextInt() - 1 , s.nextInt(),
                     s.nextInt(), s.nextInt()));

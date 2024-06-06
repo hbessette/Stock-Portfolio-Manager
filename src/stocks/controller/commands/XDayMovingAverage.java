@@ -4,8 +4,6 @@ import stocks.model.StockModel;
 import stocks.model.macros.StockMacroXDayMovingAverage;
 import stocks.view.StockView;
 
-import java.util.Date;
-
 public class XDayMovingAverage extends AXDayCommand {
 
   public XDayMovingAverage(String symbol, int month, int day, int year, int xDays) {

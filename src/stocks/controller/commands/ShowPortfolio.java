@@ -3,8 +3,6 @@ package stocks.controller.commands;
 import stocks.model.StockModel;
 import stocks.view.StockView;
 
-import java.util.NoSuchElementException;
-
 public class ShowPortfolio extends APortfolioCommand {
 
   public ShowPortfolio(String portfolioName) {
