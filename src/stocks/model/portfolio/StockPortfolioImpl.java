@@ -41,7 +41,12 @@ public class StockPortfolioImpl implements StockPortfolio {
 
   @Override
   public void addStock(Stocks stock, int shares) {
-    this.portfolio.put(stock, shares);
+    if (this.portfolio.containsKey(stock)) {
+      this.portfolio.put(stock, this.portfolio.get(stock) + shares);
+    }
+    else {
+      this.portfolio.put(stock, shares);
+    }
     this.log.append(stock.toString()).append(shares);
   }
 
@@ -51,9 +56,13 @@ public class StockPortfolioImpl implements StockPortfolio {
   }
 
   @Override
-  public void removeStockShares(Stocks stock, int shares) {
+  public void removeStockShares(Stocks stock, int shares) throws IllegalArgumentException {
     if (!this.portfolio.containsKey(stock)) {
       return;
+    }
+
+    if (this.portfolio.get(stock) < shares) {
+      throw new IllegalArgumentException("Cannot remove more shares than you have.");
     }
 
     this.portfolio.put(stock, this.portfolio.get(stock) - shares);

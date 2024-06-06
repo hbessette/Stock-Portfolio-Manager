@@ -16,7 +16,7 @@ public interface StockPortfolio {
 
   void removeStock(Stocks stock);
 
-  void removeStockShares(Stocks stock, int shares);
+  void removeStockShares(Stocks stock, int shares) throws IllegalArgumentException;
 
   Stocks getStockByName(String symbol) throws NoSuchElementException;
 
