@@ -48,7 +48,7 @@ public class StockModelTest {
 
     String expected = "Successfully added Tester" + System.lineSeparator()
             + "Successfully added A" + System.lineSeparator()
-            + "Successfully added B";
+            + "Successfully added B" + System.lineSeparator();
 
     assertEquals(appleStock, model.getPortfolioByName("Tester").getStockByName("AAPL"));
     assertEquals(expected, model.returnLog());
@@ -65,7 +65,7 @@ public class StockModelTest {
     model.removePortfolio("Something");
 
     String expected = "Successfully added Tester" + System.lineSeparator()
-            + "Successfully removed Tester";
+            + "Successfully removed Tester" + System.lineSeparator();
 
     assertEquals(expected, model.returnLog());
   }
@@ -79,7 +79,7 @@ public class StockModelTest {
     model.getPortfolioByName("Tester").addStock(appleStock, 1);
     double expected = 189.9900;
     double result = model.getPortfolioByName("Tester").evaluate(
-            new Date(2024, 5, 28)
+            new Date(2024, 4, 28)
     );
     assertEquals(String.valueOf(expected), String.valueOf(result));
   }

@@ -23,8 +23,8 @@ public class StockMacroTest {
   public void testPriceChangeMacro() {
     Stocks stock = new StocksImpl("GOOG");
     StockMacro<Double> macro = new StockMacroPriceChange(
-            new Date(2024,5,17),
-            new Date(2024, 5, 28)
+            new Date(2024,4,17),
+            new Date(2024, 4, 28)
     );
 
     double result = macro.apply(stock);
@@ -39,7 +39,7 @@ public class StockMacroTest {
   public void testXDayMovingAverageMacro() {
     Stocks stock = new StocksImpl("GOOG");
     StockMacro<Double> macro = new StockMacroXDayMovingAverage(
-            new Date(2024,5,15),
+            new Date(2024,4,15),
             3
     );
     double result = macro.apply(stock);
@@ -54,12 +54,12 @@ public class StockMacroTest {
   public void testXDayCrossoverMacro() {
     Stocks stock = new StocksImpl("GOOG");
     StockMacro<Date[]> macro = new StockMacroXDayCrossovers(
-            new Date(2024,5,15),
+            new Date(2024,4,15),
             3
     );
     Date[] result = macro.apply(stock);
     Date[] expected = new Date[] {
-            new Date(2024,05,15)
+            new Date(2024,4,15)
     };
 
     assertEquals(expected[0], result[0]);
