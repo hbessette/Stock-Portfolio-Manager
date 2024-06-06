@@ -8,8 +8,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+/**
+ * Tests the AlphaVantageAPI class.
+ */
 public class AlphaVantageAPITest {
 
+  /**
+   * Tests that getData correctly gets the data from either the AlphaVantage API, or local files.
+   */
   @Test
   public void testGetData() {
     AlphaVantageAPI avapi = new AlphaVantageAPI("GOOG");

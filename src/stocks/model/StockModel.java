@@ -5,20 +5,67 @@ import stocks.model.stock.Stocks;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
+/**
+ * A model which allows the user to create portfolios.
+ * Stocks can be added to a portfolio with a specified number of shares.
+ * More shares can be added, or shares can be removed.
+ * The value of the portfolio can be evaluated on any given date.
+ * Allows one to get a portfolio by name, and evaluate it on any date.
+ */
 public interface StockModel {
-  void addPortfolio(String name);
+  /**
+   * Adds a new portfolio to the model.
+   *
+   * @param name the name of the portfolio
+   */
+  public void addPortfolio(String name);
 
-  void removePortfolio(String name);
+  /**
+   * removes a portfolio from the model.
+   *
+   * @param name the name of the portfolio
+   */
+  public void removePortfolio(String name);
 
-  StockPortfolio getPortfolioByName(String name);
+  /**
+   * Gets a portfolio by its name.
+   *
+   * @param name the name of the portfolio
+   * @return the portfolio
+   */
+  public StockPortfolio getPortfolioByName(String name);
 
-  double evaluatePortfolio(String name, Date date);
+  /**
+   * Evaluates a portfolio on any date.
+   * This gets the total value of the portfolio,
+   * determined by the prices of stocks on that date and the number of shares owned.
+   *
+   * @param name the name of the portfolio
+   * @param date the date to evaluate at
+   * @return the value of the portfolio
+   */
+  public double evaluatePortfolio(String name, Date date);
 
-  Stocks getStockByName(String symbol);
+  /**
+   * Creates and returns a new stock by its symbol.
+   *
+   * @param symbol a stock symbol (e.g. "GOOG" for Google)
+   * @return the new stock
+   */
+  public Stocks getStockByName(String symbol);
 
-  Set<String> getAllPortfolios();
+  /**
+   * Gets a list of all portfolios.
+   *
+   * @return a list of all portfolios
+   */
+  public List<StockPortfolio> getAllPortfolios();
 
-  String returnLog();
+  /**
+   * Gets the log of what has been added and removed.
+   *
+   * @return the log
+   */
+  public String returnLog();
 }

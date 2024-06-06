@@ -9,7 +9,23 @@ import java.util.Set;
 
 import stocks.model.stock.Stocks;
 
+/**
+ * An abstact class with methods useful to calculating x-day averages.
+ * An x-day average is the average closing price of a stock over the last x days,
+ * starting from the given date.
+ */
 public abstract class AbstractStockMacroXDay {
+
+  /**
+   * Gets the x-day average of the given stock over a given time period.
+   * An x-day average is the average closing price of a stock over the last x days,
+   * starting from the given date.
+   *
+   * @param stock a stock to use as data
+   * @param startDate the start date
+   * @param xDays the number of days to include. Goes backwards in time from startDate.
+   * @return the x-day average
+   */
   protected Double getXDayAverage(Stocks stock, Date startDate, int xDays) {
     List<Date> computedDates = getDatesInRange(stock, startDate, xDays);
 
@@ -20,7 +36,17 @@ public abstract class AbstractStockMacroXDay {
     return xDayAverage / xDays;
   }
 
-  protected List<Date> getDatesInRange(Stocks stock, Date startDate, int xDays) {
+  /**
+   * Gets all the valid dates (dates with stock data) for a given stock over a given time period.
+   *
+   * @param stock the stock to use as data
+   * @param startDate the start date
+   * @param xDays the number of days to include. Goes backwards in time from startDate.
+   * @return the valid dates
+   * @throws IllegalArgumentException if the start date is not valid
+   */
+  protected List<Date> getDatesInRange(Stocks stock, Date startDate, int xDays)
+          throws IllegalArgumentException {
     Set<Date> validDatesSet = stock.getValidDates();
 
     if (!validDatesSet.contains(startDate)) {

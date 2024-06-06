@@ -6,7 +6,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class StockMacroXDayCrossovers extends AbstractStockMacroXDay implements StockMacro {
+/**
+ * A stock macro which determines the x-day crossovers of a stock.
+ * x-day crossovers are any days when the stock closing price is above the x-day moving average.
+ * The x-day moving average is the average starting price of a stock,
+ * of the last x days (starting from the given date).
+ * This is determined by the last x days when stock prices are available.
+ */
+public class StockMacroXDayCrossovers extends AbstractStockMacroXDay
+        implements StockMacro<Date[]> {
   Date startDate;
   int xDays;
 

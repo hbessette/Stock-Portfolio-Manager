@@ -11,8 +11,15 @@ import stocks.model.macros.StockMacroXDayMovingAverage;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * Tests all StockMacro objects and their outputs on Stocks.
+ */
 public class StockMacroTest {
-  @Test // using the program like this might allow us to remove <T> from Stocks.
+
+  /**
+   * Tests that the price change macro correctly determines the gain or loss of a stock over time.
+   */
+  @Test
   public void testPriceChangeMacro() {
     Stocks stock = new StocksImpl("GOOG");
     StockMacro<Double> macro = new StockMacroPriceChange(
@@ -25,6 +32,9 @@ public class StockMacroTest {
     assertEquals(String.valueOf(expected), String.valueOf(result));
   }
 
+  /**
+   * Tests that the X-day moving average macro correctly determines the X-day moving average.
+   */
   @Test
   public void testXDayMovingAverageMacro() {
     Stocks stock = new StocksImpl("GOOG");
@@ -37,6 +47,9 @@ public class StockMacroTest {
     assertEquals(String.valueOf(result), String.valueOf(expected));
   }
 
+  /**
+   * Tests that the x-day crossover macro correctly gets x-day crossovers.
+   */
   @Test
   public void testXDayCrossoverMacro() {
     Stocks stock = new StocksImpl("GOOG");
