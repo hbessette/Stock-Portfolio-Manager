@@ -42,11 +42,11 @@ public class StockPortfolioTest {
     assertEquals(expected, portfolio.getAllStocks());
 
     expected.add(googleStock);
-    portfolio.addStock(googleStock);
+    portfolio.addStock(googleStock, 1);
     assertEquals(expected, portfolio.getAllStocks());
 
     expected.add(microsoftStock);
-    portfolio.addStock(microsoftStock);
+    portfolio.addStock(microsoftStock, 2);
     assertEquals(expected, portfolio.getAllStocks());
   }
 
@@ -62,8 +62,8 @@ public class StockPortfolioTest {
 
     portfolio.removeStock(appleStock);
 
-    portfolio.addStock(googleStock);
-    portfolio.addStock(microsoftStock);
+    portfolio.addStock(googleStock, 1);
+    portfolio.addStock(microsoftStock, 3);
     portfolio.removeStock(googleStock);
     expected.add(microsoftStock);
 
@@ -86,9 +86,9 @@ public class StockPortfolioTest {
   public void testGetStockByName() {
     StockPortfolio portfolio = new StockPortfolioImpl();
 
-    portfolio.addStock(appleStock);
-    portfolio.addStock(microsoftStock);
-    portfolio.addStock(googleStock);
+    portfolio.addStock(appleStock, 1);
+    portfolio.addStock(microsoftStock,2);
+    portfolio.addStock(googleStock, 3);
 
     Stocks shouldBeGoogle = portfolio.getStockByName("GOOG");
     Stocks shouldBeMicrosoft = portfolio.getStockByName("MSFT");
@@ -106,8 +106,8 @@ public class StockPortfolioTest {
   public void testGetStockByNameNotInPortfolio() {
     StockPortfolio portfolio = new StockPortfolioImpl();
 
-    portfolio.addStock(appleStock);
-    portfolio.addStock(microsoftStock);
+    portfolio.addStock(appleStock,1);
+    portfolio.addStock(microsoftStock,2);
 
     portfolio.getStockByName("GOOG");
   }
@@ -116,6 +116,6 @@ public class StockPortfolioTest {
   public void testEvaluate() {
     StockPortfolio portfolio = new StockPortfolioImpl();
 
-    portfolio.addStock();
+//    portfolio.addStock();
   }
 }

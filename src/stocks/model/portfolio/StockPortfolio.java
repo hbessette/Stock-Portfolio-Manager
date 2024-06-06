@@ -1,5 +1,6 @@
 package stocks.model.portfolio;
 
+import stocks.model.portfolio.shares.StockAndShares;
 import stocks.model.stock.Stocks;
 
 import java.util.Date;
@@ -9,11 +10,17 @@ import java.util.NoSuchElementException;
 public interface StockPortfolio {
   List<Stocks> getAllStocks();
 
-  void addStock(Stocks stock);
+  List<StockAndShares> getAllStocksAndShares();
+
+  void addStock(Stocks stock, int shares);
 
   void removeStock(Stocks stock);
 
+  void removeStockShares(Stocks stock, int shares);
+
   Stocks getStockByName(String symbol) throws NoSuchElementException;
+
+  StockAndShares getStockAndSharesByName(String symbol) throws NoSuchElementException;
 
   String returnLog();
 
