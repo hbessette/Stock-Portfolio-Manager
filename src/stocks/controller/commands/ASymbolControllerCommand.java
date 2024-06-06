@@ -3,10 +3,10 @@ package stocks.controller.commands;
 import stocks.model.StockModel;
 import stocks.view.StockView;
 
-abstract class AStockControllerCommand implements StockControllerCommand {
+abstract class ASymbolControllerCommand implements StockControllerCommand {
   protected final String symbol;
 
-  protected AStockControllerCommand(String symbol) {
+  protected ASymbolControllerCommand(String symbol) {
     this.symbol = symbol;
   }
 

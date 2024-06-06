@@ -6,7 +6,7 @@ import stocks.view.StockView;
 
 import java.util.Date;
 
-public class GetPriceChange extends AStockControllerCommand {
+public class GetPriceChange extends ASymbolControllerCommand {
   private final Date startDate;
   private final Date endDate;
 

@@ -5,12 +5,10 @@ import stocks.view.StockView;
 
 import java.util.NoSuchElementException;
 
-public class ShowPortfolio extends AStockControllerCommand {
-  private final String portfolioName;
+public class ShowPortfolio extends APortfolioCommand {
 
-  public ShowPortfolio(String portfolioName, String symbol) {
-    super(symbol);
-    this.portfolioName = portfolioName;
+  public ShowPortfolio(String portfolioName) {
+    super(portfolioName);
   }
 
   @Override

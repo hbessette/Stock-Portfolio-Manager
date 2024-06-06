@@ -6,14 +6,10 @@ import stocks.view.StockView;
 
 import java.util.Date;
 
-public class XDayMovingAverage extends AStockControllerCommand {
-  private Date startDate;
-  private int xDays;
+public class XDayMovingAverage extends AXDayCommand {
 
-  public XDayMovingAverage(String symbol, Date startDate, int xDays) {
-    super(symbol);
-    this.startDate = startDate;
-    this.xDays = xDays;
+  public XDayMovingAverage(String symbol, int month, int day, int year, int xDays) {
+    super(symbol, month, day, year, xDays);
   }
 
   @Override

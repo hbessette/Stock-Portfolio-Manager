@@ -5,10 +5,7 @@ import stocks.model.portfolio.StockPortfolioImpl;
 import stocks.model.stock.Stocks;
 import stocks.model.stock.StocksImpl;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 public class StockModelImpl implements StockModel {
   Map<String, StockPortfolio> portfolios;
@@ -43,13 +40,22 @@ public class StockModelImpl implements StockModel {
   }
 
   @Override
-  public double evaluatePortfolio(String name, Date date) {
-    return this.portfolios.get(name).evaluate(date);
+  public double evaluatePortfolio(String name, Date date) throws NoSuchElementException {
+    try {
+      return this.portfolios.get(name).evaluate(date);
+    } catch (NullPointerException e) {
+      throw new NoSuchElementException("No portfolio exists.");
+    }
   }
 
   @Override
   public Stocks getStockByName(String symbol) {
     return new StocksImpl(symbol);
+  }
+
+  @Override
+  public List<StockPortfolio> getAllPortfolios() {
+    return List.of();
   }
 
   @Override

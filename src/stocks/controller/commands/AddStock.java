@@ -6,7 +6,7 @@ import stocks.view.StockView;
 
 import java.util.NoSuchElementException;
 
-public class AddStock extends AStockControllerCommand {
+public class AddStock extends ASymbolControllerCommand {
   private final String portfolioName;
 
   public AddStock(String portfolioName, String symbol) {

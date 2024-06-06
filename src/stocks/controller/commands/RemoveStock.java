@@ -4,7 +4,7 @@ import stocks.model.StockModel;
 import stocks.model.stock.StocksImpl;
 import stocks.view.StockView;
 
-public class RemoveStock extends AStockControllerCommand {
+public class RemoveStock extends ASymbolControllerCommand {
   private final String portfolioName;
 
   public RemoveStock(String portfolioName, String symbol) {

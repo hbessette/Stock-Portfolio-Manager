@@ -13,4 +13,10 @@ public class StockViewImpl implements StockView {
   public void show(String input) {
     out.println(input);
   }
+
+  public void welcomeMessage() {
+    out.println("Welcome to Stock Manager");
+    out.println("Here are your list of commands to manage your portfolio:");
+    out.println("");
+  }
 }

@@ -1,9 +1,14 @@
 package stocks.controller;
 
+import stocks.controller.commands.*;
 import stocks.model.StockModel;
 import stocks.view.StockView;
 import java.io.InputStream;
+import java.lang.ref.SoftReference;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.function.Function;
 
 public class StockControllerImpl implements StockController {
   private Scanner in;
@@ -19,14 +24,45 @@ public class StockControllerImpl implements StockController {
   @Override
   public void start() {
     boolean quit = false;
+    Map<String, Function<Scanner, StockControllerCommand>> commands = getCommands();
 
     while (!quit) {
-      switch (in.next()) {
+      String command = this.in.next();
+      switch (command) {
         case "q":
         case "quit":
           quit = true;
           break;
+        default:
+          try {
+            StockControllerCommand cmd = commands.get(command).apply(this.in);
+            cmd.start(this.view, this.model);
+          }
+          catch (Exception e) {
+            this.view.show("Invalid command.");
+            this.view.welcomeMessage();
+          }
       }
     }
+  }
+
+  private static Map<String, Function<Scanner, StockControllerCommand>> getCommands() {
+    Map<String, Function<Scanner, StockControllerCommand>> commands = new HashMap<>();
+    commands.put("add-stock",
+            (Scanner s) -> { return new AddStock(s.next(), s.next()); });
+    commands.put("remove-stock",
+            (Scanner s) -> { return new RemoveStock(s.next(), s.next()); });
+    commands.put("get-x-day-average",
+            (Scanner s) -> { return new XDayMovingAverage(s.next(), s.nextInt(), s.nextInt(),
+                    s.nextInt(), s.nextInt()); });
+    commands.put("get-x-day-crossovers",
+            (Scanner s) -> { return new XDayCrossovers(s.next(), s.nextInt(), s.nextInt(),
+                    s.nextInt(), s.nextInt()); });
+    commands.put("show-portfolio",
+            (Scanner s) -> { return new ShowPortfolio(s.next()); });
+    commands.put("evaluate-portfolio",
+            (Scanner s) -> { return new EvaluatePortfolio(s.next(), s.nextInt(), s.nextInt(),
+                    s.nextInt()); });
+    return commands;
   }
 }
