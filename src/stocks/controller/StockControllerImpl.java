@@ -9,17 +9,31 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.function.Function;
 
+/**
+ * A stock controller. Processes commands obtained from a scanner using a model,
+ * and displays the results using a view.
+ */
 public class StockControllerImpl implements StockController {
   private Scanner in;
   private StockView view;
   private StockModel model;
 
+  /**
+   * Creates a controller.
+   *
+   * @param in some Readable to take in input
+   * @param view a view to display results
+   * @param model a model to process commands using
+   */
   public StockControllerImpl(Readable in, StockView view, StockModel model) {
     this.in = new Scanner(in);
     this.view = view;
     this.model = model;
   }
 
+  /**
+   * Starts the controller, initiating a loop of asking for commands and using them.
+   */
   @Override
   public void start() {
     boolean quit = false;

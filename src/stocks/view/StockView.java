@@ -15,11 +15,16 @@ public interface StockView {
   /**
    * Displays some welcome message.
    */
-
   void welcomeMessage();
 
+  /**
+   * Displays some help message.
+   */
   void printHelp();
 
+  /**
+   * Displays some goodbye message.
+   */
   void goodbyeMessage();
 
 }

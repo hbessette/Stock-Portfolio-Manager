@@ -14,8 +14,8 @@ Instructions for the interactions in the assignment description:
     - "add-stock Second GOOG 1"
     - "add-stock Second AAPL 4"
 - To query their values:
-    - "evaluate-portfolio Test "
-    - "evaluate-portfolio Second"
+    - "evaluate-portfolio Test 5 15 2024"
+    - "evaluate-portfolio Second 5 15 2024"
 
 ===================
 

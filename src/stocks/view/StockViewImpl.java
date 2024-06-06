@@ -27,13 +27,16 @@ public class StockViewImpl implements StockView {
   }
 
   /**
-   * Prints a welcome message.
+   * Shows a welcome message.
    */
   public void welcomeMessage() {
     out.println("Welcome to Stock Manager");
     out.println("Enter help or h to see list of commands.");
   }
 
+  /**
+   * Shows a list of commands.
+   */
   public void printHelp() {
     out.println("List of Commands: ");
     out.println("add-portfolio (portfolioName)");
@@ -52,6 +55,9 @@ public class StockViewImpl implements StockView {
 
   }
 
+  /**
+   * Shows a goodbye message.
+   */
   @Override
   public void goodbyeMessage() {
     out.println("Thank You For Using Stock Manager");

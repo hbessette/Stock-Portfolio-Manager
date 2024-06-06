@@ -9,7 +9,15 @@ import stocks.view.StockViewImpl;
 
 import java.io.InputStreamReader;
 
+/**
+ * The class from which the program is run.
+ */
 public class Main {
+  /**
+   * Starts the program.
+   *
+   * @param args ignored
+   */
   public static void main(String[] args) {
     StockView stockView = new StockViewImpl(System.out);
     StockModel stockModel = new StockModelImpl();
