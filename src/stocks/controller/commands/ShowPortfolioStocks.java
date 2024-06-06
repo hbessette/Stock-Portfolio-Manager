@@ -4,7 +4,6 @@ import stocks.model.StockModel;
 import stocks.model.portfolio.shares.StockAndShares;
 import stocks.view.StockView;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class ShowPortfolioStocks extends APortfolioCommand {
