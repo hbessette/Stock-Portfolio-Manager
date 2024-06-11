@@ -9,7 +9,7 @@ import stocks.model.stock.Stocks;
  */
 public class StockAndShares {
   private final Stocks stock;
-  private int shares;
+  private double shares;
 
   /**
    * Creates a new StockAndShares.
@@ -36,7 +36,7 @@ public class StockAndShares {
    *
    * @return the shares
    */
-  public int getShares() {
+  public double getShares() {
     return this.shares;
   }
 
@@ -45,7 +45,7 @@ public class StockAndShares {
    *
    * @param amount the amount of shares to add
    */
-  public void addShares(int amount) {
+  public void addShares(double amount) {
     this.shares += amount;
   }
 
@@ -56,7 +56,7 @@ public class StockAndShares {
    * @return true if the amount of shares is now 0.
    * @throws IllegalArgumentException if it is attempted to remove more shares than you have
    */
-  public boolean removeShares(int amount) throws IllegalArgumentException {
+  public boolean removeShares(double amount) throws IllegalArgumentException {
     if (this.shares - amount < 0) {
       throw new IllegalArgumentException("You cannot remove more shares than you have.");
     }

@@ -3,12 +3,37 @@ package stocks.model.portfolio;
 import stocks.model.portfolio.shares.StockAndShares;
 import stocks.model.stock.Stocks;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.Set;
 
 public class StockPortfolioTimedImpl implements StockPortfolioTimed{
+  private Map<Date, StockPortfolioTimeStatus> stockCompositions;
+  private StringBuilder log;
+
+  /**
+   * Creates a new stock portfolio. It is initialized with no stocks.
+   */
+  public StockPortfolioTimedImpl() {
+    this.stockCompositions = new HashMap<Date, StockPortfolioTimeStatus>();
+    this.log = new StringBuilder();
+  }
+
+  private StockPortfolioTimeStatus lastTimeSinceDate(Date date) {
+    if (this.stockCompositions.isEmpty()) {
+      return null;
+    }
+    Set<Date> dateSet = this.stockCompositions.keySet();
+    List<Date> datesOrdered = new ArrayList<Date>(dateSet);
+    Collections.sort(datesOrdered);
+
+  }
+
   @Override
   public void purchase(String name, Date date, int shares) {
 
@@ -21,12 +46,12 @@ public class StockPortfolioTimedImpl implements StockPortfolioTimed{
 
   @Override
   public String[] getComposition(Date date) {
-    return new String[0];
+
   }
 
   @Override
   public String[] getDistribution(Date date) {
-    return new String[0];
+
   }
 
   @Override
@@ -35,47 +60,20 @@ public class StockPortfolioTimedImpl implements StockPortfolioTimed{
   }
 
   @Override
-  public List<Stocks> getAllStocks() {
-    return List.of();
-  }
-
-  @Override
-  public List<StockAndShares> getAllStocksAndShares() {
-    return List.of();
-  }
-
-  @Override
-  public void addStock(Stocks stock, int shares) {
-
-  }
-
-  @Override
-  public void removeStock(Stocks stock) {
-
-  }
-
-  @Override
-  public void removeStockShares(Stocks stock, int shares) throws IllegalArgumentException {
-
-  }
-
-  @Override
-  public Stocks getStockByName(String symbol) throws NoSuchElementException {
-    return null;
-  }
-
-  @Override
-  public StockAndShares getStockAndSharesByName(String symbol) throws NoSuchElementException {
-    return null;
+  public String performanceOverTime(Date dateStart, Date dateEnd) {
+    // Should return string with:
+    // Performance of portfolio XXX from YYY to ZZZ\n
+    // (performance bar graph)
+    // Scale: * = $(scale)
   }
 
   @Override
   public String returnLog() {
-    return "";
+
   }
 
   @Override
   public double evaluate(Date date) {
-    return 0;
+
   }
 }

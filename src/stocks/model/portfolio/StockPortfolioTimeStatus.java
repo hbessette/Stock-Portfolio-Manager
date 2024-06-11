@@ -1,16 +1,18 @@
 package stocks.model.portfolio;
 
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 import stocks.model.portfolio.shares.StockAndShares;
-import stocks.model.stock.Stocks;
 
 public class StockPortfolioTimeStatus {
-  StockAndShares[] stocksAndShares;
+  List<StockAndShares> stocksAndShares;
 
-  public StockPortfolioTimeStatus
+  public StockPortfolioTimeStatus(ArrayList<StockAndShares> stocksAndShares) {
+    this.stocksAndShares = stocksAndShares;
+  }
 
-  public StockAndShares[] getStocksAndShares() {
+  public List<StockAndShares> getStocksAndShares() {
     return stocksAndShares;
   }
 }

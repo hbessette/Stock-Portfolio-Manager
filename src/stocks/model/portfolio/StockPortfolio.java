@@ -13,7 +13,7 @@ import java.util.NoSuchElementException;
  * More shares can be added, or shares can be removed.
  * The value of the portfolio can be evaluated on any given date.
  */
-public interface StockPortfolio {
+public interface StockPortfolio extends AStockPortfolio {
 
   /**
    * Lists all stocks in this portfolio.
@@ -71,20 +71,4 @@ public interface StockPortfolio {
    * @throws NoSuchElementException if the stock does not exist in this portfolio
    */
   public StockAndShares getStockAndSharesByName(String symbol) throws NoSuchElementException;
-
-  /**
-   * Returns the stock addition log.
-   *
-   * @return the log
-   */
-  public String returnLog();
-
-  /**
-   * Evaluates the value of this portfolio on the given day.
-   * This is determined by the prices of each stock in the portfolio and the shares owned.
-   *
-   * @param date the date to evaluate at
-   * @return the value of this portfolio on the given day
-   */
-  public double evaluate(Date date);
 }
