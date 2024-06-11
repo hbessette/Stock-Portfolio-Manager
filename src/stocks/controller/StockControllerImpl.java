@@ -1,18 +1,6 @@
 package stocks.controller;
 
-import stocks.controller.commands.AddPortfolio;
-import stocks.controller.commands.AddStock;
-import stocks.controller.commands.EvaluatePortfolio;
-import stocks.controller.commands.GetPriceChange;
-import stocks.controller.commands.RemovePortfolio;
-import stocks.controller.commands.RemoveStock;
-import stocks.controller.commands.RemoveStockShares;
-import stocks.controller.commands.ShowAllPortfolios;
-import stocks.controller.commands.ShowPortfolio;
-import stocks.controller.commands.ShowPortfolioStocks;
-import stocks.controller.commands.XDayCrossovers;
-import stocks.controller.commands.XDayMovingAverage;
-import stocks.controller.commands.StockControllerCommand;
+import stocks.controller.commands.*;
 
 import stocks.model.StockModel;
 import stocks.view.StockView;
@@ -98,6 +86,8 @@ public class StockControllerImpl implements StockController {
             s.nextInt() - 1, s.nextInt(), s.nextInt(), s.nextInt() - 1,
             s.nextInt(), s.nextInt()));
     commands.put("show-portfolio-stocks", (Scanner s) -> new ShowPortfolioStocks(s.next()));
+    commands.put("save-portfolio", (Scanner s) -> new SavePortfolio(s.next()));
+    commands.put("load-portfolio", (Scanner s) -> new LoadPortfolio(s.next()));
     return commands;
   }
 }
