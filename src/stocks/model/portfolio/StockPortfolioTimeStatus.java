@@ -8,7 +8,7 @@ import stocks.model.portfolio.shares.StockAndShares;
 public class StockPortfolioTimeStatus {
   List<StockAndShares> stocksAndShares;
 
-  public StockPortfolioTimeStatus(ArrayList<StockAndShares> stocksAndShares) {
+  public StockPortfolioTimeStatus(List<StockAndShares> stocksAndShares) {
     this.stocksAndShares = stocksAndShares;
   }
 
