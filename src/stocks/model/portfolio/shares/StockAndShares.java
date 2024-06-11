@@ -17,7 +17,7 @@ public class StockAndShares {
    * @param stock  a stock
    * @param shares a number of shares
    */
-  public StockAndShares(Stocks stock, int shares) {
+  public StockAndShares(Stocks stock, double shares) {
     this.stock = stock;
     this.shares = shares;
   }
