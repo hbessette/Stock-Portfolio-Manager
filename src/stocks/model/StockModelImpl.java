@@ -5,6 +5,8 @@ import stocks.model.portfolio.StockPortfolioImpl;
 import stocks.model.stock.Stocks;
 import stocks.model.stock.StocksImpl;
 
+import java.io.*;
+import java.time.LocalDate;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Date;
@@ -124,5 +126,48 @@ public class StockModelImpl implements StockModel {
   @Override
   public String returnLog() {
     return this.log.toString();
+  }
+
+  @Override
+  public void savePortfolio(String name) {
+    StockPortfolio portfolio = this.portfolios.get(name);
+    String[] output = portfolio.getData();
+    File file = new File("StockPortfolios/" + name + ".txt");
+    try {
+      if (file.exists()) {
+        file.delete();
+      }
+      file.createNewFile();
+      FileWriter fileWriter = new FileWriter("StockPortfolios/" + name + ".txt");
+      for (String line : output) {
+        fileWriter.write(line + System.lineSeparator());
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  @Override
+  public void loadPortfolio(String name) throws FileNotFoundException {
+    StockPortfolio portfolio = this.portfolios.get(name);
+    StringBuilder output = new StringBuilder();
+
+    try {
+      BufferedReader reader = new BufferedReader(new FileReader(
+              "StockPortfolios/" + name + ".txt"
+      ));
+      String line = reader.readLine();
+
+      while (line != null) {
+        output.append(line + System.lineSeparator());
+        line = reader.readLine();
+      }
+    } catch (IOException e) {
+      throw new FileNotFoundException("File does not exist");
+    }
+    StockPortfolio portfolio =
+            new StockPortfolioImpl(output.toString().split(System.lineSeparator()));
+
+    this.portfolios.put(name, portfolio);
   }
 }

@@ -3,6 +3,7 @@ package stocks.model;
 import stocks.model.portfolio.StockPortfolio;
 import stocks.model.stock.Stocks;
 
+import java.io.FileNotFoundException;
 import java.util.Date;
 import java.util.Set;
 
@@ -71,5 +72,5 @@ public interface StockModel {
 
   public void savePortfolio(String name);
 
-  public void loadPortfolio(String name);
+  public void loadPortfolio(String name) throws FileNotFoundException;
 }
