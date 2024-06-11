@@ -4,13 +4,7 @@ import stocks.model.portfolio.shares.StockAndShares;
 import stocks.model.stock.Stocks;
 import stocks.model.stock.StocksImpl;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class StockPortfolioTimedImpl implements StockPortfolioTimed {
   private Map<Date, StockPortfolioTimeStatus> stockCompositions;
@@ -212,15 +206,17 @@ public class StockPortfolioTimedImpl implements StockPortfolioTimed {
 
   private Map<Date, StockPortfolioTimeStatus> loadData(String[] data) {
     Map<Date, StockPortfolioTimeStatus> returnCompositions = new HashMap<>();
-    for (String line : data) {
-      String[] parsedLine = line.split(",");
-      Date date = new Date(Integer.parseInt(parsedLine[2]), Integer.parseInt(parsedLine[0]),
-              Integer.parseInt(parsedLine[1]));
-      returnCompositions.put(date, new StockPortfolioTimeStatus(new ArrayList<>()));
-      for (int idx = 3; idx < parsedLine.length; idx += 2) {
-        returnCompositions.get(date).getStocksAndShares().add(new StockAndShares(new StocksImpl(parsedLine[idx]), Double.parseDouble(parsedLine[idx + 1])));
+      for (String line : data) {
+        String[] parsedLine = line.split(",");
+        Date date = new Date(Integer.parseInt(parsedLine[2]), Integer.parseInt(parsedLine[0]),
+                Integer.parseInt(parsedLine[1]));
+        returnCompositions.put(date, new StockPortfolioTimeStatus(new ArrayList<>()));
+        for (int idx = 3; idx < parsedLine.length; idx += 2) {
+          returnCompositions.get(date).getStocksAndShares()
+                  .add(new StockAndShares(new StocksImpl(parsedLine[idx]),
+                          Double.parseDouble(parsedLine[idx + 1])));
+        }
       }
-    }
     return returnCompositions;
   }
 

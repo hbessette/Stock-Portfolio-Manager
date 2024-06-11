@@ -2,16 +2,13 @@ package stocks.model;
 
 import stocks.model.portfolio.AStockPortfolio;
 import stocks.model.portfolio.StockPortfolioImpl;
+import stocks.model.portfolio.StockPortfolioTimed;
 import stocks.model.portfolio.StockPortfolioTimedImpl;
 import stocks.model.stock.Stocks;
 import stocks.model.stock.StocksImpl;
 
 import java.io.*;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.Date;
-import java.util.NoSuchElementException;
-import java.util.Set;
+import java.util.*;
 
 
 /**
@@ -22,14 +19,14 @@ import java.util.Set;
  * Allows one to get a portfolio by name, and evaluate it on any date.
  */
 public class StockModelImpl implements StockModel {
-  private Map<String, AStockPortfolio> portfolios;
+  private Map<String, StockPortfolioTimed> portfolios;
   private StringBuilder log;
 
   /**
    * Creates a new StockModel. It is initialized with no portfolios.
    */
   public StockModelImpl() {
-    this.portfolios = new HashMap<String, AStockPortfolio>();
+    this.portfolios = new HashMap<String, StockPortfolioTimed>();
     this.log = new StringBuilder();
   }
 
@@ -40,7 +37,7 @@ public class StockModelImpl implements StockModel {
    */
   @Override
   public void addPortfolio(String name) {
-    this.portfolios.put(name, new StockPortfolioImpl());
+    this.portfolios.put(name, new StockPortfolioTimedImpl());
     this.log.append("Portfolio ").append(name).append(" added.").append(System.lineSeparator());
   }
 
@@ -64,7 +61,7 @@ public class StockModelImpl implements StockModel {
    * @return the portfolio
    */
   @Override
-  public AStockPortfolio getPortfolioByName(String name) throws NoSuchElementException {
+  public StockPortfolioTimed getPortfolioByName(String name) throws NoSuchElementException {
     try {
       this.log.append("Portfolio ").append(name).append(" received.")
               .append(System.lineSeparator());
@@ -130,7 +127,7 @@ public class StockModelImpl implements StockModel {
 
   @Override
   public void savePortfolio(String name) throws NoSuchElementException {
-    AStockPortfolio portfolio;
+    StockPortfolioTimed portfolio;
     try {
       portfolio = this.portfolios.get(name);
     } catch (NullPointerException e) {
@@ -169,7 +166,7 @@ public class StockModelImpl implements StockModel {
     } catch (IOException e) {
       throw new FileNotFoundException("Portfolio does not exist");
     }
-    AStockPortfolio portfolio =
+    StockPortfolioTimed portfolio =
             new StockPortfolioTimedImpl(output.toString().split(System.lineSeparator()));
     this.portfolios.put(name, portfolio);
     this.log.append("Portfolio ").append(name).append(" loaded.").append(System.lineSeparator());

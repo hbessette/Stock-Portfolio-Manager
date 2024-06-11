@@ -19,5 +19,4 @@ abstract public interface AStockPortfolio {
    */
   public String returnLog();
 
-  public String[] getData();
 }

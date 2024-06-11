@@ -17,4 +17,6 @@ public interface StockPortfolioTimed extends AStockPortfolio {
   public void rebalance(Date date, Map<Stocks, Double> percentages);
 
   public String performanceOverTime(Date dateStart, Date dateEnd);
+
+  public String[] getData();
 }

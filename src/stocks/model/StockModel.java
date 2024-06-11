@@ -2,6 +2,7 @@ package stocks.model;
 
 import stocks.model.portfolio.AStockPortfolio;
 import stocks.model.portfolio.StockPortfolio;
+import stocks.model.portfolio.StockPortfolioTimed;
 import stocks.model.stock.Stocks;
 
 import java.io.FileNotFoundException;
@@ -36,7 +37,7 @@ public interface StockModel {
    * @param name the name of the portfolio
    * @return the portfolio
    */
-  public AStockPortfolio getPortfolioByName(String name);
+  public StockPortfolioTimed getPortfolioByName(String name);
 
   /**
    * Evaluates a portfolio on any date.
