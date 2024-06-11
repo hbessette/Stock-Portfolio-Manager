@@ -68,4 +68,8 @@ public interface StockModel {
    * @return the log
    */
   public String returnLog();
+
+  public void savePortfolio(String name);
+
+  public void loadPortfolio(String name);
 }
