@@ -249,7 +249,17 @@ public class StockPortfolioTimedImpl implements StockPortfolioTimed {
   }
 
   @Override
-  public void rebalance(Date date, Map<Stocks, Double> percentages) {
+  public void rebalance(Date startDate, Date balanceDate, Map<Stocks, Double> percentages)
+          throws IllegalArgumentException
+  {
+//    double total = 0;
+//    for (Double percentage : percentages.values()) {
+//      total += percentage;
+//    }
+//    if (total != 100) {
+//      throw new IllegalArgumentException("Percentages do not add up to 100%");
+//    }
+//
 
   }
 
@@ -264,7 +274,7 @@ public class StockPortfolioTimedImpl implements StockPortfolioTimed {
 
   @Override
   public String returnLog() {
-    return null;
+    return this.log.toString();
   }
 
   @Override
