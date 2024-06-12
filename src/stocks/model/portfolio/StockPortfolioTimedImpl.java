@@ -33,6 +33,9 @@ public class StockPortfolioTimedImpl implements StockPortfolioTimed {
    * @return the most recent StockPortfolioTimeStatus since the provided date, or null if none.
    */
 
+  // Gets the most recent StockPortfolioTimeStatus since the date specified.
+  // Useful for getting the "currently active" data.
+  // Do not call if the date specified is a date already in the stockCompositions map.
   private StockPortfolioTimeStatus lastStatusSinceDate(Date date) {
 
     if (this.stockCompositions.isEmpty()) {
@@ -61,6 +64,26 @@ public class StockPortfolioTimedImpl implements StockPortfolioTimed {
     return this.stockCompositions.get(dateAt);
   }
 
+  // Gets all the StockPortfolioTimeStatuses after the specified date.
+  // Returns an empty map if none are after.
+  private Map<Date, StockPortfolioTimeStatus> portfolioStatusesAfterDate(Date date) {
+    if (this.stockCompositions.isEmpty()) {
+      return new HashMap<Date, StockPortfolioTimeStatus>();
+    }
+
+    Set<Date> dateSet = this.stockCompositions.keySet();
+
+    Map<Date, StockPortfolioTimeStatus> returnMap = new HashMap<Date, StockPortfolioTimeStatus>();
+
+    for (Date statusDate : dateSet) {
+      if (statusDate.compareTo(date) > 0) {
+        returnMap.put(statusDate, this.stockCompositions.get(statusDate));
+      }
+    }
+
+    return returnMap;
+  }
+
   @Override
   public void purchase(String name, Date date, int shares) {
     List<StockAndShares> stocksAndShares;
@@ -68,6 +91,7 @@ public class StockPortfolioTimedImpl implements StockPortfolioTimed {
     if (this.stockCompositions.containsKey(date)) {
       // If the date specified already has data for it
       stocksAndShares = this.stockCompositions.get(date).getStocksAndShares();
+      purchaseHelper(date, stocksAndShares, name, shares);
     }
     else {
       // If the date specified does not already have data for it
@@ -82,12 +106,22 @@ public class StockPortfolioTimedImpl implements StockPortfolioTimed {
         ));
         this.stockCompositions.put(date,
                 new StockPortfolioTimeStatus(new_));
-        return;
       }
-
-      stocksAndShares = timeStatus.getStocksAndShares();
+      else {
+        stocksAndShares = timeStatus.getStocksAndShares();
+        purchaseHelper(date, stocksAndShares, name, shares);
+      }
     }
 
+    Map<Date, StockPortfolioTimeStatus> afterStatuses = portfolioStatusesAfterDate(date);
+    for (Date afterDate : afterStatuses.keySet()) {
+      purchaseHelper(afterDate, this.stockCompositions.get(afterDate).getStocksAndShares(),
+              name, shares);
+    }
+  }
+
+  private void purchaseHelper(Date date, List<StockAndShares> stocksAndShares,
+                              String name, int shares) {
     List<StockAndShares> newStocksAndShares = new ArrayList<StockAndShares>();
 
     boolean found = false;
@@ -156,8 +190,47 @@ public class StockPortfolioTimedImpl implements StockPortfolioTimed {
       throw new IllegalArgumentException("You cannot sell shares of a stock you have not bought.");
     }
 
-    this.stockCompositions.put(date, new StockPortfolioTimeStatus((newStocksAndShares)));
+    Map<Date, StockPortfolioTimeStatus> afterStatuses = portfolioStatusesAfterDate(date);
+    for (Date afterDate : afterStatuses.keySet()) {
+      List<StockAndShares> dateCurrentStockAndShares =
+              this.stockCompositions.get(afterDate).getStocksAndShares();
 
+      List<StockAndShares> futureStocksAndShares = new ArrayList<StockAndShares>();
+      boolean futureFound = false;
+      for (StockAndShares sas : dateCurrentStockAndShares) {
+        if (sas.getStock().getSymbol().equals(name)) {
+          if (sas.getShares() < shares) {
+            throw new IllegalArgumentException(
+                    "You have already input that you sold an amount of this stock at a later date. "
+                            + "Selling it on the date you have now provided would make this "
+                            + "impossible; you are selling enough such that your future sale would"
+                            + "be selling stocks you do not have. This is not allowed."
+            );
+          }
+          futureFound = true;
+          futureStocksAndShares.add(new StockAndShares(
+                  sas.getStock(),
+                  sas.getShares() - shares
+          ));
+        }
+        else {
+          futureStocksAndShares.add(sas);
+        }
+      }
+
+
+      if (!futureFound) {
+        throw new IllegalArgumentException(
+              "You have already input that you sold an amount of this stock at a later date. "
+                      + "Selling it on the date you have now provided would make this "
+                      + "impossible; you are selling enough such that your future sale would"
+                      + "be selling stocks you do not have. This is not allowed."
+        );
+      }
+      this.stockCompositions.put(afterDate, new StockPortfolioTimeStatus(futureStocksAndShares));
+    }
+
+    this.stockCompositions.put(date, new StockPortfolioTimeStatus(newStocksAndShares));
   }
 
   @Override
@@ -205,7 +278,7 @@ public class StockPortfolioTimedImpl implements StockPortfolioTimed {
 
   // Designed specifically for use in getDistribution and getComposition.
   // It is probably not a good idea to use this for anything else.
-  private List<StockAndShares> getSASForDistribution(Date date) {
+  private List<StockAndShares> getSASForDistribution(Date date) throws IllegalArgumentException {
     List<StockAndShares> stocksAndShares = new ArrayList<StockAndShares>();
     if (this.stockCompositions.containsKey(date)) {
       stocksAndShares = this.stockCompositions.get(date).getStocksAndShares();
@@ -249,7 +322,7 @@ public class StockPortfolioTimedImpl implements StockPortfolioTimed {
   }
 
   @Override
-  public void rebalance(Date startDate, Date balanceDate, Map<Stocks, Double> percentages)
+  public void rebalance(Date date, Map<Stocks, Double> percentages)
           throws IllegalArgumentException
   {
 //    double total = 0;
@@ -264,7 +337,19 @@ public class StockPortfolioTimedImpl implements StockPortfolioTimed {
   }
 
   @Override
-  public String performanceOverTime(Date dateStart, Date dateEnd) {
+  public String performanceOverTime(Date dateStart, Date dateEnd) throws IllegalArgumentException {
+    if (dateStart.compareTo(dateEnd) >= 0) {
+      throw new IllegalArgumentException("The start date you specified is either the same date"
+              + " as the end date, or is after the end date. Please order your arguments such that"
+              + " the end date is after the start date.");
+    }
+
+//    boolean inYears = false
+//    if (
+//            (((dateEnd.getYear() -  dateStart.getYear()) * 12) +
+//            (dateEnd.getMonth() - dateEnd.getMonth())) > 24
+//    )
+
     // Should return string with:
     // Performance of portfolio XXX from YYY to ZZZ\n
     // (performance bar graph)
