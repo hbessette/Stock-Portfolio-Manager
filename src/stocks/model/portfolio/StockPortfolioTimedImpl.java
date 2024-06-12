@@ -19,6 +19,7 @@ public class StockPortfolioTimedImpl implements StockPortfolioTimed {
   }
 
   public StockPortfolioTimedImpl(String[] data) {
+    this.log = new StringBuilder();
     this.stockCompositions = loadData(data);
   }
   /**
@@ -381,9 +382,10 @@ public class StockPortfolioTimedImpl implements StockPortfolioTimed {
     Map<Date, StockPortfolioTimeStatus> returnCompositions = new HashMap<>();
       for (String line : data) {
         String[] parsedLine = line.split(",");
-        Date date = new Date(Integer.parseInt(parsedLine[2]), Integer.parseInt(parsedLine[0]),
+        Date date = new Date(Integer.parseInt(parsedLine[2]), Integer.parseInt(parsedLine[0]) - 1,
                 Integer.parseInt(parsedLine[1]));
-        returnCompositions.put(date, new StockPortfolioTimeStatus(new ArrayList<>()));
+        returnCompositions.put(date,
+                new StockPortfolioTimeStatus(new ArrayList<>()));
         for (int idx = 3; idx < parsedLine.length; idx += 2) {
           returnCompositions.get(date).getStocksAndShares()
                   .add(new StockAndShares(new StocksImpl(parsedLine[idx]),

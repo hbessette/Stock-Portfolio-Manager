@@ -169,6 +169,7 @@ public class AlphaVantageAPI {
       for (String line : output) {
         fileWriter.write(line + System.lineSeparator());
       }
+      fileWriter.close();
     } catch (IOException e) {
       e.printStackTrace();
     }

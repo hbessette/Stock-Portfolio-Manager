@@ -15,9 +15,9 @@ public class LoadPortfolio extends APortfolioCommand {
   public void start(StockView view, StockModel model) {
     try {
       model.loadPortfolio(this.portfolioName);
+      view.show(this.portfolioName + " successfully loaded.");
     } catch (FileNotFoundException e) {
-      view.show("File not found");
+      view.show("Portfolio not found.");
     }
-    view.show(this.portfolioName + " successfully loaded.");
   }
 }
