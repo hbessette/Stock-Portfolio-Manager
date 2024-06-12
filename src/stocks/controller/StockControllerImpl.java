@@ -3,8 +3,10 @@ package stocks.controller;
 import stocks.controller.commands.*;
 
 import stocks.model.StockModel;
+import stocks.model.portfolio.shares.StockAndShares;
 import stocks.view.StockView;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -53,6 +55,25 @@ public class StockControllerImpl implements StockController {
         case "help":
           this.view.printHelp();
           break;
+        case "rebalance-portfolio":
+          String portfolio = this.in.next();
+          int month = this.in.nextInt();
+          int day = this.in.nextInt();
+          int year = this.in.nextInt();
+          try {
+            Map<String, Double> percentages = new HashMap<>();
+            for (String stock : this.model.getPortfolioByName(portfolio).getStockNames()) {
+              view.show("Enter percentage for " + stock);
+              double percentage = this.in.nextDouble() / 100.0;
+              percentages.put(stock, percentage);
+            }
+            model.getPortfolioByName(portfolio).rebalance(new Date(year, month - 1, day),
+                    percentages);
+            view.show(String.format("Successfully rebalanced %s for %d-%d-%d.", portfolio, month,
+                    day, year));
+          } catch (Exception e) {
+            view.show(e.getMessage());
+          }
         default:
           try {
             StockControllerCommand cmd = commands.get(command).apply(this.in);
@@ -88,6 +109,9 @@ public class StockControllerImpl implements StockController {
             s.nextInt(), s.nextInt()));
     commands.put("sell-stock", (Scanner s) -> new SellStock(s.next(), s.next(), s.nextInt() - 1,
             s.nextInt(), s.nextInt(), s.nextDouble()));
+    commands.put("sell-all-stock", (Scanner s) -> new SellAllStock(s.next(), s.next(),
+            s.nextInt() - 1,
+            s.nextInt(), s.nextInt()));
     return commands;
   }
 }

@@ -86,7 +86,7 @@ public class StockPortfolioTimedImpl implements StockPortfolioTimed {
   }
 
   @Override
-  public void purchase(String name, Date date, int shares) {
+  public void purchase(String name, Date date, double shares) {
     List<StockAndShares> stocksAndShares;
 
     if (this.stockCompositions.containsKey(date)) {
@@ -122,7 +122,7 @@ public class StockPortfolioTimedImpl implements StockPortfolioTimed {
   }
 
   private void purchaseHelper(Date date, List<StockAndShares> stocksAndShares,
-                              String name, int shares) {
+                              String name, double shares) {
     List<StockAndShares> newStocksAndShares = new ArrayList<StockAndShares>();
 
     boolean found = false;
@@ -335,17 +335,44 @@ public class StockPortfolioTimedImpl implements StockPortfolioTimed {
   }
 
   @Override
-  public void rebalance(Date date, Map<Stocks, Double> percentages)
+  public void rebalance(Date date, Map<String, Double> percentages)
           throws IllegalArgumentException
   {
-//    double total = 0;
-//    for (Double percentage : percentages.values()) {
-//      total += percentage;
-//    }
-//    if (total != 100) {
-//      throw new IllegalArgumentException("Percentages do not add up to 100%");
-//    }
-//
+    double total = 0;
+    for (Double percentage : percentages.values()) {
+      total += percentage;
+    }
+    if (total != 100) {
+      throw new IllegalArgumentException("Percentages do not add up to 100%");
+    }
+
+    // total evaluation of each stock
+    double totalValue = 0;
+    // map of each stocks value
+    Map<StockAndShares, Double> composition = new HashMap<>();
+    for (StockPortfolioTimeStatus sts : this.stockCompositions.values()) {
+      for (StockAndShares sas : sts.getStocksAndShares()) {
+        double value = sas.getStock().getStockDayStatus(date).getClosingTime() * sas.getShares();
+        composition.put(sas, value);
+        totalValue += value;
+      }
+    }
+
+    for (StockAndShares sas : composition.keySet()) {
+      double percentage = percentages.get(this.);
+      double value = composition.get(sas);
+      double portion = value / totalValue;
+      if (portion != percentage) {
+        double stocksToBuyOrSell = (portion - percentage) * sas.getShares();
+        if (stocksToBuyOrSell > 0) {
+          this.sell(sas.getStock().getSymbol(), date, stocksToBuyOrSell);
+        } else {
+          this.purchase(sas.getStock().getSymbol(), date, Math.abs(stocksToBuyOrSell));
+        }
+      }
+    }
+
+
 
   }
 
@@ -441,6 +468,13 @@ public class StockPortfolioTimedImpl implements StockPortfolioTimed {
       returnData.append(System.lineSeparator());
     }
     return returnData.toString().split(System.lineSeparator());
+  }
+
+  @Override
+  public String[] getStockNames() {
+    StringBuilder returnOutput = new StringBuilder();
+    for (StockPortfolioTimeStatus s : this.stockCompositions.values()) {
+    }
   }
 
   private Map<Date, StockPortfolioTimeStatus> loadData(String[] data) {

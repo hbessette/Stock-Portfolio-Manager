@@ -40,15 +40,15 @@ public class StockViewImpl implements StockView {
    */
   public void printHelp() {
     out.println("List of Commands: ");
+    out.println("show-all-portfolios");
     out.println("add-portfolio (portfolioName)");
     out.println("remove-portfolio (portfolioName)");
-    out.println("show-portfolio (portfolioName)");
-    out.println("show-all-portfolios");
+    out.println("save-portfolio (portfolioName)");
+    out.println("load-portfolio (portfolioName)");
+    out.println("buy-stock (portfolioName) (stockName) (month) (day) (year) (integerAmount)");
+    out.println("sell-stock (portfolioName) (stockName) (month) (day) (year) (decimalAmount)");
+    out.println("sell-all-stock (portfolioName) (stockName) (month) (day) (year)");
     out.println("evaluate-portfolio (portfolioName) (month) (day) (year)");
-    out.println("show-portfolio-stocks (portfolioName)");
-    out.println("add-stock (portfolioName) (stockName) (shares)");
-    out.println("remove-stock (portfolioName) (stockName)");
-    out.println("remove-stock-shares (portfolioName) (stockName) (shares)");
     out.println("get-price-change (stockName) (startMonth) (startDay) (startYear) (endMonth) " +
             "(endDay) (endYear)");
     out.println("get-x-day-crossovers (stockName) (startMonth) (startDay) (startYear) (xDays)");
