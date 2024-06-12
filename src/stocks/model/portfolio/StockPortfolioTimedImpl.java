@@ -149,6 +149,18 @@ public class StockPortfolioTimedImpl implements StockPortfolioTimed {
   }
 
   @Override
+  public void sellAll(String name, Date date) throws IllegalArgumentException {
+    List<StockAndShares> sasList = this.stockCompositions.get(date).getStocksAndShares();
+    for (StockAndShares sas : sasList) {
+      if (sas.getStock().getSymbol().equals(name)) {
+        sell(name, date, sas.getShares());
+        return;
+      }
+    }
+    throw new IllegalArgumentException("You have no shares of this stock.");
+  }
+
+  @Override
   public void sell(String name, Date date, double shares) throws IllegalArgumentException {
     List<StockAndShares> stocksAndShares;
 
@@ -345,14 +357,67 @@ public class StockPortfolioTimedImpl implements StockPortfolioTimed {
               + " the end date is after the start date.");
     }
 
-//    boolean inYears = false
-//    if (
-//            (((dateEnd.getYear() -  dateStart.getYear()) * 12) +
-//            (dateEnd.getMonth() - dateEnd.getMonth())) > 24
-//    )
+    String mode;
+    int monthsBetween = (((dateEnd.getYear() -  dateStart.getYear()) * 12) +
+            (dateEnd.getMonth() - dateStart.getMonth()));
+
+    if (monthsBetween > 5*12) {
+      mode = "years";
+    }
+    else if (monthsBetween > 16) {
+      mode = "quarters";
+    }
+    else if (monthsBetween > 1) {
+      mode = "months";
+    }
+    else {
+      mode = "days";
+    }
+
+    Map<Date, Double> evaluationsAtKeyPoints = new HashMap<Date, Double>();
+    long millisecondConversionNumber = (1000 * 60 * 60 * 24);
+    long startTimeDays = dateStart.getTime() / millisecondConversionNumber;
+    long endTimeDays = dateEnd.getTime() / millisecondConversionNumber;
+    int iterAmountDays;
+    switch (mode) {
+      case "years" :
+        iterAmountDays = 365;
+        break;
+      case "quarters" :
+        iterAmountDays = 91;
+        break;
+      case "months" :
+        iterAmountDays = 31;
+        break;
+      default :
+        iterAmountDays = 1;
+    }
+
+    double maxVal = 0;
+    for (long i = startTimeDays; i < endTimeDays; i+= iterAmountDays) {
+      Date dd = new Date();
+      dd.setTime(i * millisecondConversionNumber);
+      double value = evaluate(dd);
+
+      if (value > maxVal) {
+        maxVal = value;
+      }
+
+      evaluationsAtKeyPoints.put(dd, value);
+    }
+
+    String scaler = String.valueOf((int)Math.ceil(maxVal / 20));
+
+    int starScale = Integer.parseInt(scaler.charAt(0) + "0".repeat(scaler.length() - 1));
+
+    List<String> returnListStrings = new ArrayList<String>();
+
+    /////////////////////////////////////
+    // Work in progress.
+    // Next step: Use the starScale and evaluationsAtKeyPoints map to make the graph.
+    /////////////////////////////////////
 
     // Should return string with:
-    // Performance of portfolio XXX from YYY to ZZZ\n
     // (performance bar graph)
     // Scale: * = $(scale)
     return null;

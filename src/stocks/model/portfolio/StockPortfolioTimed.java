@@ -10,6 +10,8 @@ public interface StockPortfolioTimed extends AStockPortfolio {
 
   public void sell(String name, Date date, double shares);
 
+  public void sellAll(String name, Date date);
+
   public String[] getComposition(Date date);
 
   public String[] getDistribution(Date date);
