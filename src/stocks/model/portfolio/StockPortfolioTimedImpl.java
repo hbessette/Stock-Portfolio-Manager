@@ -162,12 +162,90 @@ public class StockPortfolioTimedImpl implements StockPortfolioTimed {
 
   @Override
   public String[] getComposition(Date date) {
-    return null;
+    List<StockAndShares> stocksAndShares;
+    try {
+      stocksAndShares = getSASForDistribution(date);
+    } catch (IllegalArgumentException e) {
+      return new String[]{"No stocks are owned at this time."};
+    }
+
+    List<String> returnLines = new ArrayList<String>();
+
+    for (StockAndShares sas : stocksAndShares) {
+      double shares = sas.getShares();
+      String sharesWord;
+      if (shares == 1) {
+        sharesWord = " share";
+      } else {
+        sharesWord = " shares";
+      }
+      returnLines.add(sas.getStock().getSymbol() + ": " + String.valueOf(shares) + sharesWord);
+    }
+
+    return returnLines.toArray(new String[1]);
   }
 
   @Override
   public String[] getDistribution(Date date) {
-    return null;
+    List<StockAndShares> stocksAndShares;
+    try {
+      stocksAndShares = getSASForDistribution(date);
+    } catch (IllegalArgumentException e) {
+      return new String[] {"No stocks are owned at this time."};
+    }
+    List<String> returnLines = new ArrayList<String>();
+
+    for (StockAndShares sas : stocksAndShares) {
+      returnLines.add(sas.getStock().getSymbol() + ": $"
+              + String.valueOf(sas.getStock().getStockDayStatus(date).getClosingTime()));
+    }
+
+    return returnLines.toArray(new String[1]);
+  }
+
+  // Designed specifically for use in getDistribution and getComposition.
+  // It is probably not a good idea to use this for anything else.
+  private List<StockAndShares> getSASForDistribution(Date date) {
+    List<StockAndShares> stocksAndShares = new ArrayList<StockAndShares>();
+    if (this.stockCompositions.containsKey(date)) {
+      stocksAndShares = this.stockCompositions.get(date).getStocksAndShares();
+    }
+    else {
+      StockPortfolioTimeStatus timeStatus = lastStatusSinceDate(date);
+      if (timeStatus == null) {
+        throw new IllegalArgumentException("No stocks are owned at this time.");
+      }
+      stocksAndShares = timeStatus.getStocksAndShares();
+    }
+    return stocksAndShares;
+  }
+
+  /**
+   * Returns the value of a portfolio on a specific date.
+   * Value is determined by stocks owned * their closing prices on that date.
+   * If you evaluate a portfolio on a date before anything was bought, the value is 0.
+   *
+   * @param date the date to evaluate at
+   * @return the value of the portfolio on the given date
+   */
+  @Override
+  public double evaluate(Date date) {
+    List<StockAndShares> stocksAndShares = new ArrayList<StockAndShares>();
+    if (this.stockCompositions.containsKey(date)) {
+      stocksAndShares = this.stockCompositions.get(date).getStocksAndShares();
+    }
+    else {
+      StockPortfolioTimeStatus timeStatus = lastStatusSinceDate(date);
+      if (timeStatus == null) {
+        return 0;
+      }
+      stocksAndShares = timeStatus.getStocksAndShares();
+    }
+    double value = 0;
+    for (StockAndShares sas : stocksAndShares) {
+      value += sas.getShares() * sas.getStock().getStockDayStatus(date).getClosingTime();
+    }
+    return value;
   }
 
   @Override
@@ -220,8 +298,4 @@ public class StockPortfolioTimedImpl implements StockPortfolioTimed {
     return returnCompositions;
   }
 
-  @Override
-  public double evaluate(Date date) {
-    return 0;
-  }
 }
