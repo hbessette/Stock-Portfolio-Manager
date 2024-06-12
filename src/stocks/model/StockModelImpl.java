@@ -128,10 +128,10 @@ public class StockModelImpl implements StockModel {
   @Override
   public void savePortfolio(String name) throws NoSuchElementException {
     StockPortfolioTimed portfolio;
-    try {
-      portfolio = this.portfolios.get(name);
-    } catch (NullPointerException e) {
+    if(!this.portfolios.containsKey(name)) {
       throw new NoSuchElementException("No portfolio exists.");
+    } else {
+      portfolio = this.portfolios.get(name);
     }
     String[] output = portfolio.getData();
     File file = new File("StockPortfolios/" + name + ".txt");
@@ -144,6 +144,7 @@ public class StockModelImpl implements StockModel {
       for (String line : output) {
         fileWriter.write(line + System.lineSeparator());
       }
+      fileWriter.close();
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -163,6 +164,7 @@ public class StockModelImpl implements StockModel {
         output.append(line + System.lineSeparator());
         line = reader.readLine();
       }
+      reader.close();
     } catch (IOException e) {
       throw new FileNotFoundException("Portfolio does not exist");
     }

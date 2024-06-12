@@ -7,6 +7,7 @@ import stocks.model.stock.Stocks;
 
 import java.io.FileNotFoundException;
 import java.util.Date;
+import java.util.NoSuchElementException;
 import java.util.Set;
 
 /**
@@ -72,7 +73,7 @@ public interface StockModel {
    */
   public String returnLog();
 
-  public void savePortfolio(String name);
+  public void savePortfolio(String name) throws NoSuchElementException;
 
   public void loadPortfolio(String name) throws FileNotFoundException;
 }

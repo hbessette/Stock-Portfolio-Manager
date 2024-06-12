@@ -82,6 +82,12 @@ public class StockControllerImpl implements StockController {
             s.nextInt(), s.nextInt()));
     commands.put("save-portfolio", (Scanner s) -> new SavePortfolio(s.next()));
     commands.put("load-portfolio", (Scanner s) -> new LoadPortfolio(s.next()));
+    commands.put("buy-stock", (Scanner s) -> new BuyStock(s.next(), s.next(), s.nextInt() - 1,
+            s.nextInt(), s.nextInt(), s.nextInt()));
+    commands.put("get-composition", (Scanner s) -> new GetComposition(s.next(), s.nextInt() - 1,
+            s.nextInt(), s.nextInt()));
+    commands.put("sell-stock", (Scanner s) -> new SellStock(s.next(), s.next(), s.nextInt() - 1,
+            s.nextInt(), s.nextInt(), s.nextDouble()));
     return commands;
   }
 }
