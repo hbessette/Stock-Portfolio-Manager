@@ -19,7 +19,7 @@ public class RebalancePortfolio implements StockControllerCommand {
     view.show("Enter year: ");
     int year = s.nextInt();
     view.show("Enter month: ");
-    int month = s.nextInt();
+    int month = s.nextInt() - 1;
     view.show("Enter day: ");
     int day = s.nextInt();
     this.date = new Date(year, month - 1, day);

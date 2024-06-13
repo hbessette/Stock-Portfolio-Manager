@@ -41,6 +41,7 @@ public class StockControllerImpl implements StockController {
 
     this.view.welcomeMessage();
     while (!quit) {
+      this.view.printOptions();
       String command = this.in.next();
       switch (command) {
         case "q":
@@ -83,6 +84,7 @@ public class StockControllerImpl implements StockController {
     commands.put("rebalance-portfolio", (Scanner s) -> new RebalancePortfolio(s, this.view,
             this.model));
     commands.put("get-distribution", (Scanner s) -> new GetDistribution(s, this.view));
+    commands.put("performance-over-time", (Scanner s) -> new PerformanceOverTime(s, this.view));
     return commands;
   }
 }

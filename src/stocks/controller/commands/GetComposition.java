@@ -25,7 +25,7 @@ public class GetComposition implements StockControllerCommand {
     view.show("Enter the year to get composition for: ");
     int year = s.nextInt();
     view.show("Enter the month to get composition for: ");
-    int month = s.nextInt();
+    int month = s.nextInt() - 1;
     view.show("Enter the day to get composition for: ");
     int day = s.nextInt();
     this.date = new Date(year, month, day);

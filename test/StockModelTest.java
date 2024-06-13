@@ -65,6 +65,7 @@ public class StockModelTest {
     assertEquals(expected, model.returnLog());
   }
 
+<<<<<<< Updated upstream
   /**
    * Tests that the evaluate feature of the model evaluates a portfolio.
    */
@@ -84,6 +85,8 @@ public class StockModelTest {
     );
     assertEquals(String.valueOf(expected), String.valueOf(result));
   }
+=======
+>>>>>>> Stashed changes
 
   @Test(expected = NoSuchElementException.class)
   public void testEvaluatePortfolioFail() {

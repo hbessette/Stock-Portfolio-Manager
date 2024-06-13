@@ -27,4 +27,5 @@ public interface StockView {
    */
   void goodbyeMessage();
 
+  void printOptions();
 }

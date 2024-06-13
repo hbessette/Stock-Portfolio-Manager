@@ -77,4 +77,7 @@ public interface StockModel {
   public String[] getStockNamesForPortfolio(String portfolioName, Date date);
 
   public void sellAllStockForPortfolio(String portfolioName, String symbol, Date date);
+
+  public String performanceOverTimeForPortfolio(String portfolioName, Date startDate,
+                                                  Date endDate);
 }
