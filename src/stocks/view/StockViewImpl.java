@@ -32,7 +32,12 @@ public class StockViewImpl implements StockView {
    */
   public void welcomeMessage() {
     out.println("Welcome to Stock Manager");
-    out.println("Enter help or h to see list of commands.");
+  }
+
+  public void printOptions() {
+    out.println("Menu:");
+    out.println("h or help shows commands");
+    out.println("q or quit to exit program");
   }
 
   /**
@@ -50,6 +55,8 @@ public class StockViewImpl implements StockView {
     out.println("sell-all-stock (to sell all of a stock in specific portfolio)");
     out.println("evaluate-portfolio (to evaluate total value of a specific portfolio)");
     out.println("get-composition (to get the composition of stocks of a specific portfolio)");
+    out.println("get-distribution (to get the distribution of stocks of a specific portfolio)");
+    out.println("performance-over-time (to get a graph of a portfolio's stock)");
     out.println("get-price-change (to get the price change of a stock from and to specific dates)");
     out.println("get-x-day-crossovers (to get the x day crossovers of a stock)");
     out.println("get-x-day-average (to get the average of a stock over a specific period)");

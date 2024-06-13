@@ -61,6 +61,7 @@ public class StockModelTest {
     model.removePortfolio("Something");
   }
 
+<<<<<<< Updated upstream
   /**
    * Tests that the evaluate feature of the model evaluates a portfolio.
    */
@@ -80,6 +81,8 @@ public class StockModelTest {
     );
     assertEquals(String.valueOf(expected), String.valueOf(result));
   }
+=======
+>>>>>>> Stashed changes
 
   @Test(expected = NoSuchElementException.class)
   public void testEvaluatePortfolioFail() {
