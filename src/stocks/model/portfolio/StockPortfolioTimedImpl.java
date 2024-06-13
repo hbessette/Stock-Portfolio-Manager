@@ -408,10 +408,10 @@ public class StockPortfolioTimedImpl implements StockPortfolioTimed {
     int iterAmountDays;
     switch (mode) {
       case "years" :
-        iterAmountDays = 365;
+        iterAmountDays = 366;
         break;
       case "quarters" :
-        iterAmountDays = 91;
+        iterAmountDays = 92;
         break;
       case "months" :
         iterAmountDays = 31;
@@ -437,17 +437,43 @@ public class StockPortfolioTimedImpl implements StockPortfolioTimed {
 
     int starScale = Integer.parseInt(scaler.charAt(0) + "0".repeat(scaler.length() - 1));
 
-    List<String> returnListStrings = new ArrayList<String>();
+    // Will be returned
+    StringBuilder returnStrings = new StringBuilder();
 
-    /////////////////////////////////////
-    // Work in progress.
-    // Next step: Use the starScale and evaluationsAtKeyPoints map to make the graph.
-    /////////////////////////////////////
+    Set<Date> keyPointDateSet =  evaluationsAtKeyPoints.keySet();
+    List<Date> keyPointDatesOrdered = new ArrayList<Date>(keyPointDateSet);
+    Collections.sort(keyPointDatesOrdered);
 
-    // Should return string with:
-    // (performance bar graph)
-    // Scale: * = $(scale)
-    return null;
+    for (Date keyDate : keyPointDatesOrdered) {
+      String dateDisplay;
+      String[] monthsIdx = new String[] {
+              "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+      };
+      switch (mode) {
+        case "years" :
+          dateDisplay = String.valueOf(keyDate.getYear());
+          break;
+        case "quarters" :
+        case "months" :
+          dateDisplay = monthsIdx[keyDate.getMonth()] + " " + String.valueOf(keyDate.getYear());
+          break;
+        default :
+          String day_ = String.valueOf(keyDate.getDate());
+          if (day_.length() == 1) {
+            day_ = "0" + day_;
+          }
+          dateDisplay = day_ + " " + monthsIdx[keyDate.getMonth()] + " "
+                  + String.valueOf(keyDate.getYear());
+      }
+
+      String lineAdd = dateDisplay + ": " +
+              "*".repeat((int) Math.ceil(evaluationsAtKeyPoints.get(keyDate) / starScale));
+
+      returnStrings.append(lineAdd).append("\n");
+    }
+
+    returnStrings.append("\n").append("Scale: * = $").append(String.valueOf(starScale));
+    return returnStrings.toString();
   }
 
   @Override
