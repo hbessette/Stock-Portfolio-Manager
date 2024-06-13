@@ -3,11 +3,14 @@ Features that work and are complete:
 - Creating a portfolio with a name
 - Removing a portfolio by its name
 - Showing all created portfolios
+- Saving a portfolio to a file
+- Loading a portfolio from a file
+- Buying a stock for a portfolio on a specific day
+- Selling a stock for a portfolio on a specific day
 - Evaluating portfolios; determining their value on a specific day
-- Showing all stocks in a portfolio
-- Adding a stock to a portfolio, with a specified number of shares
-- Removing a stock from a portfolio outright (all shares removed)
-- Removing a specific number of shares of a stock from a portfolio
+- Getting the composition of a portfolio on a specific day
+- Getting the distribution of a portfolio on a specific day
+- Rebalancing a portfolio on a specific day
 - Getting the gain or loss of a stock over a specified time period
 - Getting the x-day moving average of a stock with a specified start day and X value
 - Getting all x-day crossovers of a stock with a specified start day and X value
