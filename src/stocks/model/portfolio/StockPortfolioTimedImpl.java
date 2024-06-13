@@ -548,10 +548,6 @@ public class StockPortfolioTimedImpl implements StockPortfolioTimed {
     for (StockAndShares sas : sasList) {
       stocksNames.add(sas.getStock().getSymbol());
     }
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
     return stocksNames.toArray(new String[0]);
   }
 

@@ -1,4 +1,5 @@
-The jar file must be in the same directory as a folder named "StockData".
+The jar file must be in the same directory as a folder named "StockData", and another folder
+named "StockPortfolios".
 
 ===================
 

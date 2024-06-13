@@ -24,7 +24,7 @@ public class AlphaVantageAPI {
    */
   public AlphaVantageAPI(String symbol) {
     this.symbol = symbol;
-    this.apiKey = "M9FOYCG9AWQJW14G";
+    this.apiKey = "QK3IYNZVD5K8FUN6";
   }
 
   private URL makeURL() {
@@ -70,6 +70,10 @@ public class AlphaVantageAPI {
 
     if (data[0].contains("rate limit")) {
       throw new IllegalStateException("Rate limited.");
+    }
+
+    if (data[0].contains("Invalid API call")) {
+      throw new IllegalArgumentException("This stock does not exist.");
     }
 
     if (data.length <= 1) {
@@ -150,6 +154,7 @@ public class AlphaVantageAPI {
     if (!returnValue[0].contains("rate limit")) {
       writeFile(returnValue);
     }
+
 
     return returnValue;
   }

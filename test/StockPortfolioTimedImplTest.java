@@ -234,6 +234,50 @@ public class StockPortfolioTimedImplTest {
             "Scale: * = $100", performanceTime);
   }
 
+  @Test
+  public void testPerformanceOverTimeYears() {
+    StockPortfolioTimed portfolio = new StockPortfolioTimedImpl();
+
+    portfolio.purchase("MSFT", new Date(2020,3,24), 6);
+    portfolio.purchase("AAPL", new Date(2024,1,12), 1);
+
+    String performanceTime = portfolio.performanceOverTime(
+            new Date(2016, 1, 12),
+            new Date(2024, 4, 29)
+    );
+
+    assertEquals("2016: \n" +
+            "2017: \n" +
+            "2018: \n" +
+            "2019: \n" +
+            "2020: \n" +
+            "2021: *****************\n" +
+            "2022: *********************\n" +
+            "2023: ******************\n" +
+            "\n" +
+            "Scale: * = $90", performanceTime);
+  }
+
+  @Test
+  public void testPerformanceOverTimeDays() {
+    StockPortfolioTimed portfolio = new StockPortfolioTimedImpl();
+
+    portfolio.purchase("MSFT", new Date(2024,1,12), 6);
+    portfolio.purchase("AAPL", new Date(2024,1,12), 1);
+
+    String performanceTime = portfolio.performanceOverTime(
+            new Date(2024, 1, 12),
+            new Date(2024, 1, 16)
+    );
+
+    assertEquals("11 Feb 2024: \n" +
+            "12 Feb 2024: ***************************\n" +
+            "13 Feb 2024: ***************************\n" +
+            "14 Feb 2024: ***************************\n" +
+            "\n" +
+            "Scale: * = $100", performanceTime);
+  }
+
   @Test(expected = IllegalArgumentException.class)
   public void testPerformanceOverTimeReversed() {
     StockPortfolioTimed portfolio = new StockPortfolioTimedImpl();
@@ -312,5 +356,16 @@ public class StockPortfolioTimedImplTest {
     StockPortfolioTimed portfolio = new StockPortfolioTimedImpl();
     String[] actual = portfolio.getDistribution(new Date(2024, 3, 24));
     assertArrayEquals(new String[] {"No stocks are owned at this time."}, actual);
+  }
+
+  @Test
+  public void testGetStockNames() {
+    StockPortfolioTimed portfolio = new StockPortfolioTimedImpl();
+    portfolio.purchase("GOOG", new Date(2024, 3, 24), 1.0);
+    portfolio.purchase("MSFT", new Date(2024, 3, 24), 1.0);
+    String[] names = portfolio.getStockNames(new Date(2024, 3, 24));
+    String[] expected = new String[] {"GOOG", "MSFT"};
+
+    assertArrayEquals(expected, names);
   }
 }
