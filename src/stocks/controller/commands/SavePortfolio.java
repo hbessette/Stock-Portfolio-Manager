@@ -3,10 +3,23 @@ package stocks.controller.commands;
 import stocks.model.StockModel;
 import stocks.view.StockView;
 
-public class SavePortfolio extends APortfolioCommand {
+import java.util.Scanner;
 
-  public SavePortfolio(String portfolioName) {
-    super(portfolioName);
+/**
+ * To save a portfolio in StockPortfolio folder.
+ */
+public class SavePortfolio implements StockControllerCommand {
+
+  private final String portfolioName;
+
+  /**
+   * To create a save portfolio object.
+   * @param s : to take in user inputs
+   * @param view : to prompt user inputs
+   */
+  public SavePortfolio(Scanner s, StockView view) {
+    view.show("Enter the portfolio name to save: ");
+    this.portfolioName = s.next();
   }
 
   @Override

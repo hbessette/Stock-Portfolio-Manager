@@ -4,11 +4,23 @@ import stocks.model.StockModel;
 import stocks.view.StockView;
 
 import java.io.FileNotFoundException;
+import java.util.Scanner;
 
-public class LoadPortfolio extends APortfolioCommand {
+/**
+ * To load a portfolio from StockPortfolio folder.
+ */
+public class LoadPortfolio implements StockControllerCommand {
 
-  public LoadPortfolio(String portfolioName) {
-    super(portfolioName);
+  private final String portfolioName;
+
+  /**
+   * To create a load portfolio object.
+   * @param s : to take in user inputs
+   * @param view : to prompt user inputs
+   */
+  public LoadPortfolio(Scanner s, StockView view) {
+    view.show("Enter the portfolio name to load: ");
+    this.portfolioName = s.next();
   }
 
   @Override

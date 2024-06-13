@@ -6,6 +6,7 @@ import stocks.view.StockView;
 
 
 import java.util.Date;
+import java.util.Scanner;
 
 /**
  * A command to show all X-Day crossovers of a stock over a time period.
@@ -14,19 +15,25 @@ import java.util.Date;
  * of the last x days (starting from the given date).
  * This is determined by the last x days when stock prices are available.
  */
-public class XDayCrossovers extends AXDayCommand {
+public class XDayCrossovers implements StockControllerCommand {
 
-  /**
-   * Constructs this command.
-   *
-   * @param symbol The symbol of the stock to check
-   * @param month  the month of the date to check
-   * @param day    the day of the date to check
-   * @param year   the year of the date to check
-   * @param xDays  the X number of days to go *back* from the starting date, minus 1.
-   */
-  public XDayCrossovers(String symbol, int month, int day, int year, int xDays) {
-    super(symbol, month, day, year, xDays);
+  private final String symbol;
+  private final Date startDate;
+  private final int xDays;
+
+
+  public XDayCrossovers(Scanner s, StockView view) {
+    view.show("Enter the stock symbol: ");
+    this.symbol = s.next();
+    view.show("Enter the year: ");
+    int year = s.nextInt();
+    view.show("Enter the month: ");
+    int month = s.nextInt() - 1;
+    view.show("Enter the day: ");
+    int day = s.nextInt();
+    view.show("Enter the number of days: ");
+    this.xDays = s.nextInt();
+    this.startDate = new Date(year, month, day);
   }
 
   /**

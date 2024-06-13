@@ -4,6 +4,9 @@ import stocks.model.StockModel;
 import stocks.model.macros.StockMacroXDayMovingAverage;
 import stocks.view.StockView;
 
+import java.util.Date;
+import java.util.Scanner;
+
 /**
  * A command to display the x-day moving average.
  * The x-day moving average is the average starting price of a stock,
@@ -11,19 +14,24 @@ import stocks.view.StockView;
  * This is determined by the last x days when stock prices are available.
  */
 
-public class XDayMovingAverage extends AXDayCommand {
+public class XDayMovingAverage implements StockControllerCommand {
 
-  /**
-   * Constructs this command.
-   *
-   * @param symbol the symbol of the stock to check
-   * @param month  the month of the date to check
-   * @param day    the day of the date to check
-   * @param year   the year of the date to check
-   * @param xDays  the number of x days to go *back* from the starting date, minus 1.
-   */
-  public XDayMovingAverage(String symbol, int month, int day, int year, int xDays) {
-    super(symbol, month, day, year, xDays);
+  private final String symbol;
+  private final Date startDate;
+  private final int xDays;
+
+  public XDayMovingAverage(Scanner s, StockView view) {
+    view.show("Enter the stock symbol: ");
+    this.symbol = s.next();
+    view.show("Enter the year: ");
+    int year = s.nextInt();
+    view.show("Enter the month: ");
+    int month = s.nextInt() - 1;
+    view.show("Enter the day: ");
+    int day = s.nextInt();
+    view.show("Enter the number of days: ");
+    this.xDays = s.nextInt();
+    this.startDate = new Date(year, month, day);
   }
 
   /**
@@ -39,6 +47,6 @@ public class XDayMovingAverage extends AXDayCommand {
                     model.getStockByName(this.symbol));
     view.show("Moving average for " + this.symbol + " from " + (this.startDate.getMonth() + 1) +
             "-" + this.startDate.getDate() + "-" + this.startDate.getYear() +
-            " is " + (Math.round(average * 100.00) / 100.00) + ".");
+            " is $" + (Math.round(average * 100.00) / 100.00) + ".");
   }
 }

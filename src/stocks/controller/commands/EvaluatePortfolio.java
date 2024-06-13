@@ -4,24 +4,31 @@ import stocks.model.StockModel;
 import stocks.view.StockView;
 
 import java.util.Date;
+import java.util.Scanner;
 
 /**
  * To evaluate the total price of a portfolio based on the date, its number of shares, and
  * closing prices of all stocks.
  */
-public class EvaluatePortfolio extends APortfolioCommand {
+public class EvaluatePortfolio implements StockControllerCommand {
+  private final String portfolioName;
   private final Date date;
 
   /**
    * To create an EvaluatePortfolio object.
    *
-   * @param portfolioName target portfolio
-   * @param month         target month
-   * @param day           target day
-   * @param year          target year
+   * @param s : to take in user inputs
+   * @param view : to prompt the user
    */
-  public EvaluatePortfolio(String portfolioName, int month, int day, int year) {
-    super(portfolioName);
+  public EvaluatePortfolio(Scanner s, StockView view) {
+    view.show("Enter the portfolio name to evaluate: ");
+    this.portfolioName = s.next();
+    view.show("Enter the year to evaluate: ");
+    int year = s.nextInt();
+    view.show("Enter the month to evaluate: ");
+    int month = s.nextInt() - 1;
+    view.show("Enter the day to evaluate: ");
+    int day = s.nextInt();
     this.date = new Date(year, month, day);
   }
 
@@ -29,7 +36,7 @@ public class EvaluatePortfolio extends APortfolioCommand {
   public void start(StockView view, StockModel model) {
     double evaluation = model.evaluatePortfolio(this.portfolioName, this.date);
     view.show("Evaluation of " + this.portfolioName + " on " + (this.date.getMonth() + 1)
-            + "-" + this.date.getDate() + "-" + this.date.getYear() + " is "
+            + "-" + this.date.getDate() + "-" + this.date.getYear() + " is $"
             + evaluation + ".");
   }
 }

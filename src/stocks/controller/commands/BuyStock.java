@@ -5,16 +5,28 @@ import stocks.model.portfolio.StockPortfolioTimed;
 import stocks.view.StockView;
 
 import java.util.Date;
+import java.util.Scanner;
 
-public class BuyStock extends ASymbolControllerCommand {
-  private Date date;
-  private int amount;
-  private String portfolioName;
-  public BuyStock(String portfolioName, String symbol, int month, int day, int year, int amount) {
-    super(symbol);
+public class BuyStock implements StockControllerCommand {
+  private final Date date;
+  private final int amount;
+  private final String portfolioName;
+  private final String symbol;
+
+  public BuyStock(Scanner s, StockView view) {
+    view.show("Enter the portfolio name to buy stock for: ");
+    this.portfolioName = s.next();
+    view.show("Enter the symbol to buy stock for: ");
+    this.symbol = s.next();
+    view.show("Enter the amount to buy stock for: ");
+    this.amount = s.nextInt();
+    view.show("Enter the year to buy stock for: ");
+    int year = s.nextInt();
+    view.show("Enter the month to buy stock for: ");
+    int month = s.nextInt() - 1;
+    view.show("Enter the day to buy stock for: ");
+    int day = s.nextInt();
     this.date = new Date(year, month, day);
-    this.amount = amount;
-    this.portfolioName = portfolioName;
   }
 
   @Override
