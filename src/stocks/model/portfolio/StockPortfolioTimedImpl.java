@@ -294,7 +294,8 @@ public class StockPortfolioTimedImpl implements StockPortfolioTimed {
 
     for (StockAndShares sas : stocksAndShares) {
       returnLines.add(sas.getStock().getSymbol() + ": $"
-              + String.valueOf(sas.getStock().getStockDayStatus(date).getClosingTime()));
+              + String.valueOf(sas.getStock().getStockDayStatus(date).getClosingTime()
+              * sas.getShares()));
     }
 
     return returnLines.toArray(new String[1]);
@@ -451,7 +452,28 @@ public class StockPortfolioTimedImpl implements StockPortfolioTimed {
     for (long i = startTimeDays; i < endTimeDays; i+= iterAmountDays) {
       Date dd = new Date();
       dd.setTime(i * millisecondConversionNumber);
-      double value = evaluate(dd);
+      dd = new Date(dd.getYear(), dd.getMonth(), dd.getDate());
+      double value;
+      try {
+        value = evaluate(dd);
+      }
+      catch (IllegalArgumentException exe) {
+        try {
+          dd.setTime((i+1) * millisecondConversionNumber);
+          dd = new Date(dd.getYear(), dd.getMonth(), dd.getDate());
+          value = evaluate(dd);
+        }
+        catch (IllegalArgumentException exe2) {
+          try {
+            dd.setTime((i+2) * millisecondConversionNumber);
+            dd = new Date(dd.getYear(), dd.getMonth(), dd.getDate());
+            value = evaluate(dd);
+          }
+          catch (IllegalArgumentException exe3) {
+            continue;
+          }
+        }
+      }
 
       if (value > maxVal) {
         maxVal = value;

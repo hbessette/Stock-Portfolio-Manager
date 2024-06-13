@@ -2,6 +2,8 @@ import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import stocks.model.portfolio.StockPortfolioTimed;
 import stocks.model.portfolio.StockPortfolioTimedImpl;
@@ -133,5 +135,137 @@ public class StockPortfolioTimedImplTest {
     assertArrayEquals(new String[] {"GOOG: 0.0 shares"}, portfolio.getComposition(new Date(
             2024, 5, 22
     )));
+  }
+
+  @Test
+  public void testGetDistribution() {
+    StockPortfolioTimed portfolio = new StockPortfolioTimedImpl();
+
+    portfolio.purchase("GOOG", new Date(2024,4,24), 5);
+    portfolio.purchase("AAPL", new Date(2024,4,24), 7);
+    portfolio.purchase("MSFT", new Date(2024,4,24), 1);
+    String[] expected = new String[] {
+            "GOOG: $881.6500000000001", "AAPL: $1329.86", "MSFT: $430.16"};
+    String[] actual = portfolio.getDistribution(new Date(2024, 4, 24));
+
+    assertArrayEquals(expected, actual);
+  }
+
+  @Test
+  public void testEvaluate() {
+    StockPortfolioTimed portfolio = new StockPortfolioTimedImpl();
+
+    portfolio.purchase("GOOG", new Date(2024,4,24), 5);
+    portfolio.purchase("AAPL", new Date(2024,4,24), 7);
+    portfolio.purchase("MSFT", new Date(2024,4,24), 1);
+    double expected = 881.6500000000001 + 1329.86 + 430.16;
+    double actual = portfolio.evaluate(new Date(2024, 4, 24));
+
+    assertEquals(expected, actual, 0.0);
+  }
+
+  @Test
+  public void testRebalance() {
+    StockPortfolioTimed portfolio = new StockPortfolioTimedImpl();
+
+    portfolio.purchase("GOOG", new Date(2024,4,24), 1);
+    portfolio.purchase("AAPL", new Date(2024,4,24), 1);
+
+    Map<String, Double> percentages = new HashMap<String, Double>();
+    percentages.put("GOOG", 50.0);
+    percentages.put("AAPL", 50.0);
+    portfolio.rebalance(new Date(2024, 4, 29), percentages);
+
+    String[] expected = new String[] {"GOOG: 1.0363303269447575 shares",
+            "AAPL: 0.9661306427032424 shares"};
+    assertArrayEquals(expected, portfolio.getComposition(new Date(2024, 4, 30)));
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testRebalanceBadPercentages() {
+    StockPortfolioTimed portfolio = new StockPortfolioTimedImpl();
+    portfolio.purchase("GOOG", new Date(2024,4,24), 1);
+    portfolio.purchase("AAPL", new Date(2024,4,24), 1);
+
+    Map<String, Double> percentages = new HashMap<String, Double>();
+    percentages.put("GOOG", 49.0);
+    percentages.put("AAPL", 50.0);
+    portfolio.rebalance(new Date(2024, 4, 29), percentages);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testRebalanceNoShares() {
+    StockPortfolioTimed portfolio = new StockPortfolioTimedImpl();
+    Map<String, Double> percentages = new HashMap<String, Double>();
+    percentages.put("GOOG", 100.0);
+    portfolio.rebalance(new Date(2024, 4, 29), percentages);
+  }
+
+  @Test
+  public void testRebalanceOneStock() {
+    StockPortfolioTimed portfolio = new StockPortfolioTimedImpl();
+
+    portfolio.purchase("GOOG", new Date(2024,4,24), 1);
+
+    Map<String, Double> percentages = new HashMap<String, Double>();
+    percentages.put("GOOG", 100.0);
+    portfolio.rebalance(new Date(2024, 4, 29), percentages);
+
+    String[] expected = new String[] {"GOOG: 1.0 share"};
+    assertArrayEquals(expected, portfolio.getComposition(new Date(2024, 4, 30)));
+  }
+
+  @Test
+  public void testPerformanceOverTime() {
+    StockPortfolioTimed portfolio = new StockPortfolioTimedImpl();
+
+    portfolio.purchase("MSFT", new Date(2024,3,24), 6);
+    portfolio.purchase("AAPL", new Date(2024,1,12), 1);
+
+    String performanceTime = portfolio.performanceOverTime(
+            new Date(2024, 1, 12),
+            new Date(2024, 4, 29)
+    );
+
+    assertEquals("Feb 2024: \n" +
+            "Mar 2024: **\n" +
+            "Apr 2024: **\n" +
+            "May 2024: ***************************\n" +
+            "\n" +
+            "Scale: * = $100", performanceTime);
+  }
+
+  @Test
+  public void testEvaluateBuyAfter() {
+    StockPortfolioTimed portfolio = new StockPortfolioTimedImpl();
+
+    portfolio.purchase("GOOG", new Date(2024,4,24), 5);
+    portfolio.purchase("AAPL", new Date(2024,4,24), 6);
+    portfolio.purchase("MSFT", new Date(2024,1,12), 1);
+
+    double expected = 2451.69;
+    double actual = portfolio.evaluate(new Date(2024, 4, 24));
+    assertEquals(expected, actual, 0.0);
+
+    double expectedEarlier = 409.06;
+    double actualEarlier = portfolio.evaluate(new Date(2024, 3, 24));
+    assertEquals(expectedEarlier, actualEarlier, 0.0);
+  }
+
+  @Test
+  public void testCompositionBuyAfter() {
+    StockPortfolioTimed portfolio = new StockPortfolioTimedImpl();
+
+    portfolio.purchase("GOOG", new Date(2024,4,24), 5);
+    portfolio.purchase("AAPL", new Date(2024,4,24), 6);
+    portfolio.purchase("MSFT", new Date(2024,1,12), 1);
+
+    String[] expected = new String[]{"GOOG: 5.0 shares", "AAPL: 6.0 shares", "MSFT: 1.0 share"};
+    String[] actual = portfolio.getComposition(new Date(2024, 4, 24));
+    assertArrayEquals(expected, actual);
+
+    String[] expectedEarlier = new String[]{"MSFT: 1.0 share"};
+    String[] actualEarlier = portfolio.getComposition(new Date(2024, 3, 24));
+    assertArrayEquals(expectedEarlier, actualEarlier);
   }
 }
