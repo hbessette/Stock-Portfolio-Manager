@@ -123,4 +123,15 @@ public class StockPortfolioTimedImplTest {
     assertArrayEquals(expected22, actual22);
     assertArrayEquals(expected24, actual24);
   }
+
+  @Test
+  public void testSellAll() {
+    StockPortfolioTimed portfolio = new StockPortfolioTimedImpl();
+    portfolio.purchase("GOOG", new Date(2024, 5, 21), 7);
+    portfolio.sellAll("GOOG", new Date(2024, 5, 22));
+
+    assertArrayEquals(new String[] {"GOOG: 0.0 shares"}, portfolio.getComposition(new Date(
+            2024, 5, 22
+    )));
+  }
 }

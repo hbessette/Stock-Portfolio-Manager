@@ -29,7 +29,7 @@ public class StockAndSharesTest {
   @Test
   public void testConstructor() {
     assertEquals(appleStock, appleSAS.getStock());
-    assertEquals(5, appleSAS.getShares());
+    assertEquals(5, appleSAS.getShares(), 0.0);
   }
 
   /**
@@ -39,7 +39,7 @@ public class StockAndSharesTest {
   public void testAddShares() {
     appleSAS.addShares(5);
 
-    assertEquals(10, appleSAS.getShares());
+    assertEquals(10, appleSAS.getShares(), 0.0);
   }
 
   /**
@@ -49,7 +49,7 @@ public class StockAndSharesTest {
   public void testRemoveShares() {
     appleSAS.removeShares(3);
 
-    assertEquals(2, appleSAS.getShares());
+    assertEquals(2, appleSAS.getShares(), 0.0);
   }
 
   /**

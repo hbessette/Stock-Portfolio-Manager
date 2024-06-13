@@ -23,5 +23,5 @@ public interface StockPortfolioTimed extends AStockPortfolio {
 
   public String[] getData();
 
-  public String[] getStockNames();
+  public String[] getStockNames(Date date);
 }

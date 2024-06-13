@@ -150,7 +150,18 @@ public class StockPortfolioTimedImpl implements StockPortfolioTimed {
 
   @Override
   public void sellAll(String name, Date date) throws IllegalArgumentException {
-    List<StockAndShares> sasList = this.stockCompositions.get(date).getStocksAndShares();
+    List<StockAndShares> sasList;
+    if (this.stockCompositions.containsKey(date)) {
+      sasList = this.stockCompositions.get(date).getStocksAndShares();
+    }
+    else {
+      StockPortfolioTimeStatus status_ = lastStatusSinceDate(date);
+      if (status_ == null) {
+        throw new IllegalArgumentException("You have no shares of this stock.");
+      }
+      sasList = status_.getStocksAndShares();
+    }
+
     for (StockAndShares sas : sasList) {
       if (sas.getStock().getSymbol().equals(name)) {
         sell(name, date, sas.getShares());
@@ -338,6 +349,10 @@ public class StockPortfolioTimedImpl implements StockPortfolioTimed {
   public void rebalance(Date date, Map<String, Double> percentages)
           throws IllegalArgumentException
   {
+    if (evaluate(date) == 0.0) {
+      throw new IllegalArgumentException("You don't have any shares to rebalance.");
+    }
+
     double total = 0;
     for (Double percentage : percentages.values()) {
       total += percentage;
@@ -346,34 +361,46 @@ public class StockPortfolioTimedImpl implements StockPortfolioTimed {
       throw new IllegalArgumentException("Percentages do not add up to 100%");
     }
 
-    // total evaluation of each stock
+    StockPortfolioTimeStatus timeStatus;
+    if (this.stockCompositions.containsKey(date)) {
+      timeStatus = this.stockCompositions.get(date);
+    }
+    else {
+      timeStatus = lastStatusSinceDate(date);
+      if (timeStatus == null) {
+        throw new
+                IllegalArgumentException("You didn't buy any stocks before the date you entered.");
+      }
+    }
+
+    List<StockAndShares> stocksShares = timeStatus.getStocksAndShares();
+    Map<String, Double> stockPrices = new HashMap<String, Double>();
+    Map<String, Double> sharesOwned = new HashMap<String, Double>();
     double totalValue = 0;
-    // map of each stocks value
-    Map<StockAndShares, Double> composition = new HashMap<>();
-    for (StockPortfolioTimeStatus sts : this.stockCompositions.values()) {
-      for (StockAndShares sas : sts.getStocksAndShares()) {
-        double value = sas.getStock().getStockDayStatus(date).getClosingTime() * sas.getShares();
-        composition.put(sas, value);
-        totalValue += value;
-      }
+    for (StockAndShares stockShare_ : stocksShares) {
+      totalValue += stockShare_.getStock().getStockDayStatus(date).getClosingTime()
+              * stockShare_.getShares();
+      stockPrices.put(stockShare_.getStock().getSymbol(), stockShare_.getStock()
+              .getStockDayStatus(date).getClosingTime());
+      sharesOwned.put(stockShare_.getStock().getSymbol(), stockShare_.getShares());
     }
 
-    for (StockAndShares sas : composition.keySet()) {
-      double percentage = percentages.get(this.);
-      double value = composition.get(sas);
-      double portion = value / totalValue;
-      if (portion != percentage) {
-        double stocksToBuyOrSell = (portion - percentage) * sas.getShares();
-        if (stocksToBuyOrSell > 0) {
-          this.sell(sas.getStock().getSymbol(), date, stocksToBuyOrSell);
-        } else {
-          this.purchase(sas.getStock().getSymbol(), date, Math.abs(stocksToBuyOrSell));
-        }
+    for (String stockName : percentages.keySet()) {
+      double newRequiredValue = totalValue * (percentages.get(stockName) / 100);
+      if (stockPrices.get(stockName) == 0) {
+        throw new IllegalArgumentException("Rebalancing is impossible as one of your stocks has" +
+                " a price of $0 at this date.");
+      }
+      double sharesRequired = newRequiredValue / stockPrices.get(stockName);
+
+      double buyOrSell = sharesRequired - sharesOwned.get(stockName);
+      if (buyOrSell > 0) {
+        purchase(stockName, date, buyOrSell);
+      }
+      else {
+        sell(stockName, date, Math.abs(buyOrSell));
       }
     }
-
-
-
   }
 
   @Override
@@ -497,10 +524,13 @@ public class StockPortfolioTimedImpl implements StockPortfolioTimed {
   }
 
   @Override
-  public String[] getStockNames() {
-    StringBuilder returnOutput = new StringBuilder();
-    for (StockPortfolioTimeStatus s : this.stockCompositions.values()) {
+  public String[] getStockNames(Date date) {
+    List<String> stocksNames = new ArrayList<String>();
+    for (StockAndShares sas : this.stockCompositions.get(date).getStocksAndShares()) {
+      stocksNames.add(sas.getStock().getSymbol());
     }
+
+    return stocksNames.toArray(new String[0]);
   }
 
   private Map<Date, StockPortfolioTimeStatus> loadData(String[] data) {
