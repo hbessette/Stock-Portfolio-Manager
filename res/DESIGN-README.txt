@@ -1,3 +1,14 @@
+Design changes:
+- Stocks and portfolios now work with a double amount of shares rather than an integer.
+  This change allows fractional shares.
+
+- All operations called by the controller are now public methods in the model, rather than the
+  model passing a portfolio or stock which the controller then operates on. This change prevents
+  
+
+
+================================================
+
 The design is split into four main packages: model, view, controller, and api.
 
 

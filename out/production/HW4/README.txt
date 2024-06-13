@@ -11,3 +11,4 @@ Features that work and are complete:
 - Getting the gain or loss of a stock over a specified time period
 - Getting the x-day moving average of a stock with a specified start day and X value
 - Getting all x-day crossovers of a stock with a specified start day and X value
+- Quitting the program with "quit".

@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.Set;
 
 import stocks.model.StockModel;
 import stocks.model.StockModelImpl;
@@ -12,6 +13,8 @@ import stocks.model.stock.StocksImpl;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Tests for the stockModel class.
@@ -32,16 +35,11 @@ public class StockModelTest {
     model.addPortfolio("Tester");
     model.addPortfolio("A");
     model.addPortfolio("B");
-    //model.getPortfolioByName("Tester").purchase(AAPL, new Date(2024, 5, 31), );
+    Set<String> port = model.getAllPortfolios();
 
-    String expected = "Portfolio Tester added." + System.lineSeparator()
-            + "Portfolio A added." + System.lineSeparator()
-            + "Portfolio B added." + System.lineSeparator()
-            + "Portfolio Tester received." + System.lineSeparator()
-            + "Portfolio Tester received." + System.lineSeparator();
-
-    //assertEquals(appleStock, model.getPortfolioByName("Tester").getStockByName("AAPL"));
-    assertEquals(expected, model.returnLog());
+    assertTrue(port.contains("Tester"));
+    assertTrue(port.contains("A"));
+    assertTrue(port.contains("B"));
   }
 
   /**
@@ -56,13 +54,11 @@ public class StockModelTest {
     StockModel model = new StockModelImpl();
 
     model.addPortfolio("Tester");
+
+    assertTrue(model.getAllPortfolios().contains("Tester"));
     model.removePortfolio("Tester");
+    assertFalse(model.getAllPortfolios().contains("Tester"));
     model.removePortfolio("Something");
-
-    String expected = "Portfolio Tester added." + System.lineSeparator()
-            + "Portfolio Tester removed." + System.lineSeparator();
-
-    assertEquals(expected, model.returnLog());
   }
 
   /**
