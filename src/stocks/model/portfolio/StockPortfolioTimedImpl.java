@@ -283,7 +283,7 @@ public class StockPortfolioTimedImpl implements StockPortfolioTimed {
   }
 
   @Override
-  public String[] getDistribution(Date date) {
+  public String[] getDistribution(Date date) throws IllegalArgumentException {
     List<StockAndShares> stocksAndShares;
     try {
       stocksAndShares = getSASForDistribution(date);

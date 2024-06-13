@@ -61,8 +61,8 @@ public class StockControllerImpl implements StockController {
           int day = this.in.nextInt();
           int year = this.in.nextInt();
           try {
-            Map<String, Double> percentages = new HashMap<>();
-            for (String stock : this.model.getPortfolioByName(portfolio).getStockNames()) {
+            Map<String, Double> percentages = new HashMap<>(); // DELET NEW DATE
+            for (String stock : this.model.getPortfolioByName(portfolio).getStockNames(new Date())) {
               view.show("Enter percentage for " + stock);
               double percentage = this.in.nextDouble() / 100.0;
               percentages.put(stock, percentage);

@@ -10,7 +10,6 @@ import stocks.model.portfolio.StockPortfolioTimedImpl;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 public class StockPortfolioTimedImplTest {
   @Test
@@ -235,6 +234,19 @@ public class StockPortfolioTimedImplTest {
             "Scale: * = $100", performanceTime);
   }
 
+  @Test(expected = IllegalArgumentException.class)
+  public void testPerformanceOverTimeReversed() {
+    StockPortfolioTimed portfolio = new StockPortfolioTimedImpl();
+
+    portfolio.purchase("MSFT", new Date(2024,3,24), 6);
+    portfolio.purchase("AAPL", new Date(2024,1,12), 1);
+
+    portfolio.performanceOverTime(
+            new Date(2024, 4, 29),
+            new Date(2024, 1, 12)
+    );
+  }
+
   @Test
   public void testEvaluateBuyAfter() {
     StockPortfolioTimed portfolio = new StockPortfolioTimedImpl();
@@ -267,5 +279,38 @@ public class StockPortfolioTimedImplTest {
     String[] expectedEarlier = new String[]{"MSFT: 1.0 share"};
     String[] actualEarlier = portfolio.getComposition(new Date(2024, 3, 24));
     assertArrayEquals(expectedEarlier, actualEarlier);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testSellAllNoShares() {
+    StockPortfolioTimed portfolio = new StockPortfolioTimedImpl();
+    portfolio.sellAll("dkjsalfkf", new Date(2024, 3, 24));
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testSellAllNoSharesExists() {
+    StockPortfolioTimed portfolio = new StockPortfolioTimedImpl();
+    portfolio.purchase("GOOG", new Date(2024, 3, 24), 34.0);
+    portfolio.sellAll("dkjsalfkf", new Date(2024, 3, 24));
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testSellNoSharesExists() {
+    StockPortfolioTimed portfolio = new StockPortfolioTimedImpl();
+    portfolio.sell("GOOG", new Date(2024, 3, 24), 0.0);
+  }
+
+  @Test
+  public void testCompositionNoShares() {
+    StockPortfolioTimed portfolio = new StockPortfolioTimedImpl();
+    String[] actual = portfolio.getComposition(new Date(2024, 3, 24));
+    assertArrayEquals(new String[] {"No stocks are owned at this time."}, actual);
+  }
+
+  @Test
+  public void testDistributionNoShares() {
+    StockPortfolioTimed portfolio = new StockPortfolioTimedImpl();
+    String[] actual = portfolio.getDistribution(new Date(2024, 3, 24));
+    assertArrayEquals(new String[] {"No stocks are owned at this time."}, actual);
   }
 }
