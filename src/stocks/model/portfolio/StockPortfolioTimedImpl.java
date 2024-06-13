@@ -245,10 +245,10 @@ public class StockPortfolioTimedImpl implements StockPortfolioTimed {
 
       if (!futureFound) {
         throw new IllegalArgumentException(
-              "You have already input that you sold an amount of this stock at a later date. "
-                      + "Selling it on the date you have now provided would make this "
-                      + "impossible; you are selling enough such that your future sale would"
-                      + "be selling stocks you do not have. This is not allowed."
+                "You have already input that you sold an amount of this stock at a later date. "
+                        + "Selling it on the date you have now provided would make this "
+                        + "impossible; you are selling enough such that your future sale would"
+                        + "be selling stocks you do not have. This is not allowed."
         );
       }
       this.stockCompositions.put(afterDate, new StockPortfolioTimeStatus(futureStocksAndShares));
@@ -386,7 +386,6 @@ public class StockPortfolioTimedImpl implements StockPortfolioTimed {
       sharesOwned.put(stockShare_.getStock().getSymbol(), stockShare_.getShares());
     }
 
-<<<<<<< Updated upstream
     for (String stockName : percentages.keySet()) {
       double newRequiredValue = totalValue * (percentages.get(stockName) / 100);
       if (stockPrices.get(stockName) == 0) {
@@ -401,19 +400,6 @@ public class StockPortfolioTimedImpl implements StockPortfolioTimed {
       }
       else {
         sell(stockName, date, Math.abs(buyOrSell));
-=======
-    for (StockAndShares sas : composition.keySet()) {
-      double percentage = percentages.get(sas);
-      double value = composition.get(sas);
-      double portion = value / totalValue;
-      if (portion != percentage) {
-        double stocksToBuyOrSell = (portion - percentage) * sas.getShares();
-        if (stocksToBuyOrSell > 0) {
-          this.sell(sas.getStock().getSymbol(), date, stocksToBuyOrSell);
-        } else {
-          this.purchase(sas.getStock().getSymbol(), date, Math.abs(stocksToBuyOrSell));
-        }
->>>>>>> Stashed changes
       }
     }
   }
@@ -565,28 +551,24 @@ public class StockPortfolioTimedImpl implements StockPortfolioTimed {
     for (StockAndShares sas : this.stockCompositions.get(date).getStocksAndShares()) {
       stocksNames.add(sas.getStock().getSymbol());
     }
-<<<<<<< Updated upstream
 
     return stocksNames.toArray(new String[0]);
-=======
-    return null;
->>>>>>> Stashed changes
   }
 
   private Map<Date, StockPortfolioTimeStatus> loadData(String[] data) {
     Map<Date, StockPortfolioTimeStatus> returnCompositions = new HashMap<>();
-      for (String line : data) {
-        String[] parsedLine = line.split(",");
-        Date date = new Date(Integer.parseInt(parsedLine[2]), Integer.parseInt(parsedLine[0]) - 1,
-                Integer.parseInt(parsedLine[1]));
-        returnCompositions.put(date,
-                new StockPortfolioTimeStatus(new ArrayList<>()));
-        for (int idx = 3; idx < parsedLine.length; idx += 2) {
-          returnCompositions.get(date).getStocksAndShares()
-                  .add(new StockAndShares(new StocksImpl(parsedLine[idx]),
-                          Double.parseDouble(parsedLine[idx + 1])));
-        }
+    for (String line : data) {
+      String[] parsedLine = line.split(",");
+      Date date = new Date(Integer.parseInt(parsedLine[2]), Integer.parseInt(parsedLine[0]) - 1,
+              Integer.parseInt(parsedLine[1]));
+      returnCompositions.put(date,
+              new StockPortfolioTimeStatus(new ArrayList<>()));
+      for (int idx = 3; idx < parsedLine.length; idx += 2) {
+        returnCompositions.get(date).getStocksAndShares()
+                .add(new StockAndShares(new StocksImpl(parsedLine[idx]),
+                        Double.parseDouble(parsedLine[idx + 1])));
       }
+    }
     return returnCompositions;
   }
 
