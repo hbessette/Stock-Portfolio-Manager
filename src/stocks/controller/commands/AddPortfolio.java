@@ -3,18 +3,24 @@ package stocks.controller.commands;
 import stocks.model.StockModel;
 import stocks.view.StockView;
 
+import java.util.Scanner;
+
 /**
  * A command to create a portfolio.
  */
-public class AddPortfolio extends APortfolioCommand {
+public class AddPortfolio implements StockControllerCommand {
+
+  private final String portfolioName;
 
   /**
    * Constructs this command.
    *
-   * @param portfolioName the name of the portfolio
+   * @param s : scanner for input
+   * @param view : to display prompts for user
    */
-  public AddPortfolio(String portfolioName) {
-    super(portfolioName);
+  public AddPortfolio(Scanner s, StockView view) {
+    view.show("Enter portfolio name: ");
+    this.portfolioName = s.next();
   }
 
   /**

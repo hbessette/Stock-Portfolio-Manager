@@ -4,12 +4,29 @@ import stocks.model.StockModel;
 import stocks.view.StockView;
 
 import java.util.Date;
+import java.util.Scanner;
 
-public class GetComposition extends APortfolioCommand {
+/**
+ * To represent getting the composition for a specific portfolio on a specific date.
+ */
+public class GetComposition implements StockControllerCommand {
   private final Date date;
+  private final String portfolioName;
 
-  public GetComposition(String portfolioName, int month, int day, int year) {
-    super(portfolioName);
+  /**
+   * To create a get composition command.
+   * @param view : to prompt user inputs.
+   * @param s : to take in user inputs.
+   */
+  public GetComposition(Scanner s, StockView view) {
+    view.show("Enter the portfolio name to get composition for: ");
+    this.portfolioName = s.next();
+    view.show("Enter the year to get composition for: ");
+    int year = s.nextInt();
+    view.show("Enter the month to get composition for: ");
+    int month = s.nextInt();
+    view.show("Enter the day to get composition for: ");
+    int day = s.nextInt();
     this.date = new Date(year, month, day);
   }
 

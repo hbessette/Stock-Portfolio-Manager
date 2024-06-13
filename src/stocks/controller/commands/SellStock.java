@@ -5,17 +5,36 @@ import stocks.model.portfolio.StockPortfolioTimed;
 import stocks.view.StockView;
 
 import java.util.Date;
+import java.util.Scanner;
 
-public class SellStock extends ASymbolControllerCommand {
+/**
+ * To sell stock for a specific portfolio at a specified date and amount.
+ */
+public class SellStock implements StockControllerCommand {
   private final String portfolioName;
   private final Date date;
   private final double amount;
-  public SellStock(String portfolioName, String symbol, int month, int day, int year,
-                   double amount) {
-    super(symbol);
+  private final String symbol;
+
+  /**
+   * To create a sell stock object.
+   * @param s : to take in user inputs
+   * @param view : to prompt user inputs
+   */
+  public SellStock(Scanner s, StockView view) {
+    view.show("Enter the portfolio name to sell stock for: ");
+    this.portfolioName = s.next();
+    view.show("Enter the symbol to sell stock for: ");
+    this.symbol = s.next();
+    view.show("Enter the year to sell stock for: ");
+    int year = s.nextInt();
+    view.show("Enter the month to sell stock for: ");
+    int month = s.nextInt() - 1;
+    view.show("Enter the day to sell stock for: ");
+    int day = s.nextInt();
+    view.show("Enter the amount of stock to sell (fractional values are acceptable): ");
+    this.amount = s.nextDouble();
     this.date = new Date(year, month, day);
-    this.portfolioName = portfolioName;
-    this.amount = amount;
   }
 
   @Override

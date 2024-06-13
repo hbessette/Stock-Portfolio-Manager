@@ -40,7 +40,7 @@ public class StockControllerImpl implements StockController {
   @Override
   public void start() {
     boolean quit = false;
-    Map<String, Function<Scanner, StockControllerCommand>> commands = getCommands();
+    Map<String, Function<Scanner, StockControllerCommand>> commands = getCommands(this.view);
 
     this.view.welcomeMessage();
     while (!quit) {
@@ -87,31 +87,21 @@ public class StockControllerImpl implements StockController {
     }
   }
 
-  private static Map<String, Function<Scanner, StockControllerCommand>> getCommands() {
+  private static Map<String, Function<Scanner, StockControllerCommand>> getCommands(StockView view) {
     Map<String, Function<Scanner, StockControllerCommand>> commands = new HashMap<>();
-    commands.put("get-x-day-average", (Scanner s) -> new XDayMovingAverage(s.next(),
-            s.nextInt() - 1, s.nextInt(), s.nextInt(), s.nextInt()));
-    commands.put("get-x-day-crossovers", (Scanner s) -> new XDayCrossovers(s.next(),
-            s.nextInt() - 1, s.nextInt(), s.nextInt(), s.nextInt()));
-    commands.put("evaluate-portfolio", (Scanner s) -> new EvaluatePortfolio(s.next(),
-            s.nextInt() - 1, s.nextInt(), s.nextInt()));
-    commands.put("add-portfolio", (Scanner s) -> new AddPortfolio(s.next()));
-    commands.put("remove-portfolio", (Scanner s) -> new RemovePortfolio(s.next()));
+    commands.put("get-x-day-average", (Scanner s) -> new XDayMovingAverage(s, view));
+    commands.put("get-x-day-crossovers", (Scanner s) -> new XDayCrossovers(s, view));
+    commands.put("evaluate-portfolio", (Scanner s) -> new EvaluatePortfolio(s, view));
+    commands.put("add-portfolio", (Scanner s) -> new AddPortfolio(s, view));
+    commands.put("remove-portfolio", (Scanner s) -> new RemovePortfolio(s, view));
     commands.put("show-all-portfolios", (Scanner s) -> new ShowAllPortfolios());
-    commands.put("get-price-change", (Scanner s) -> new GetPriceChange(s.next(),
-            s.nextInt() - 1, s.nextInt(), s.nextInt(), s.nextInt() - 1,
-            s.nextInt(), s.nextInt()));
-    commands.put("save-portfolio", (Scanner s) -> new SavePortfolio(s.next()));
-    commands.put("load-portfolio", (Scanner s) -> new LoadPortfolio(s.next()));
-    commands.put("buy-stock", (Scanner s) -> new BuyStock(s.next(), s.next(), s.nextInt() - 1,
-            s.nextInt(), s.nextInt(), s.nextInt()));
-    commands.put("get-composition", (Scanner s) -> new GetComposition(s.next(), s.nextInt() - 1,
-            s.nextInt(), s.nextInt()));
-    commands.put("sell-stock", (Scanner s) -> new SellStock(s.next(), s.next(), s.nextInt() - 1,
-            s.nextInt(), s.nextInt(), s.nextDouble()));
-    commands.put("sell-all-stock", (Scanner s) -> new SellAllStock(s.next(), s.next(),
-            s.nextInt() - 1,
-            s.nextInt(), s.nextInt()));
+    commands.put("get-price-change", (Scanner s) -> new GetPriceChange(s, view));
+    commands.put("save-portfolio", (Scanner s) -> new SavePortfolio(s, view));
+    commands.put("load-portfolio", (Scanner s) -> new LoadPortfolio(s, view));
+    commands.put("buy-stock", (Scanner s) -> new BuyStock(s, view));
+    commands.put("get-composition", (Scanner s) -> new GetComposition(s, view));
+    commands.put("sell-stock", (Scanner s) -> new SellStock(s, view));
+    commands.put("sell-all-stock", (Scanner s) -> new SellAllStock(s,view));
     return commands;
   }
 }
