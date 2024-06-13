@@ -1,9 +1,7 @@
 package stocks.controller.commands;
 
 import stocks.model.StockModel;
-import stocks.model.macros.StockMacroXDayCrossovers;
 import stocks.view.StockView;
-
 
 import java.util.Date;
 import java.util.Scanner;
@@ -44,11 +42,9 @@ public class XDayCrossovers implements StockControllerCommand {
    */
   @Override
   public void start(StockView view, StockModel model) {
-    Date[] dates =
-            new StockMacroXDayCrossovers(this.startDate, this.xDays)
-                    .apply(model.getStockByName(this.symbol));
-    for (Date date : dates) {
-      view.show((date.getMonth() + 1) + "-" + date.getDate() + "-" + date.getYear());
+    String[] dates = model.getXDayCrossovers(this.symbol, this.startDate, this.xDays);
+    for (String s : dates) {
+      view.show(s);
     }
   }
 }

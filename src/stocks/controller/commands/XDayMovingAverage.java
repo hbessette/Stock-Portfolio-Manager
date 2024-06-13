@@ -1,7 +1,6 @@
 package stocks.controller.commands;
 
 import stocks.model.StockModel;
-import stocks.model.macros.StockMacroXDayMovingAverage;
 import stocks.view.StockView;
 
 import java.util.Date;
@@ -42,9 +41,7 @@ public class XDayMovingAverage implements StockControllerCommand {
    */
   @Override
   public void start(StockView view, StockModel model) {
-    double average =
-            new StockMacroXDayMovingAverage(this.startDate, this.xDays).apply(
-                    model.getStockByName(this.symbol));
+    double average = model.getXDayMovingAverage(this.symbol, this.startDate, this.xDays);
     view.show("Moving average for " + this.symbol + " from " + (this.startDate.getMonth() + 1) +
             "-" + this.startDate.getDate() + "-" + this.startDate.getYear() +
             " is $" + (Math.round(average * 100.00) / 100.00) + ".");

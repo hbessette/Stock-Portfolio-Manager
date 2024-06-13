@@ -1,9 +1,9 @@
 package stocks.model.stock;
 
+import stocks.model.daystatus.StockDayStatus;
+
 import java.util.Date;
 import java.util.Set;
-
-import stocks.model.daystatus.StockDayStatus;
 
 /**
  * Represents a single stock.

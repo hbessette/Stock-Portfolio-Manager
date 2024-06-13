@@ -15,7 +15,7 @@ public class AddPortfolio implements StockControllerCommand {
   /**
    * Constructs this command.
    *
-   * @param s : scanner for input
+   * @param s    : scanner for input
    * @param view : to display prompts for user
    */
   public AddPortfolio(Scanner s, StockView view) {

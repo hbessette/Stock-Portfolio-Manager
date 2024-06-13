@@ -1,7 +1,8 @@
 package stocks.model;
 
-import stocks.model.portfolio.AStockPortfolio;
-import stocks.model.portfolio.StockPortfolioImpl;
+import stocks.model.macros.StockMacroPriceChange;
+import stocks.model.macros.StockMacroXDayCrossovers;
+import stocks.model.macros.StockMacroXDayMovingAverage;
 import stocks.model.portfolio.StockPortfolioTimed;
 import stocks.model.portfolio.StockPortfolioTimedImpl;
 import stocks.model.stock.Stocks;
@@ -60,8 +61,7 @@ public class StockModelImpl implements StockModel {
    * @param name the name of the portfolio
    * @return the portfolio
    */
-  @Override
-  public StockPortfolioTimed getPortfolioByName(String name) throws NoSuchElementException {
+  private StockPortfolioTimed getPortfolioByName(String name) throws NoSuchElementException {
     try {
       this.log.append("Portfolio ").append(name).append(" received.")
               .append(System.lineSeparator());
@@ -98,8 +98,7 @@ public class StockModelImpl implements StockModel {
    * @param symbol a stock symbol (e.g. "GOOG" for Google)
    * @return the new stock
    */
-  @Override
-  public Stocks getStockByName(String symbol) {
+  private Stocks getStockByName(String symbol) {
     this.log.append("Stock ").append(symbol).append(" received.").append(System.lineSeparator());
     return new StocksImpl(symbol);
   }
@@ -128,7 +127,7 @@ public class StockModelImpl implements StockModel {
   @Override
   public void savePortfolio(String name) throws NoSuchElementException {
     StockPortfolioTimed portfolio;
-    if(!this.portfolios.containsKey(name)) {
+    if (!this.portfolios.containsKey(name)) {
       throw new NoSuchElementException("No portfolio exists.");
     } else {
       portfolio = this.portfolios.get(name);
@@ -173,4 +172,68 @@ public class StockModelImpl implements StockModel {
     this.portfolios.put(name, portfolio);
     this.log.append("Portfolio ").append(name).append(" loaded.").append(System.lineSeparator());
   }
+
+  @Override
+  public String[] getCompositionForPortfolio(String portfolioName, Date date) {
+    return this.getPortfolioByName(portfolioName).getComposition(date);
+  }
+
+  @Override
+  public String[] getDistributionForPortfolio(String portfolioName, Date date) {
+    return this.getPortfolioByName(portfolioName).getDistribution(date);
+  }
+
+  @Override
+  public void purchaseStockForPortfolio(String portfolioName, String symbol, Date date,
+                                        double amount) {
+    this.getPortfolioByName(portfolioName).purchase(symbol, date, amount);
+  }
+
+  @Override
+  public void sellStockForPortfolio(String portfolioName, String symbol, Date date, double amount) {
+    this.getPortfolioByName(portfolioName).sell(symbol, date, amount);
+  }
+
+  @Override
+  public double getPriceChangeForStock(String symbol, Date startDate, Date endDate) {
+    double priceChange = new StockMacroPriceChange(startDate, endDate).apply(
+            this.getStockByName(symbol));
+    priceChange = Math.round(priceChange * 100.00) / 100.00;
+    return priceChange;
+  }
+
+  @Override
+  public double getXDayMovingAverage(String symbol, Date startDate, int xDays) {
+    return new StockMacroXDayMovingAverage(startDate, xDays).apply(
+            this.getStockByName(symbol));
+  }
+
+  @Override
+  public String[] getXDayCrossovers(String symbol, Date startDate, int xDays) {
+    Date[] dates = new StockMacroXDayCrossovers(startDate, xDays)
+            .apply(this.getStockByName(symbol));
+    StringBuilder s = new StringBuilder();
+    for (Date date : dates) {
+      s.append((date.getMonth() + 1)).append("-").append(date.getDate()).append("-")
+              .append(date.getYear()).append(System.lineSeparator());
+    }
+    return s.toString().split(System.lineSeparator());
+  }
+
+  @Override
+  public void rebalancePortfolio(String portfolioName, Date date, Map<String, Double> percentages) {
+    this.getPortfolioByName(portfolioName).rebalance(date, percentages);
+  }
+
+  @Override
+  public String[] getStockNamesForPortfolio(String portfolioName, Date date) {
+    return this.getPortfolioByName(portfolioName).getStockNames(date);
+  }
+
+  @Override
+  public void sellAllStockForPortfolio(String portfolioName, String symbol, Date date) {
+    this.getPortfolioByName(portfolioName).sellAll(symbol, date);
+  }
+
+
 }

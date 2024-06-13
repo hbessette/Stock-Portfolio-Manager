@@ -14,7 +14,8 @@ public class SavePortfolio implements StockControllerCommand {
 
   /**
    * To create a save portfolio object.
-   * @param s : to take in user inputs
+   *
+   * @param s    : to take in user inputs
    * @param view : to prompt user inputs
    */
   public SavePortfolio(Scanner s, StockView view) {

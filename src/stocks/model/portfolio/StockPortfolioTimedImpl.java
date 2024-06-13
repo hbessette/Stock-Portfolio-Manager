@@ -1,7 +1,6 @@
 package stocks.model.portfolio;
 
 import stocks.model.portfolio.shares.StockAndShares;
-import stocks.model.stock.Stocks;
 import stocks.model.stock.StocksImpl;
 
 import java.util.*;
@@ -22,6 +21,7 @@ public class StockPortfolioTimedImpl implements StockPortfolioTimed {
     this.log = new StringBuilder();
     this.stockCompositions = loadData(data);
   }
+
   /**
    * Returns the composition data for the last date of which there is composition data in this
    * portfolio stored from the given date.
@@ -60,7 +60,7 @@ public class StockPortfolioTimedImpl implements StockPortfolioTimed {
       return null;
     }
 
-    Date dateAt = datesOrdered.get(indexThisDate-1);
+    Date dateAt = datesOrdered.get(indexThisDate - 1);
 
     return this.stockCompositions.get(dateAt);
   }
@@ -93,8 +93,7 @@ public class StockPortfolioTimedImpl implements StockPortfolioTimed {
       // If the date specified already has data for it
       stocksAndShares = this.stockCompositions.get(date).getStocksAndShares();
       purchaseHelper(date, stocksAndShares, name, shares);
-    }
-    else {
+    } else {
       // If the date specified does not already have data for it
       StockPortfolioTimeStatus timeStatus = lastStatusSinceDate(date);
 
@@ -107,8 +106,7 @@ public class StockPortfolioTimedImpl implements StockPortfolioTimed {
         ));
         this.stockCompositions.put(date,
                 new StockPortfolioTimeStatus(new_));
-      }
-      else {
+      } else {
         stocksAndShares = timeStatus.getStocksAndShares();
         purchaseHelper(date, stocksAndShares, name, shares);
       }
@@ -133,8 +131,7 @@ public class StockPortfolioTimedImpl implements StockPortfolioTimed {
                 sas.getStock(),
                 sas.getShares() + shares
         ));
-      }
-      else {
+      } else {
         newStocksAndShares.add(sas);
       }
     }
@@ -153,8 +150,7 @@ public class StockPortfolioTimedImpl implements StockPortfolioTimed {
     List<StockAndShares> sasList;
     if (this.stockCompositions.containsKey(date)) {
       sasList = this.stockCompositions.get(date).getStocksAndShares();
-    }
-    else {
+    } else {
       StockPortfolioTimeStatus status_ = lastStatusSinceDate(date);
       if (status_ == null) {
         throw new IllegalArgumentException("You have no shares of this stock.");
@@ -178,8 +174,7 @@ public class StockPortfolioTimedImpl implements StockPortfolioTimed {
     if (this.stockCompositions.containsKey(date)) {
       // If the date specified already has data for it
       stocksAndShares = this.stockCompositions.get(date).getStocksAndShares();
-    }
-    else {
+    } else {
       // If the date specified does not already have data for it
       StockPortfolioTimeStatus timeStatus = lastStatusSinceDate(date);
 
@@ -205,8 +200,7 @@ public class StockPortfolioTimedImpl implements StockPortfolioTimed {
                 sas.getStock(),
                 sas.getShares() - shares
         ));
-      }
-      else {
+      } else {
         newStocksAndShares.add(sas);
       }
     }
@@ -236,8 +230,7 @@ public class StockPortfolioTimedImpl implements StockPortfolioTimed {
                   sas.getStock(),
                   sas.getShares() - shares
           ));
-        }
-        else {
+        } else {
           futureStocksAndShares.add(sas);
         }
       }
@@ -288,7 +281,7 @@ public class StockPortfolioTimedImpl implements StockPortfolioTimed {
     try {
       stocksAndShares = getSASForDistribution(date);
     } catch (IllegalArgumentException e) {
-      return new String[] {"No stocks are owned at this time."};
+      return new String[]{"No stocks are owned at this time."};
     }
     List<String> returnLines = new ArrayList<String>();
 
@@ -307,8 +300,7 @@ public class StockPortfolioTimedImpl implements StockPortfolioTimed {
     List<StockAndShares> stocksAndShares = new ArrayList<StockAndShares>();
     if (this.stockCompositions.containsKey(date)) {
       stocksAndShares = this.stockCompositions.get(date).getStocksAndShares();
-    }
-    else {
+    } else {
       StockPortfolioTimeStatus timeStatus = lastStatusSinceDate(date);
       if (timeStatus == null) {
         throw new IllegalArgumentException("No stocks are owned at this time.");
@@ -331,8 +323,7 @@ public class StockPortfolioTimedImpl implements StockPortfolioTimed {
     List<StockAndShares> stocksAndShares = new ArrayList<StockAndShares>();
     if (this.stockCompositions.containsKey(date)) {
       stocksAndShares = this.stockCompositions.get(date).getStocksAndShares();
-    }
-    else {
+    } else {
       StockPortfolioTimeStatus timeStatus = lastStatusSinceDate(date);
       if (timeStatus == null) {
         return 0;
@@ -348,8 +339,7 @@ public class StockPortfolioTimedImpl implements StockPortfolioTimed {
 
   @Override
   public void rebalance(Date date, Map<String, Double> percentages)
-          throws IllegalArgumentException
-  {
+          throws IllegalArgumentException {
     if (evaluate(date) == 0.0) {
       throw new IllegalArgumentException("You don't have any shares to rebalance.");
     }
@@ -365,8 +355,7 @@ public class StockPortfolioTimedImpl implements StockPortfolioTimed {
     StockPortfolioTimeStatus timeStatus;
     if (this.stockCompositions.containsKey(date)) {
       timeStatus = this.stockCompositions.get(date);
-    }
-    else {
+    } else {
       timeStatus = lastStatusSinceDate(date);
       if (timeStatus == null) {
         throw new
@@ -397,8 +386,7 @@ public class StockPortfolioTimedImpl implements StockPortfolioTimed {
       double buyOrSell = sharesRequired - sharesOwned.get(stockName);
       if (buyOrSell > 0) {
         purchase(stockName, date, buyOrSell);
-      }
-      else {
+      } else {
         sell(stockName, date, Math.abs(buyOrSell));
       }
     }
@@ -413,19 +401,16 @@ public class StockPortfolioTimedImpl implements StockPortfolioTimed {
     }
 
     String mode;
-    int monthsBetween = (((dateEnd.getYear() -  dateStart.getYear()) * 12) +
+    int monthsBetween = (((dateEnd.getYear() - dateStart.getYear()) * 12) +
             (dateEnd.getMonth() - dateStart.getMonth()));
 
-    if (monthsBetween > 5*12) {
+    if (monthsBetween > 5 * 12) {
       mode = "years";
-    }
-    else if (monthsBetween > 16) {
+    } else if (monthsBetween > 16) {
       mode = "quarters";
-    }
-    else if (monthsBetween > 1) {
+    } else if (monthsBetween > 1) {
       mode = "months";
-    }
-    else {
+    } else {
       mode = "days";
     }
 
@@ -435,21 +420,21 @@ public class StockPortfolioTimedImpl implements StockPortfolioTimed {
     long endTimeDays = dateEnd.getTime() / millisecondConversionNumber;
     int iterAmountDays;
     switch (mode) {
-      case "years" :
+      case "years":
         iterAmountDays = 366;
         break;
-      case "quarters" :
+      case "quarters":
         iterAmountDays = 92;
         break;
-      case "months" :
+      case "months":
         iterAmountDays = 31;
         break;
-      default :
+      default:
         iterAmountDays = 1;
     }
 
     double maxVal = 0;
-    for (long i = startTimeDays; i < endTimeDays; i+= iterAmountDays) {
+    for (long i = startTimeDays; i < endTimeDays; i += iterAmountDays) {
       Date dd = new Date();
       dd.setTime(i * millisecondConversionNumber);
       dd = new Date(dd.getYear(), dd.getMonth(), dd.getDate());
@@ -482,31 +467,31 @@ public class StockPortfolioTimedImpl implements StockPortfolioTimed {
       evaluationsAtKeyPoints.put(dd, value);
     }
 
-    String scaler = String.valueOf((int)Math.ceil(maxVal / 20));
+    String scaler = String.valueOf((int) Math.ceil(maxVal / 20));
 
     int starScale = Integer.parseInt(scaler.charAt(0) + "0".repeat(scaler.length() - 1));
 
     // Will be returned
     StringBuilder returnStrings = new StringBuilder();
 
-    Set<Date> keyPointDateSet =  evaluationsAtKeyPoints.keySet();
+    Set<Date> keyPointDateSet = evaluationsAtKeyPoints.keySet();
     List<Date> keyPointDatesOrdered = new ArrayList<Date>(keyPointDateSet);
     Collections.sort(keyPointDatesOrdered);
 
     for (Date keyDate : keyPointDatesOrdered) {
       String dateDisplay;
-      String[] monthsIdx = new String[] {
+      String[] monthsIdx = new String[]{
               "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
       };
       switch (mode) {
-        case "years" :
+        case "years":
           dateDisplay = String.valueOf(keyDate.getYear());
           break;
-        case "quarters" :
-        case "months" :
+        case "quarters":
+        case "months":
           dateDisplay = monthsIdx[keyDate.getMonth()] + " " + String.valueOf(keyDate.getYear());
           break;
-        default :
+        default:
           String day_ = String.valueOf(keyDate.getDate());
           if (day_.length() == 1) {
             day_ = "0" + day_;
@@ -548,10 +533,25 @@ public class StockPortfolioTimedImpl implements StockPortfolioTimed {
   @Override
   public String[] getStockNames(Date date) {
     List<String> stocksNames = new ArrayList<String>();
-    for (StockAndShares sas : this.stockCompositions.get(date).getStocksAndShares()) {
-      stocksNames.add(sas.getStock().getSymbol());
+
+    List<StockAndShares> sasList;
+    if (this.stockCompositions.containsKey(date)) {
+      sasList = this.stockCompositions.get(date).getStocksAndShares();
+    } else {
+      StockPortfolioTimeStatus status_ = lastStatusSinceDate(date);
+      if (status_ == null) {
+        throw new IllegalArgumentException("You have no shares of this stock.");
+      }
+      sasList = status_.getStocksAndShares();
     }
 
+    for (StockAndShares sas : sasList) {
+      stocksNames.add(sas.getStock().getSymbol());
+    }
+<<<<<<< Updated upstream
+
+=======
+>>>>>>> Stashed changes
     return stocksNames.toArray(new String[0]);
   }
 

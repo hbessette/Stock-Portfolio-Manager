@@ -17,7 +17,7 @@ public class EvaluatePortfolio implements StockControllerCommand {
   /**
    * To create an EvaluatePortfolio object.
    *
-   * @param s : to take in user inputs
+   * @param s    : to take in user inputs
    * @param view : to prompt the user
    */
   public EvaluatePortfolio(Scanner s, StockView view) {
