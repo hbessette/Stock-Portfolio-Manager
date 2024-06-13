@@ -1,8 +1,8 @@
 package stocks.model.portfolio.shares;
 
-import java.util.Objects;
-
 import stocks.model.stock.Stocks;
+
+import java.util.Objects;
 
 /**
  * Includes a stock and a number of shares, for easy use in getting the two from a portfolio.

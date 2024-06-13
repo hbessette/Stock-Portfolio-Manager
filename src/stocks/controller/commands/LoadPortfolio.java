@@ -15,7 +15,8 @@ public class LoadPortfolio implements StockControllerCommand {
 
   /**
    * To create a load portfolio object.
-   * @param s : to take in user inputs
+   *
+   * @param s    : to take in user inputs
    * @param view : to prompt user inputs
    */
   public LoadPortfolio(Scanner s, StockView view) {

@@ -15,8 +15,9 @@ public class GetComposition implements StockControllerCommand {
 
   /**
    * To create a get composition command.
+   *
    * @param view : to prompt user inputs.
-   * @param s : to take in user inputs.
+   * @param s    : to take in user inputs.
    */
   public GetComposition(Scanner s, StockView view) {
     view.show("Enter the portfolio name to get composition for: ");
@@ -32,7 +33,7 @@ public class GetComposition implements StockControllerCommand {
 
   @Override
   public void start(StockView view, StockModel model) {
-    String[] output = model.getPortfolioByName(this.portfolioName).getComposition(this.date);
+    String[] output = model.getCompositionForPortfolio(this.portfolioName, this.date);
     for (String o : output) {
       view.show(o);
     }

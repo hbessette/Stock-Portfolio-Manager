@@ -1,7 +1,6 @@
 package stocks.controller.commands;
 
 import stocks.model.StockModel;
-import stocks.model.portfolio.StockPortfolioTimed;
 import stocks.view.StockView;
 
 import java.util.Date;
@@ -18,7 +17,8 @@ public class SellStock implements StockControllerCommand {
 
   /**
    * To create a sell stock object.
-   * @param s : to take in user inputs
+   *
+   * @param s    : to take in user inputs
    * @param view : to prompt user inputs
    */
   public SellStock(Scanner s, StockView view) {
@@ -39,8 +39,7 @@ public class SellStock implements StockControllerCommand {
 
   @Override
   public void start(StockView view, StockModel model) {
-    StockPortfolioTimed portfolio = model.getPortfolioByName(this.portfolioName);
-    portfolio.sell(this.symbol, this.date, this.amount);
+    model.sellStockForPortfolio(this.portfolioName, this.symbol, this.date, this.amount);
     view.show(String.format("Successfully sold %f shares of %s on %d-%d-%d for %s.",
             this.amount, this.symbol, this.date.getMonth() + 1, this.date.getDate(),
             this.date.getYear(), this.portfolioName));

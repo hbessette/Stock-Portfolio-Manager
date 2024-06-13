@@ -1,13 +1,13 @@
 package stocks.model.stock;
 
+import stocks.api.AlphaVantageAPI;
+import stocks.model.daystatus.StockDayStatus;
+import stocks.model.daystatus.StockDayStatusImpl;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-
-import stocks.api.AlphaVantageAPI;
-import stocks.model.daystatus.StockDayStatus;
-import stocks.model.daystatus.StockDayStatusImpl;
 
 /**
  * Represents a single stock.

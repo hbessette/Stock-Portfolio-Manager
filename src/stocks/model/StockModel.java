@@ -1,12 +1,8 @@
 package stocks.model;
 
-import stocks.model.portfolio.AStockPortfolio;
-import stocks.model.portfolio.StockPortfolio;
-import stocks.model.portfolio.StockPortfolioTimed;
-import stocks.model.stock.Stocks;
-
 import java.io.FileNotFoundException;
 import java.util.Date;
+import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
@@ -33,14 +29,6 @@ public interface StockModel {
   public void removePortfolio(String name);
 
   /**
-   * Gets a portfolio by its name, if it exists in this model.
-   *
-   * @param name the name of the portfolio
-   * @return the portfolio
-   */
-  public StockPortfolioTimed getPortfolioByName(String name);
-
-  /**
    * Evaluates a portfolio on any date.
    * This gets the total value of the portfolio,
    * determined by the prices of stocks on that date and the number of shares owned.
@@ -50,14 +38,6 @@ public interface StockModel {
    * @return the value of the portfolio
    */
   public double evaluatePortfolio(String name, Date date);
-
-  /**
-   * Creates and returns a new stock by its symbol.
-   *
-   * @param symbol a stock symbol (e.g. "GOOG" for Google)
-   * @return the new stock
-   */
-  public Stocks getStockByName(String symbol);
 
   /**
    * Gets a set of all portfolios names.
@@ -76,4 +56,25 @@ public interface StockModel {
   public void savePortfolio(String name) throws NoSuchElementException;
 
   public void loadPortfolio(String name) throws FileNotFoundException;
+
+  public String[] getCompositionForPortfolio(String portfolioName, Date date);
+
+  public String[] getDistributionForPortfolio(String portfolioName, Date date);
+
+  public void purchaseStockForPortfolio(String portfolioName, String symbol, Date date,
+                                        double amount);
+
+  public void sellStockForPortfolio(String portfolioName, String symbol, Date date, double amount);
+
+  public double getPriceChangeForStock(String symbol, Date startDate, Date endDate);
+
+  public double getXDayMovingAverage(String symbol, Date startDate, int xDays);
+
+  public String[] getXDayCrossovers(String symbol, Date startDate, int xDays);
+
+  public void rebalancePortfolio(String portfolioName, Date date, Map<String, Double> percentages);
+
+  public String[] getStockNamesForPortfolio(String portfolioName, Date date);
+
+  public void sellAllStockForPortfolio(String portfolioName, String symbol, Date date);
 }

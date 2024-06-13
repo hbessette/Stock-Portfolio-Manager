@@ -1,7 +1,6 @@
 package stocks.controller.commands;
 
 import stocks.model.StockModel;
-import stocks.model.macros.StockMacroPriceChange;
 import stocks.view.StockView;
 
 import java.util.Date;
@@ -17,7 +16,8 @@ public class GetPriceChange implements StockControllerCommand {
 
   /**
    * To create a get price change object.
-   * @param s : to take in user inputs
+   *
+   * @param s    : to take in user inputs
    * @param view : to prompt user inputs
    */
   public GetPriceChange(Scanner s, StockView view) {
@@ -41,10 +41,7 @@ public class GetPriceChange implements StockControllerCommand {
 
   @Override
   public void start(StockView view, StockModel model) {
-    double priceChange =
-            new StockMacroPriceChange(this.startDate, this.endDate).apply(
-                    model.getStockByName(this.symbol));
-    priceChange = Math.round(priceChange * 100.00) / 100.00;
+    double priceChange = model.getPriceChangeForStock(this.symbol, this.startDate, this.endDate);
     view.show("Price change for " + this.symbol + " between " + (this.startDate.getMonth() + 1) +
             "-" + this.startDate.getDate() + "-" + this.startDate.getYear() +
             " and " + (this.endDate.getMonth() + 1) +

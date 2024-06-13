@@ -1,14 +1,8 @@
 package stocks.api;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.net.URL;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.MalformedURLException;
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.net.URL;
 import java.time.LocalDate;
 import java.util.Arrays;
 

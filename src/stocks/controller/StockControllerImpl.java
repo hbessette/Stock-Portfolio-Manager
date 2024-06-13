@@ -1,12 +1,9 @@
 package stocks.controller;
 
 import stocks.controller.commands.*;
-
 import stocks.model.StockModel;
-import stocks.model.portfolio.shares.StockAndShares;
 import stocks.view.StockView;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -40,7 +37,7 @@ public class StockControllerImpl implements StockController {
   @Override
   public void start() {
     boolean quit = false;
-    Map<String, Function<Scanner, StockControllerCommand>> commands = getCommands(this.view);
+    Map<String, Function<Scanner, StockControllerCommand>> commands = this.getCommands();
 
     this.view.welcomeMessage();
     while (!quit) {
@@ -55,25 +52,6 @@ public class StockControllerImpl implements StockController {
         case "help":
           this.view.printHelp();
           break;
-        case "rebalance-portfolio":
-          String portfolio = this.in.next();
-          int month = this.in.nextInt();
-          int day = this.in.nextInt();
-          int year = this.in.nextInt();
-          try {
-            Map<String, Double> percentages = new HashMap<>();
-            for (String stock : this.model.getPortfolioByName(portfolio).getStockNames()) {
-              view.show("Enter percentage for " + stock);
-              double percentage = this.in.nextDouble() / 100.0;
-              percentages.put(stock, percentage);
-            }
-            model.getPortfolioByName(portfolio).rebalance(new Date(year, month - 1, day),
-                    percentages);
-            view.show(String.format("Successfully rebalanced %s for %d-%d-%d.", portfolio, month,
-                    day, year));
-          } catch (Exception e) {
-            view.show(e.getMessage());
-          }
         default:
           try {
             StockControllerCommand cmd = commands.get(command).apply(this.in);
@@ -87,21 +65,24 @@ public class StockControllerImpl implements StockController {
     }
   }
 
-  private static Map<String, Function<Scanner, StockControllerCommand>> getCommands(StockView view) {
+  private Map<String, Function<Scanner, StockControllerCommand>> getCommands() {
     Map<String, Function<Scanner, StockControllerCommand>> commands = new HashMap<>();
-    commands.put("get-x-day-average", (Scanner s) -> new XDayMovingAverage(s, view));
-    commands.put("get-x-day-crossovers", (Scanner s) -> new XDayCrossovers(s, view));
-    commands.put("evaluate-portfolio", (Scanner s) -> new EvaluatePortfolio(s, view));
-    commands.put("add-portfolio", (Scanner s) -> new AddPortfolio(s, view));
-    commands.put("remove-portfolio", (Scanner s) -> new RemovePortfolio(s, view));
+    commands.put("get-x-day-average", (Scanner s) -> new XDayMovingAverage(s, this.view));
+    commands.put("get-x-day-crossovers", (Scanner s) -> new XDayCrossovers(s, this.view));
+    commands.put("evaluate-portfolio", (Scanner s) -> new EvaluatePortfolio(s, this.view));
+    commands.put("add-portfolio", (Scanner s) -> new AddPortfolio(s, this.view));
+    commands.put("remove-portfolio", (Scanner s) -> new RemovePortfolio(s, this.view));
     commands.put("show-all-portfolios", (Scanner s) -> new ShowAllPortfolios());
-    commands.put("get-price-change", (Scanner s) -> new GetPriceChange(s, view));
-    commands.put("save-portfolio", (Scanner s) -> new SavePortfolio(s, view));
-    commands.put("load-portfolio", (Scanner s) -> new LoadPortfolio(s, view));
-    commands.put("buy-stock", (Scanner s) -> new BuyStock(s, view));
-    commands.put("get-composition", (Scanner s) -> new GetComposition(s, view));
-    commands.put("sell-stock", (Scanner s) -> new SellStock(s, view));
-    commands.put("sell-all-stock", (Scanner s) -> new SellAllStock(s,view));
+    commands.put("get-price-change", (Scanner s) -> new GetPriceChange(s, this.view));
+    commands.put("save-portfolio", (Scanner s) -> new SavePortfolio(s, this.view));
+    commands.put("load-portfolio", (Scanner s) -> new LoadPortfolio(s, this.view));
+    commands.put("buy-stock", (Scanner s) -> new BuyStock(s, this.view));
+    commands.put("get-composition", (Scanner s) -> new GetComposition(s, this.view));
+    commands.put("sell-stock", (Scanner s) -> new SellStock(s, this.view));
+    commands.put("sell-all-stock", (Scanner s) -> new SellAllStock(s, this.view));
+    commands.put("rebalance-portfolio", (Scanner s) -> new RebalancePortfolio(s, this.view,
+            this.model));
+    commands.put("get-distribution", (Scanner s) -> new GetDistribution(s, this.view));
     return commands;
   }
 }

@@ -3,7 +3,6 @@ package stocks.model.portfolio;
 import stocks.model.portfolio.shares.StockAndShares;
 import stocks.model.stock.Stocks;
 
-import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
 

@@ -1,9 +1,8 @@
 package stocks.model.portfolio;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import stocks.model.portfolio.shares.StockAndShares;
+
+import java.util.List;
 
 public class StockPortfolioTimeStatus {
   private List<StockAndShares> stocksAndShares;

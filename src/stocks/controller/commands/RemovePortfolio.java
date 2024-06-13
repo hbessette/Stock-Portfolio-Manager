@@ -14,7 +14,8 @@ public class RemovePortfolio implements StockControllerCommand {
 
   /**
    * To create a remove portfolio object.
-   * @param s : to take in user inputs
+   *
+   * @param s    : to take in user inputs
    * @param view : to prompt user inputs
    */
   public RemovePortfolio(Scanner s, StockView view) {

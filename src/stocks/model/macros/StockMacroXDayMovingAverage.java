@@ -1,8 +1,8 @@
 package stocks.model.macros;
 
-import java.util.Date;
-
 import stocks.model.stock.Stocks;
+
+import java.util.Date;
 
 /**
  * A stock macro which determines the x-day moving average of a stock.
