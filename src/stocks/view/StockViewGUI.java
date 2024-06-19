@@ -1,5 +1,6 @@
 package stocks.view;
 import javax.swing.*;
+import java.awt.*;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -16,7 +17,8 @@ public class StockViewGUI extends JFrame implements StockView {
 
         JTextArea portfolioCreationTextArea = new JTextArea(1, 20);
         portfolioCreationTextArea.setBorder(BorderFactory.createTitledBorder("Enter Portfolio name"));
-        portfolioCreationPanel.add(portfolioCreationTextArea);
+        JScrollPane jScrollPane = new JScrollPane(portfolioCreationTextArea);
+        portfolioCreationPanel.add(jScrollPane);
 
         JButton portfolioCreationButton = new JButton("Create");
 //        portfolioCreationButton.setActionCommand(""); // should go to the controller probably
@@ -41,7 +43,8 @@ public class StockViewGUI extends JFrame implements StockView {
 
         JTextArea saveLoadTextArea = new JTextArea(1, 20);
         saveLoadTextArea.setBorder(BorderFactory.createTitledBorder("Enter name of Portfolio to save/load"));
-        saveLoadPanel.add(saveLoadTextArea);
+        JScrollPane jScrollPane = new JScrollPane(saveLoadTextArea);
+        saveLoadPanel.add(jScrollPane);
 
         JButton savePortfolioButton = new JButton("Save");
 //        saveLoadButton.setActionCommand(""); // should go to the controller probably
@@ -175,8 +178,6 @@ public class StockViewGUI extends JFrame implements StockView {
         queryPortfolioValueCompositionPanel();
 
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-
-        //this.pack();
     }
 
 
