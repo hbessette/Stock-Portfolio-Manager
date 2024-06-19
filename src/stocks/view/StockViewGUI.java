@@ -54,7 +54,8 @@ public class StockViewGUI extends JFrame implements StockView {
         saveLoadPanel.add(loadPortfolioButton);
 
         // Should change to success or failed depending on what happened.
-        JLabel saveLoadResponse = new JLabel("_");
+        JLabel saveLoadResponse = new JLabel("Once you've attempted to save or load a portfolio, " +
+                "confirmation will display here.");
         saveLoadPanel.add(saveLoadResponse);
 
         this.mainPanel.add(saveLoadPanel);
@@ -115,6 +116,11 @@ public class StockViewGUI extends JFrame implements StockView {
 //        saveLoadButton.setActionCommand(""); // should go to the controller probably
 //        saveLoadButton.addActionListener(this);
         buySellPanel.add(sellButton);
+
+        // Should change to success or failed depending on what happened.
+        JLabel programResponse = new JLabel("Once you attempt to buy or sell a stock, " +
+                "confirmation will display here.");
+        buySellPanel.add(programResponse);
 
         this.mainPanel.add(buySellPanel);
     }
