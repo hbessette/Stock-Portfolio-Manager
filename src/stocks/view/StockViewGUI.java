@@ -10,6 +10,11 @@ public class StockViewGUI extends JFrame implements StockView {
     private JScrollPane mainScrollPane;
     private String[] loadedPortfolios;
 
+    private JLabel createPortfolioLabel;
+    private JLabel saveLoadLabel;
+    private JLabel buySellLabel;
+    private JLabel valueCompositionLabel;
+
     private void createPortfolioPanel() {
         JPanel portfolioCreationPanel = new JPanel();
         portfolioCreationPanel.setBorder(BorderFactory.createTitledBorder("Create Portfolio"));
@@ -26,8 +31,9 @@ public class StockViewGUI extends JFrame implements StockView {
         portfolioCreationPanel.add(portfolioCreationButton);
 
         // This should change to "successfully created [name] or "portfolio name may not contain newlines or spaces"
-        JLabel portfolioCreationOutputLabel = new JLabel("Enter a portfolio name, then press create.");
-        portfolioCreationPanel.add(portfolioCreationOutputLabel);
+        this.createPortfolioLabel = new JLabel("Once you've attempted to create a portfolio, " +
+                "confirmation will display here.");
+        portfolioCreationPanel.add(this.createPortfolioLabel);
 
         this.mainPanel.add(portfolioCreationPanel);
     }
@@ -57,9 +63,9 @@ public class StockViewGUI extends JFrame implements StockView {
         saveLoadPanel.add(loadPortfolioButton);
 
         // Should change to success or failed depending on what happened.
-        JLabel saveLoadResponse = new JLabel("Once you've attempted to save or load a portfolio, " +
+        this.saveLoadLabel = new JLabel("Once you've attempted to save or load a portfolio, " +
                 "confirmation will display here.");
-        saveLoadPanel.add(saveLoadResponse);
+        saveLoadPanel.add(this.saveLoadLabel);
 
         this.mainPanel.add(saveLoadPanel);
     }
@@ -80,7 +86,8 @@ public class StockViewGUI extends JFrame implements StockView {
 
         JTextArea buySellSymbolTextArea = new JTextArea(1, 20);
         buySellSymbolTextArea.setBorder(BorderFactory.createTitledBorder("Enter stock symbol to buy/sell"));
-        buySellPanel.add(buySellSymbolTextArea);
+        JScrollPane jScrollPane = new JScrollPane(buySellSymbolTextArea);
+        buySellPanel.add(jScrollPane);
 
         SpinnerNumberModel buySellQuantitySpinnerModel = new SpinnerNumberModel(
                 0, 0, Integer.MAX_VALUE, 1
@@ -113,17 +120,19 @@ public class StockViewGUI extends JFrame implements StockView {
         JButton buyButton = new JButton("Buy");
 //        saveLoadButton.setActionCommand(""); // should go to the controller probably
 //        saveLoadButton.addActionListener(this);
-        buySellPanel.add(buyButton);
+        JScrollPane buyButtonPane = new JScrollPane(buyButton);
+        buySellPanel.add(buyButtonPane);
 
         JButton sellButton = new JButton("Sell");
 //        saveLoadButton.setActionCommand(""); // should go to the controller probably
 //        saveLoadButton.addActionListener(this);
-        buySellPanel.add(sellButton);
+        JScrollPane sellButtonPane = new JScrollPane(sellButton);
+        buySellPanel.add(sellButtonPane);
 
         // Should change to success or failed depending on what happened.
-        JLabel programResponse = new JLabel("Once you attempt to buy or sell a stock, " +
+        this.buySellLabel = new JLabel("Once you attempt to buy or sell a stock, " +
                 "confirmation will display here.");
-        buySellPanel.add(programResponse);
+        buySellPanel.add(this.buySellLabel);
 
         this.mainPanel.add(buySellPanel);
     }
@@ -143,9 +152,9 @@ public class StockViewGUI extends JFrame implements StockView {
         portfolioComboBox.setBorder(BorderFactory.createTitledBorder("Choose the portfolio"));
 
         // needs to update
-        JLabel valueCompDisplay = new JLabel("Once you select a portfolio, its value " +
+        this.valueCompositionLabel = new JLabel("Once you select a portfolio, its value " +
                 "and composition will be displayed here.");
-        queryPanel.add(valueCompDisplay);
+        queryPanel.add(this.valueCompositionLabel);
 
         this.mainPanel.add(queryPanel);
     }
@@ -181,7 +190,25 @@ public class StockViewGUI extends JFrame implements StockView {
     }
 
 
+    @Override
+    public void createPortfolioMessage(String message) {
+        this.createPortfolioLabel.setText(message);
+    }
 
+    @Override
+    public void saveLoadPortfolioMessage(String message) {
+        this.saveLoadLabel.setText(message);
+    }
+
+    @Override
+    public void buySellStockMessage(String message) {
+        this.buySellLabel.setText(message);
+    }
+
+    @Override
+    public void ValueCompositionMessage(String message) {
+        this.valueCompositionLabel.setText(message);
+    }
 
 
     @Override

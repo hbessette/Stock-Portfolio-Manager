@@ -69,4 +69,24 @@ public class StockViewImpl implements StockView {
   public void goodbyeMessage() {
     out.println("Thank You For Using Stock Manager");
   }
+
+  @Override
+  public void createPortfolioMessage(String message) {
+    // NOT USED, Irrelevant for this implementation
+  }
+
+  @Override
+  public void saveLoadPortfolioMessage(String message) {
+    // NOT USED, Irrelevant for this implementation
+  }
+
+  @Override
+  public void buySellStockMessage(String message) {
+    // NOT USED, Irrelevant for this implementation
+  }
+
+  @Override
+  public void ValueCompositionMessage(String message) {
+    // NOT USED, Irrelevant for this implementation
+  }
 }
