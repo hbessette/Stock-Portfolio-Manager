@@ -80,4 +80,6 @@ public interface StockModel {
 
   public String performanceOverTimeForPortfolio(String portfolioName, Date startDate,
                                                   Date endDate);
+
+  public double getPortfolioValue(String portfolioName, Date date);
 }

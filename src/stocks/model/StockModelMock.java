@@ -144,4 +144,12 @@ public class StockModelMock implements StockModel {
             endDate.getMonth() + 1, endDate.getDate())).append(System.lineSeparator());
     return "";
   }
+
+  @Override
+  public double getPortfolioValue(String portfolioName, Date date) {
+    this.log.append(String.format("name: %s, Year: %d, Month: %d, Day: %d",
+            portfolioName, date.getYear(),
+            date.getMonth() + 1, date.getDate())).append(System.lineSeparator());
+    return 0;
+  }
 }

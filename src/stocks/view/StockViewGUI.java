@@ -26,6 +26,18 @@ public class StockViewGUI extends JFrame implements IStockViewGUI {
     private JButton sellButton;
 
     private JTextArea portfolioCreationTextArea;
+    private JTextArea saveLoadTextArea;
+
+    private JTextArea buySellSymbolTextArea;
+    private JSpinner buySellQuantitySpinner;
+    private JSpinner buySellYearPicker;
+    private JSpinner buySellMonthPicker;
+    private JSpinner buySellDayPicker;
+
+    private JSpinner valueCompYearPicker;
+    private JSpinner valueCompMonthPicker;
+    private JSpinner valueCompDayPicker;
+    private JButton valueCompUpdateButton;
 
     private void createPortfolioPanel() {
         JPanel portfolioCreationPanel = new JPanel();
@@ -57,9 +69,9 @@ public class StockViewGUI extends JFrame implements IStockViewGUI {
                 "To load a portfolio, enter the file name (without the .txt) and click load.");
         saveLoadPanel.add(saveLoadExplanation);
 
-        JTextArea saveLoadTextArea = new JTextArea(1, 20);
-        saveLoadTextArea.setBorder(BorderFactory.createTitledBorder("Enter name of Portfolio to save/load"));
-        JScrollPane jScrollPane = new JScrollPane(saveLoadTextArea);
+        this.saveLoadTextArea = new JTextArea(1, 20);
+        this.saveLoadTextArea.setBorder(BorderFactory.createTitledBorder("Enter name of Portfolio to save/load"));
+        JScrollPane jScrollPane = new JScrollPane(this.saveLoadTextArea);
         saveLoadPanel.add(jScrollPane);
 
         this.savePortfolioButton = new JButton("Save");
@@ -88,38 +100,38 @@ public class StockViewGUI extends JFrame implements IStockViewGUI {
         buySellPanel.add(this.buySellPortfolioComboBox);
         this.buySellPortfolioComboBox.setBorder(BorderFactory.createTitledBorder("Choose the portfolio to buy/sell for"));
 
-        JTextArea buySellSymbolTextArea = new JTextArea(1, 20);
-        buySellSymbolTextArea.setBorder(BorderFactory.createTitledBorder("Enter stock symbol to buy/sell"));
-        JScrollPane jScrollPane = new JScrollPane(buySellSymbolTextArea);
+        this.buySellSymbolTextArea = new JTextArea(1, 20);
+        this.buySellSymbolTextArea.setBorder(BorderFactory.createTitledBorder("Enter stock symbol to buy/sell"));
+        JScrollPane jScrollPane = new JScrollPane(this.buySellSymbolTextArea);
         buySellPanel.add(jScrollPane);
 
         SpinnerNumberModel buySellQuantitySpinnerModel = new SpinnerNumberModel(
                 0, 0, Integer.MAX_VALUE, 1
         );
-        JSpinner buySellQuantitySpinner = new JSpinner(buySellQuantitySpinnerModel);
-        buySellPanel.add(buySellQuantitySpinner);
-        buySellQuantitySpinner.setBorder(BorderFactory.createTitledBorder("Enter the quantity of shares to buy/sell"));
+        this.buySellQuantitySpinner = new JSpinner(buySellQuantitySpinnerModel);
+        buySellPanel.add(this.buySellQuantitySpinner);
+        this.buySellQuantitySpinner.setBorder(BorderFactory.createTitledBorder("Enter the quantity of shares to buy/sell"));
 
         SpinnerNumberModel yearPickerModel = new SpinnerNumberModel(
                 2024, 2000, 2024, 1
         );
-        JSpinner yearPicker = new JSpinner(yearPickerModel);
-        buySellPanel.add(yearPicker);
-        yearPicker.setBorder(BorderFactory.createTitledBorder("Enter the *year* to buy at"));
+        this.buySellYearPicker = new JSpinner(yearPickerModel);
+        buySellPanel.add(this.buySellYearPicker);
+        this.buySellYearPicker.setBorder(BorderFactory.createTitledBorder("Enter the *year* to buy at"));
 
         SpinnerNumberModel monthPickerModel = new SpinnerNumberModel(
                 1, 1, 12, 1
         );
-        JSpinner monthPicker = new JSpinner(monthPickerModel);
-        buySellPanel.add(monthPicker);
-        monthPicker.setBorder(BorderFactory.createTitledBorder("Enter the *month* to buy at"));
+        this.buySellMonthPicker = new JSpinner(monthPickerModel);
+        buySellPanel.add(this.buySellMonthPicker);
+        this.buySellMonthPicker.setBorder(BorderFactory.createTitledBorder("Enter the *month* to buy at"));
 
         SpinnerNumberModel dayPickerModel = new SpinnerNumberModel(
                 1, 1, 31, 1
         );
-        JSpinner dayPicker = new JSpinner(dayPickerModel);
-        buySellPanel.add(dayPicker);
-        dayPicker.setBorder(BorderFactory.createTitledBorder("Enter the *day* to buy at"));
+        this.buySellDayPicker = new JSpinner(dayPickerModel);
+        buySellPanel.add(this.buySellDayPicker);
+        this.buySellDayPicker.setBorder(BorderFactory.createTitledBorder("Enter the *day* to buy at"));
 
         this.buyButton = new JButton("Buy");
         JScrollPane buyButtonPane = new JScrollPane(this.buyButton);
@@ -152,26 +164,29 @@ public class StockViewGUI extends JFrame implements IStockViewGUI {
         SpinnerNumberModel yearPickerModel = new SpinnerNumberModel(
                 2024, 2000, 2024, 1
         );
-        JSpinner yearPicker = new JSpinner(yearPickerModel);
-        queryPanel.add(yearPicker);
-        yearPicker.setBorder(BorderFactory.createTitledBorder("Enter the *year* to query"));
+        this.valueCompYearPicker = new JSpinner(yearPickerModel);
+        queryPanel.add(this.valueCompYearPicker);
+        this.valueCompYearPicker.setBorder(BorderFactory.createTitledBorder("Enter the *year* to query"));
 
         SpinnerNumberModel monthPickerModel = new SpinnerNumberModel(
                 1, 1, 12, 1
         );
-        JSpinner monthPicker = new JSpinner(monthPickerModel);
-        queryPanel.add(monthPicker);
-        monthPicker.setBorder(BorderFactory.createTitledBorder("Enter the *month* to query"));
+        this.valueCompMonthPicker = new JSpinner(monthPickerModel);
+        queryPanel.add(this.valueCompMonthPicker);
+        this.valueCompMonthPicker.setBorder(BorderFactory.createTitledBorder("Enter the *month* to query"));
 
         SpinnerNumberModel dayPickerModel = new SpinnerNumberModel(
                 1, 1, 31, 1
         );
-        JSpinner dayPicker = new JSpinner(dayPickerModel);
-        queryPanel.add(dayPicker);
-        dayPicker.setBorder(BorderFactory.createTitledBorder("Enter the *day* to query"));
+        this.valueCompDayPicker = new JSpinner(dayPickerModel);
+        queryPanel.add(this.valueCompDayPicker);
+        this.valueCompDayPicker.setBorder(BorderFactory.createTitledBorder("Enter the *day* to query"));
 
-        // needs to update
-        this.valueCompositionLabel = new JLabel("Once you select a portfolio, its value " +
+        this.valueCompUpdateButton = new JButton("Query");
+        JScrollPane updateButtonPane = new JScrollPane(this.valueCompUpdateButton);
+        queryPanel.add(updateButtonPane);
+
+        this.valueCompositionLabel = new JLabel("Once you query a portfolio, its value " +
                 "and composition will be displayed here.");
         queryPanel.add(this.valueCompositionLabel);
 
@@ -225,8 +240,9 @@ public class StockViewGUI extends JFrame implements IStockViewGUI {
     }
 
     @Override
-    public void ValueCompositionMessage(String message) {
-        this.valueCompositionLabel.setText(message);
+    public void valueCompositionMessage(String message) {
+        String msg = message.replaceAll(System.lineSeparator(), "<br/>");
+        this.valueCompositionLabel.setText("<html>" + msg + "</html>");
     }
 
     @Override
@@ -247,13 +263,38 @@ public class StockViewGUI extends JFrame implements IStockViewGUI {
         this.buyButton.addActionListener(listener);
         this.sellButton.setActionCommand("sell-stock");
         this.sellButton.addActionListener(listener);
+
+        this.valueCompUpdateButton.setActionCommand("update-value-comp");
+        this.valueCompUpdateButton.addActionListener(listener);
     }
 
     @Override
     public String getComponentText(String componentName) throws IllegalArgumentException {
         switch (componentName) {
-            case "portfolio-creation-text" :
+            case "portfolio-creation-text":
                 return this.portfolioCreationTextArea.getText();
+            case "save-load-portfolio-text":
+                return this.saveLoadTextArea.getText();
+            case "buy-sell-symbol-name":
+                return this.buySellSymbolTextArea.getText();
+            case "buy-sell-quantity":
+                return String.valueOf(this.buySellQuantitySpinner.getValue());
+            case "buy-sell-year":
+                return String.valueOf(this.buySellYearPicker.getValue());
+            case "buy-sell-month":
+                return String.valueOf(this.buySellMonthPicker.getValue());
+            case "buy-sell-day":
+                return String.valueOf(this.buySellDayPicker.getValue());
+            case "buy-sell-portfolio-name":
+                return String.valueOf(this.buySellPortfolioComboBox.getSelectedItem());
+            case "value-comp-portfolio":
+                return String.valueOf(this.valueCompPortfolioComboBox.getSelectedItem());
+            case "value-comp-year":
+                return String.valueOf(this.valueCompYearPicker.getValue());
+            case "value-comp-month":
+                return String.valueOf(this.valueCompMonthPicker.getValue());
+            case "value-comp-day":
+                return String.valueOf(this.valueCompDayPicker.getValue());
             default :
                 throw new IllegalArgumentException("the component requested from the GUI does not exist.");
         }

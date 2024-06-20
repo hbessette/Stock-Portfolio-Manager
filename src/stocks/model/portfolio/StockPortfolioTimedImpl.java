@@ -551,6 +551,23 @@ public class StockPortfolioTimedImpl implements StockPortfolioTimed {
     return stocksNames.toArray(new String[0]);
   }
 
+  @Override
+  public double getValue(Date date) {
+    List<StockAndShares> stocksAndShares;
+    try {
+      stocksAndShares = getSASForDistribution(date);
+    } catch (IllegalArgumentException e) {
+      return 0;
+    }
+    double total = 0;
+
+    for (StockAndShares sas : stocksAndShares) {
+      total += sas.getStock().getStockDayStatus(date).getClosingTime() * sas.getShares();
+    }
+
+    return total;
+  }
+
   private Map<Date, StockPortfolioTimeStatus> loadData(String[] data) {
     Map<Date, StockPortfolioTimeStatus> returnCompositions = new HashMap<>();
     for (String line : data) {

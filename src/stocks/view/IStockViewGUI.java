@@ -29,7 +29,7 @@ public interface IStockViewGUI extends StockView {
    *
    * @param message some value and composition of a portfolio message.
    */
-  void ValueCompositionMessage(String message);
+  void valueCompositionMessage(String message);
 
   /**
    * Sets up all listeners for the provided ActionListener. For use with a GUI view.

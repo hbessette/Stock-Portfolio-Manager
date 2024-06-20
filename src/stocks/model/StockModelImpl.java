@@ -227,4 +227,9 @@ public class StockModelImpl implements StockModel {
                                                   Date endDate) {
     return this.getPortfolioByName(portfolioName).performanceOverTime(startDate, endDate);
   }
+
+  @Override
+  public double getPortfolioValue(String portfolioName, Date date) {
+    return this.getPortfolioByName(portfolioName).getValue(date);
+  }
 }
