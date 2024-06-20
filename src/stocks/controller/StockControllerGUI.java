@@ -3,15 +3,15 @@ package stocks.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import stocks.model.StockModel;
-import stocks.view.StockView;
+import stocks.view.IStockViewGUI;
 
 import java.util.Scanner;
 
 public class StockControllerGUI implements StockController, ActionListener {
-    private StockView view;
+    private IStockViewGUI view;
     private StockModel model;
 
-    public StockControllerGUI(StockView view, StockModel model) {
+    public StockControllerGUI(IStockViewGUI view, StockModel model) {
         this.view = view;
         this.model = model;
     }
@@ -24,16 +24,16 @@ public class StockControllerGUI implements StockController, ActionListener {
     @Override
     public void actionPerformed(ActionEvent arg0) {
         switch (arg0.getActionCommand()) {
-            case "create-portfolio" :
+            case "create-portfolio":
                 createPortfolioHelper();
                 break;
-            case "save-portfolio" :
+            case "save-portfolio":
                 break;
-            case "load-portfolio" :
+            case "load-portfolio":
                 break;
-            case "buy-stock" :
+            case "buy-stock":
                 break;
-            case "sell-stock" :
+            case "sell-stock":
                 break;
         }
     }
@@ -43,21 +43,16 @@ public class StockControllerGUI implements StockController, ActionListener {
         if (pcText.isEmpty() || pcText.contains(" ") || pcText.contains(System.lineSeparator())) {
             this.view.createPortfolioMessage("The portfolio name is invalid. It cannot be empty, " +
                     "contain spaces, or be over 20 characters long.");
-        }
-        else if (pcText.length() > 20) {
+        } else if (pcText.length() > 20) {
             this.view.createPortfolioMessage("Portfolio names cannot be over 20 characters long.");
-        }
-        else {
+        } else {
             try {
                 this.model.addPortfolio(pcText);
                 this.view.createPortfolioMessage("Successfully created portfolio " + pcText);
                 this.view.addPortfolioGUI(pcText);
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 this.view.createPortfolioMessage(e.getMessage());
             }
         }
     }
-
-
 }

@@ -70,40 +70,4 @@ public class StockViewImpl implements StockView {
   public void goodbyeMessage() {
     out.println("Thank You For Using Stock Manager");
   }
-
-  @Override
-  public void createPortfolioMessage(String message) {
-    // NOT USED, Irrelevant for this implementation
-  }
-
-  @Override
-  public void saveLoadPortfolioMessage(String message) {
-    // NOT USED, Irrelevant for this implementation
-  }
-
-  @Override
-  public void buySellStockMessage(String message) {
-    // NOT USED, Irrelevant for this implementation
-  }
-
-  @Override
-  public void ValueCompositionMessage(String message) {
-    // NOT USED, Irrelevant for this implementation
-  }
-
-  @Override
-  public void startListeners(ActionListener listener) {
-    // NOT USED, Irrelevant for this implementation
-  }
-
-  @Override
-  public String getComponentText(String componentName) throws IllegalArgumentException {
-    // NOT USED, Irrelevant for this implementation
-    return "";
-  }
-
-  @Override
-  public void addPortfolioGUI(String loadedPortfolio) {
-    // NOT USED, Irrelevant for this implementation
-  }
 }

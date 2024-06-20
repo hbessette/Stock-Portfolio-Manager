@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 import java.util.Calendar;
 import java.util.Date;
 
-public class StockViewGUI extends JFrame implements StockView {
+public class StockViewGUI extends JFrame implements IStockViewGUI {
 
     private JPanel mainPanel;
     private JScrollPane mainScrollPane;
