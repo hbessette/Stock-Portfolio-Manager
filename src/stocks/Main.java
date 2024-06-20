@@ -1,6 +1,7 @@
 package stocks;
 
 import stocks.controller.StockController;
+import stocks.controller.StockControllerGUI;
 import stocks.controller.StockControllerImpl;
 import stocks.model.StockModel;
 import stocks.model.StockModelImpl;
@@ -62,5 +63,9 @@ public class Main {
       // handle exception
     } catch (Exception e) {
     }
+
+    StockModel stockModel = new StockModelImpl();
+    StockController controller = new StockControllerGUI(frame, stockModel);
+    controller.start();
   }
 }

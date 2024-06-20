@@ -1,5 +1,6 @@
 package stocks.view;
 
+import java.awt.event.ActionListener;
 import java.io.PrintStream;
 
 /**
@@ -87,6 +88,22 @@ public class StockViewImpl implements StockView {
 
   @Override
   public void ValueCompositionMessage(String message) {
+    // NOT USED, Irrelevant for this implementation
+  }
+
+  @Override
+  public void startListeners(ActionListener listener) {
+    // NOT USED, Irrelevant for this implementation
+  }
+
+  @Override
+  public String getComponentText(String componentName) throws IllegalArgumentException {
+    // NOT USED, Irrelevant for this implementation
+    return "";
+  }
+
+  @Override
+  public void addPortfolioGUI(String loadedPortfolio) {
     // NOT USED, Irrelevant for this implementation
   }
 }

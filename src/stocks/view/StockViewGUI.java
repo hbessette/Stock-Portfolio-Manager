@@ -1,6 +1,7 @@
 package stocks.view;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -8,6 +9,7 @@ public class StockViewGUI extends JFrame implements StockView {
 
     private JPanel mainPanel;
     private JScrollPane mainScrollPane;
+
     private String[] loadedPortfolios;
 
     private JLabel createPortfolioLabel;
@@ -15,20 +17,28 @@ public class StockViewGUI extends JFrame implements StockView {
     private JLabel buySellLabel;
     private JLabel valueCompositionLabel;
 
+    private JButton portfolioCreationButton;
+    private JButton savePortfolioButton;
+    private JButton loadPortfolioButton;
+    private JComboBox<String> buySellPortfolioComboBox;
+    private JComboBox<String> valueCompPortfolioComboBox;
+    private JButton buyButton;
+    private JButton sellButton;
+
+    private JTextArea portfolioCreationTextArea;
+
     private void createPortfolioPanel() {
         JPanel portfolioCreationPanel = new JPanel();
         portfolioCreationPanel.setBorder(BorderFactory.createTitledBorder("Create Portfolio"));
         portfolioCreationPanel.setLayout(new BoxLayout(portfolioCreationPanel, BoxLayout.PAGE_AXIS));
 
-        JTextArea portfolioCreationTextArea = new JTextArea(1, 20);
-        portfolioCreationTextArea.setBorder(BorderFactory.createTitledBorder("Enter Portfolio name"));
-        JScrollPane jScrollPane = new JScrollPane(portfolioCreationTextArea);
+        this.portfolioCreationTextArea = new JTextArea(1, 20);
+        this.portfolioCreationTextArea.setBorder(BorderFactory.createTitledBorder("Enter Portfolio name"));
+        JScrollPane jScrollPane = new JScrollPane(this.portfolioCreationTextArea);
         portfolioCreationPanel.add(jScrollPane);
 
-        JButton portfolioCreationButton = new JButton("Create");
-//        portfolioCreationButton.setActionCommand(""); // should go to the controller probably
-//        portfolioCreationButton.addActionListener(this);
-        portfolioCreationPanel.add(portfolioCreationButton);
+        this.portfolioCreationButton = new JButton("Create");
+        portfolioCreationPanel.add(this.portfolioCreationButton);
 
         // This should change to "successfully created [name] or "portfolio name may not contain newlines or spaces"
         this.createPortfolioLabel = new JLabel("Once you've attempted to create a portfolio, " +
@@ -52,15 +62,11 @@ public class StockViewGUI extends JFrame implements StockView {
         JScrollPane jScrollPane = new JScrollPane(saveLoadTextArea);
         saveLoadPanel.add(jScrollPane);
 
-        JButton savePortfolioButton = new JButton("Save");
-//        saveLoadButton.setActionCommand(""); // should go to the controller probably
-//        saveLoadButton.addActionListener(this);
-        saveLoadPanel.add(savePortfolioButton);
+        this.savePortfolioButton = new JButton("Save");
+        saveLoadPanel.add(this.savePortfolioButton);
 
-        JButton loadPortfolioButton = new JButton("Load");
-//        saveLoadButton.setActionCommand(""); // should go to the controller probably
-//        saveLoadButton.addActionListener(this);
-        saveLoadPanel.add(loadPortfolioButton);
+        this.loadPortfolioButton = new JButton("Load");
+        saveLoadPanel.add(this.loadPortfolioButton);
 
         // Should change to success or failed depending on what happened.
         this.saveLoadLabel = new JLabel("Once you've attempted to save or load a portfolio, " +
@@ -75,14 +81,12 @@ public class StockViewGUI extends JFrame implements StockView {
         buySellPanel.setBorder(BorderFactory.createTitledBorder("Buy or Sell Stocks"));
         buySellPanel.setLayout(new BoxLayout(buySellPanel, BoxLayout.PAGE_AXIS));
 
-        JComboBox<String> buySellPortfolioComboBox = new JComboBox<String>();
-//        buySellPortfolioComboBox.setActionCommand("Size options"); // should go to the controller probably
-//        buySellPortfolioComboBox.addActionListener(this);
+        this.buySellPortfolioComboBox = new JComboBox<String>();
         for (String loadedPortfolio : this.loadedPortfolios) {
-            buySellPortfolioComboBox.addItem(loadedPortfolio);
+            this.buySellPortfolioComboBox.addItem(loadedPortfolio);
         }
-        buySellPanel.add(buySellPortfolioComboBox);
-        buySellPortfolioComboBox.setBorder(BorderFactory.createTitledBorder("Choose the portfolio to buy/sell for"));
+        buySellPanel.add(this.buySellPortfolioComboBox);
+        this.buySellPortfolioComboBox.setBorder(BorderFactory.createTitledBorder("Choose the portfolio to buy/sell for"));
 
         JTextArea buySellSymbolTextArea = new JTextArea(1, 20);
         buySellSymbolTextArea.setBorder(BorderFactory.createTitledBorder("Enter stock symbol to buy/sell"));
@@ -117,16 +121,12 @@ public class StockViewGUI extends JFrame implements StockView {
         buySellPanel.add(dayPicker);
         dayPicker.setBorder(BorderFactory.createTitledBorder("Enter the *day* to buy at"));
 
-        JButton buyButton = new JButton("Buy");
-//        saveLoadButton.setActionCommand(""); // should go to the controller probably
-//        saveLoadButton.addActionListener(this);
-        JScrollPane buyButtonPane = new JScrollPane(buyButton);
+        this.buyButton = new JButton("Buy");
+        JScrollPane buyButtonPane = new JScrollPane(this.buyButton);
         buySellPanel.add(buyButtonPane);
 
-        JButton sellButton = new JButton("Sell");
-//        saveLoadButton.setActionCommand(""); // should go to the controller probably
-//        saveLoadButton.addActionListener(this);
-        JScrollPane sellButtonPane = new JScrollPane(sellButton);
+        this.sellButton = new JButton("Sell");
+        JScrollPane sellButtonPane = new JScrollPane(this.sellButton);
         buySellPanel.add(sellButtonPane);
 
         // Should change to success or failed depending on what happened.
@@ -142,14 +142,12 @@ public class StockViewGUI extends JFrame implements StockView {
         queryPanel.setBorder(BorderFactory.createTitledBorder("Value and composition of portfolios"));
         queryPanel.setLayout(new BoxLayout(queryPanel, BoxLayout.PAGE_AXIS));
 
-        JComboBox<String> portfolioComboBox = new JComboBox<String>();
-//        buySellPortfolioComboBox.setActionCommand("Size options"); // should go to the controller probably
-//        buySellPortfolioComboBox.addActionListener(this);
+        this.valueCompPortfolioComboBox = new JComboBox<String>();
         for (String loadedPortfolio : this.loadedPortfolios) {
-            portfolioComboBox.addItem(loadedPortfolio);
+            this.valueCompPortfolioComboBox.addItem(loadedPortfolio);
         }
-        queryPanel.add(portfolioComboBox);
-        portfolioComboBox.setBorder(BorderFactory.createTitledBorder("Choose the portfolio"));
+        queryPanel.add(this.valueCompPortfolioComboBox);
+        this.valueCompPortfolioComboBox.setBorder(BorderFactory.createTitledBorder("Choose the portfolio"));
 
         SpinnerNumberModel yearPickerModel = new SpinnerNumberModel(
                 2024, 2000, 2024, 1
@@ -231,6 +229,41 @@ public class StockViewGUI extends JFrame implements StockView {
         this.valueCompositionLabel.setText(message);
     }
 
+    @Override
+    public void startListeners(ActionListener listener) {
+        this.portfolioCreationButton.setActionCommand("create-portfolio");
+        this.portfolioCreationButton.addActionListener(listener);
+        this.savePortfolioButton.setActionCommand("save-portfolio");
+        this.savePortfolioButton.addActionListener(listener);
+        this.loadPortfolioButton.setActionCommand("load-portfolio");
+        this.loadPortfolioButton.addActionListener(listener);
+
+        this.buySellPortfolioComboBox.setActionCommand("portfolio-selection-buy-sell");
+        this.buySellPortfolioComboBox.addActionListener(listener);
+        this.valueCompPortfolioComboBox.setActionCommand("portfolio-selection-value-comp");
+        this.valueCompPortfolioComboBox.addActionListener(listener);
+
+        this.buyButton.setActionCommand("buy-stock");
+        this.buyButton.addActionListener(listener);
+        this.sellButton.setActionCommand("sell-stock");
+        this.sellButton.addActionListener(listener);
+    }
+
+    @Override
+    public String getComponentText(String componentName) throws IllegalArgumentException {
+        switch (componentName) {
+            case "portfolio-creation-text" :
+                return this.portfolioCreationTextArea.getText();
+            default :
+                throw new IllegalArgumentException("the component requested from the GUI does not exist.");
+        }
+    }
+
+    @Override
+    public void addPortfolioGUI(String loadedPortfolio) {
+        this.buySellPortfolioComboBox.addItem(loadedPortfolio);
+        this.valueCompPortfolioComboBox.addItem(loadedPortfolio);
+    }
 
     @Override
     public void show(String input) {
