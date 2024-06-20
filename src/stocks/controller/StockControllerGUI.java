@@ -53,6 +53,11 @@ public class StockControllerGUI implements StockController, ActionListener {
         int day = Integer.parseInt(this.view.getComponentText("value-comp-day"));
         Date date = new Date(year, month - 1, day);
 
+        if (portfolioName.equals("null")) {
+            this.view.buySellStockMessage("Please create or load a portfolio first.");
+            return;
+        }
+
         try {
             String[] composition = this.model.getCompositionForPortfolio(portfolioName, date);
             double value = this.model.getPortfolioValue(portfolioName, date);
@@ -76,11 +81,22 @@ public class StockControllerGUI implements StockController, ActionListener {
 
     private void buyHelper() {
         String portfolioName = this.view.getComponentText("buy-sell-portfolio-name");
+
+        if (portfolioName.equals("null")) {
+            this.view.buySellStockMessage("Please create or load a portfolio first.");
+            return;
+        }
+
         String symbolName = this.view.getComponentText("buy-sell-symbol-name");
         int quantity = Integer.parseInt(this.view.getComponentText("buy-sell-quantity"));
         int year = Integer.parseInt(this.view.getComponentText("buy-sell-year"));
         int month = Integer.parseInt(this.view.getComponentText("buy-sell-month"));
         int day = Integer.parseInt(this.view.getComponentText("buy-sell-day"));
+
+        if (symbolName.isEmpty()) {
+            this.view.buySellStockMessage("Please enter a valid stock symbol.");
+            return;
+        }
 
         try {
             this.model.purchaseStockForPortfolio(portfolioName, symbolName,
@@ -100,6 +116,16 @@ public class StockControllerGUI implements StockController, ActionListener {
         int year = Integer.parseInt(this.view.getComponentText("buy-sell-year"));
         int month = Integer.parseInt(this.view.getComponentText("buy-sell-month"));
         int day = Integer.parseInt(this.view.getComponentText("buy-sell-day"));
+
+        if (portfolioName.equals("null")) {
+            this.view.buySellStockMessage("Please create or load a portfolio first.");
+            return;
+        }
+
+        if (symbolName.isEmpty()) {
+            this.view.buySellStockMessage("Please enter a valid stock symbol.");
+            return;
+        }
 
         try {
             this.model.sellStockForPortfolio(portfolioName, symbolName,
