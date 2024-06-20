@@ -151,6 +151,27 @@ public class StockViewGUI extends JFrame implements StockView {
         queryPanel.add(portfolioComboBox);
         portfolioComboBox.setBorder(BorderFactory.createTitledBorder("Choose the portfolio"));
 
+        SpinnerNumberModel yearPickerModel = new SpinnerNumberModel(
+                2024, 2000, 2024, 1
+        );
+        JSpinner yearPicker = new JSpinner(yearPickerModel);
+        queryPanel.add(yearPicker);
+        yearPicker.setBorder(BorderFactory.createTitledBorder("Enter the *year* to query"));
+
+        SpinnerNumberModel monthPickerModel = new SpinnerNumberModel(
+                1, 1, 12, 1
+        );
+        JSpinner monthPicker = new JSpinner(monthPickerModel);
+        queryPanel.add(monthPicker);
+        monthPicker.setBorder(BorderFactory.createTitledBorder("Enter the *month* to query"));
+
+        SpinnerNumberModel dayPickerModel = new SpinnerNumberModel(
+                1, 1, 31, 1
+        );
+        JSpinner dayPicker = new JSpinner(dayPickerModel);
+        queryPanel.add(dayPicker);
+        dayPicker.setBorder(BorderFactory.createTitledBorder("Enter the *day* to query"));
+
         // needs to update
         this.valueCompositionLabel = new JLabel("Once you select a portfolio, its value " +
                 "and composition will be displayed here.");
