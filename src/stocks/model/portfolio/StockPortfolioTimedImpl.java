@@ -1,5 +1,6 @@
 package stocks.model.portfolio;
 
+import stocks.model.StockModel;
 import stocks.model.portfolio.shares.StockAndShares;
 import stocks.model.stock.StocksImpl;
 
@@ -89,6 +90,10 @@ public class StockPortfolioTimedImpl implements StockPortfolioTimed {
   public void purchase(String name, Date date, double shares) {
     List<StockAndShares> stocksAndShares;
 
+    if (!new StocksImpl(name).getValidDates().contains(date)) {
+      throw new IllegalArgumentException("Date does not exist in data.");
+    }
+
     if (this.stockCompositions.containsKey(date)) {
       // If the date specified already has data for it
       stocksAndShares = this.stockCompositions.get(date).getStocksAndShares();
@@ -100,11 +105,11 @@ public class StockPortfolioTimedImpl implements StockPortfolioTimed {
       // If there is no previous time status, just make a new one for this date with only
       // the added stock.
       if (timeStatus == null) {
-        List<StockAndShares> new_ = new ArrayList<StockAndShares>();
-        new_.add(new StockAndShares(
-                new StocksImpl(name), shares
-        ));
-        this.stockCompositions.put(date,
+          List<StockAndShares> new_ = new ArrayList<StockAndShares>();
+          new_.add(new StockAndShares(
+                  new StocksImpl(name), shares
+          ));
+          this.stockCompositions.put(date,
                 new StockPortfolioTimeStatus(new_));
       } else {
         stocksAndShares = timeStatus.getStocksAndShares();

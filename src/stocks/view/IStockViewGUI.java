@@ -53,4 +53,9 @@ public interface IStockViewGUI extends StockView {
    * @param loadedPortfolio name of a portfolios
    */
   void addPortfolioGUI(String loadedPortfolio);
+
+  /**
+   * To set up the display for the GUI view.
+   */
+  void display();
 }

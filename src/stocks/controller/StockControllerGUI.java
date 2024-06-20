@@ -6,7 +6,6 @@ import stocks.model.StockModel;
 import stocks.view.IStockViewGUI;
 
 import java.util.Date;
-import java.util.Scanner;
 
 public class StockControllerGUI implements StockController, ActionListener {
     private IStockViewGUI view;
@@ -20,6 +19,7 @@ public class StockControllerGUI implements StockController, ActionListener {
     @Override
     public void start() {
         this.view.startListeners(this);
+        this.view.display();
     }
 
     @Override

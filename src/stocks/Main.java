@@ -5,6 +5,7 @@ import stocks.controller.StockControllerGUI;
 import stocks.controller.StockControllerImpl;
 import stocks.model.StockModel;
 import stocks.model.StockModelImpl;
+import stocks.view.IStockViewGUI;
 import stocks.view.StockView;
 import stocks.view.StockViewGUI;
 import stocks.view.StockViewImpl;
@@ -29,43 +30,9 @@ public class Main {
 //            , stockModel);
 //    stockController.start();
 
-
-
-    // This is just for GUI testing, we can move it somewhere else later.
-    StockViewGUI.setDefaultLookAndFeelDecorated(false);
-    StockViewGUI frame = new StockViewGUI();
-
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    frame.setVisible(true);
-
-    try {
-      // Set cross-platform Java L&F (also called "Metal")
-      UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-
-      //UIManager.setLookAndFeel( UIManager.getSystemLookAndFeelClassName());
-
-      //   UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
-      //    UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-      //    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels())
-      //    {
-      //       if ("Nimbus".equals(info.getName())) {
-      //          UIManager.setLookAndFeel(info.getClassName());
-      //         break;
-      //    }
-      // }
-    } catch (UnsupportedLookAndFeelException e) {
-      // handle exception
-    } catch (ClassNotFoundException e) {
-      // handle exception
-    } catch (InstantiationException e) {
-      // handle exception
-    } catch (IllegalAccessException e) {
-      // handle exception
-    } catch (Exception e) {
-    }
-
     StockModel stockModel = new StockModelImpl();
-    StockController controller = new StockControllerGUI(frame, stockModel);
+    IStockViewGUI view = new StockViewGUI();
+    StockController controller = new StockControllerGUI(view, stockModel);
     controller.start();
   }
 }
