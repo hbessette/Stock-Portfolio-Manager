@@ -1,4 +1,14 @@
 Features that work and are complete:
+
+FOR THE GUI VERSION:
+- Creating a portfolio
+- Saving and loading portfolios
+- buying and selling stocks for a portfolio at a date
+- checking the value and composition of a portfolio at a date
+
+====================
+
+FOR THE TEXT VERSION:
 - Displaying a help menu with all commands
 - Creating a portfolio with a name
 - Removing a portfolio by its name

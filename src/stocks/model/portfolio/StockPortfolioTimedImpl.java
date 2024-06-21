@@ -1,11 +1,19 @@
 package stocks.model.portfolio;
 
-import stocks.model.StockModel;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import stocks.model.portfolio.shares.StockAndShares;
 import stocks.model.stock.StocksImpl;
 
-import java.util.*;
-
+/**
+ * A stock portfolio that takes timing into consideration (when a stock was bought/sold, etc.).
+ */
 public class StockPortfolioTimedImpl implements StockPortfolioTimed {
   private Map<Date, StockPortfolioTimeStatus> stockCompositions;
   private StringBuilder log;
@@ -105,11 +113,11 @@ public class StockPortfolioTimedImpl implements StockPortfolioTimed {
       // If there is no previous time status, just make a new one for this date with only
       // the added stock.
       if (timeStatus == null) {
-          List<StockAndShares> new_ = new ArrayList<StockAndShares>();
-          new_.add(new StockAndShares(
-                  new StocksImpl(name), shares
-          ));
-          this.stockCompositions.put(date,
+        List<StockAndShares> new_ = new ArrayList<StockAndShares>();
+        new_.add(new StockAndShares(
+                new StocksImpl(name), shares
+        ));
+        this.stockCompositions.put(date,
                 new StockPortfolioTimeStatus(new_));
       } else {
         stocksAndShares = timeStatus.getStocksAndShares();
@@ -449,13 +457,13 @@ public class StockPortfolioTimedImpl implements StockPortfolioTimed {
       }
       catch (IllegalArgumentException exe) {
         try {
-          dd.setTime((i+1) * millisecondConversionNumber);
+          dd.setTime((i + 1) * millisecondConversionNumber);
           dd = new Date(dd.getYear(), dd.getMonth(), dd.getDate());
           value = evaluate(dd);
         }
         catch (IllegalArgumentException exe2) {
           try {
-            dd.setTime((i+2) * millisecondConversionNumber);
+            dd.setTime((i + 2) * millisecondConversionNumber);
             dd = new Date(dd.getYear(), dd.getMonth(), dd.getDate());
             value = evaluate(dd);
           }
@@ -486,7 +494,7 @@ public class StockPortfolioTimedImpl implements StockPortfolioTimed {
     for (Date keyDate : keyPointDatesOrdered) {
       String dateDisplay;
       String[] monthsIdx = new String[]{
-              "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+          "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
       };
       switch (mode) {
         case "years":

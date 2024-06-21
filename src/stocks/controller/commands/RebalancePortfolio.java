@@ -8,11 +8,20 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+/**
+ * A command for rebalancing a portfolio.
+ */
 public class RebalancePortfolio implements StockControllerCommand {
   private final Map<String, Double> percentages;
   private final String portfolioName;
   private final Date date;
 
+  /**
+   * Constructs this command.
+   *
+   * @param s    : scanner for input
+   * @param view : to display prompts for user
+   */
   public RebalancePortfolio(Scanner s, StockView view, StockModel model) {
     view.show("Enter portfolio name: ");
     this.portfolioName = s.next();

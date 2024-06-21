@@ -6,12 +6,21 @@ import stocks.view.StockView;
 import java.util.Date;
 import java.util.Scanner;
 
+/**
+ * A command for buying a stock.
+ */
 public class BuyStock implements StockControllerCommand {
   private final Date date;
   private final int amount;
   private final String portfolioName;
   private final String symbol;
 
+  /**
+   * Constructs this command.
+   *
+   * @param s    : scanner for input
+   * @param view : to display prompts for user
+   */
   public BuyStock(Scanner s, StockView view) {
     view.show("Enter the portfolio name to buy stock for: ");
     this.portfolioName = s.next();

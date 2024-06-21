@@ -1,7 +1,5 @@
 package stocks.view;
 
-import java.awt.event.ActionListener;
-
 /**
  * A view that provides some way of showing the user text.
  */

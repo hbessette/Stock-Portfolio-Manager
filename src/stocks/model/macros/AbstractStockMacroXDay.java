@@ -1,8 +1,13 @@
 package stocks.model.macros;
 
-import stocks.model.stock.Stocks;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
-import java.util.*;
+import stocks.model.stock.Stocks;
 
 /**
  * An abstact class with methods useful to calculating x-day averages.

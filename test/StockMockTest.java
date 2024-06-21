@@ -3,7 +3,6 @@ import org.junit.Test;
 import stocks.controller.StockController;
 import stocks.controller.StockControllerImpl;
 import stocks.model.StockModel;
-import stocks.model.StockModelImpl;
 import stocks.model.StockModelMock;
 import stocks.view.StockView;
 import stocks.view.StockViewImpl;
@@ -52,20 +51,27 @@ public class StockMockTest {
 
     String[] modelLog = modelMock.returnLog().split(System.lineSeparator());
     assertEquals("name: portfolio" , modelLog[0]);
-    assertEquals("name: portfolio, symbol: MSFT, year: 2024, month: 5, day: 31, amount: 10.000000" , modelLog[1]);
+    assertEquals("name: portfolio, symbol: MSFT, year: 2024, month: 5, day: 31, " +
+            "amount: 10.000000" , modelLog[1]);
     assertEquals("name: portfolio, year: 2024, month: 5, day: 31" , modelLog[2]);
     assertEquals("getAllPortfolios() successfully called." , modelLog[3]);
     assertEquals("name: portfolio" , modelLog[4]);
-    assertEquals("symbol: MSFT, startYear: 2024, startMonth: 5, startDay: 31, endYear: 2024, endMonth: 6, endDay: 5" , modelLog[5]);
+    assertEquals("symbol: MSFT, startYear: 2024, startMonth: 5, startDay: 31, endYear: " +
+            "2024, endMonth: 6, endDay: 5" , modelLog[5]);
     assertEquals("name: portfolio" , modelLog[6]);
-    assertEquals("symbol: MSFT, startYear: 2024, startMonth: 5, startDay: 31, xDays: 3" , modelLog[7]);
-    assertEquals("symbol: MSFT, startYear: 2024, startMonth: 5, startDay: 31, xDays: 3" , modelLog[8]);
-    assertEquals("symbol: MSFT, startYear: 2024, startMonth: 5, startDay: 21, endYear: 2024, endMonth: 5, endDay: 31" , modelLog[9]);
+    assertEquals("symbol: MSFT, startYear: 2024, startMonth: 5, startDay: 31, xDays: 3" ,
+            modelLog[7]);
+    assertEquals("symbol: MSFT, startYear: 2024, startMonth: 5, startDay: 31, xDays: 3" ,
+            modelLog[8]);
+    assertEquals("symbol: MSFT, startYear: 2024, startMonth: 5, startDay: 21, endYear: " +
+            "2024, endMonth: 5, endDay: 31" , modelLog[9]);
     assertEquals("name: portfolio" , modelLog[10]);
     assertEquals("name: portfolio, year: 2024, month: 5, day: 1" , modelLog[11]);
     assertEquals("name: portfolio, year: 2024, month: 5, day: 1," , modelLog[12]);
-    assertEquals("name: portfolio, symbol: MSFT, year: 2024, month: 5, day: 31, amount: 10.000000" , modelLog[13]);
-    assertEquals("name: portfolio, symbol: MSFT, year: 2024, month: 5, day: 31" , modelLog[14]);
+    assertEquals("name: portfolio, symbol: MSFT, year: 2024, month: 5, day: 31, " +
+            "amount: 10.000000" , modelLog[13]);
+    assertEquals("name: portfolio, symbol: MSFT, year: 2024, month: 5, day: 31" ,
+            modelLog[14]);
     assertEquals("name: portfolio, year: 2024, month: 5, day: 31" , modelLog[15]);
     assertEquals("name: portfolio, year: 2024, month: 5, day: 31" , modelLog[16]);
 
@@ -85,7 +91,8 @@ public class StockMockTest {
     assertEquals("Enter the year to buy stock for: ", viewLog[12]);
     assertEquals("Enter the month to buy stock for: ", viewLog[13]);
     assertEquals("Enter the day to buy stock for: ", viewLog[14]);
-    assertEquals("Successfully bought 10 shares of MSFT on 5-31-2024 for portfolio.", viewLog[15]);
+    assertEquals("Successfully bought 10 shares of MSFT on 5-31-2024 for portfolio.",
+            viewLog[15]);
     assertEquals("Menu:", viewLog[16]);
     assertEquals("h or help shows commands", viewLog[17]);
     assertEquals("q or quit to exit program", viewLog[18]);

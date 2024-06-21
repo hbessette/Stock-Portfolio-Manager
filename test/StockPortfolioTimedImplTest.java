@@ -11,25 +11,28 @@ import stocks.model.portfolio.StockPortfolioTimedImpl;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
+/**
+ * Tests for the timed stock portfolio.
+ */
 public class StockPortfolioTimedImplTest {
   @Test
   public void testPurchase() {
     StockPortfolioTimed portfolio = new StockPortfolioTimedImpl();
 
-    portfolio.purchase("GOOG", new Date(2024,5,22), 5);
+    portfolio.purchase("GOOG", new Date(2024,4,1), 5);
 
     String[] expectedFirst = new String[] {"GOOG: 5.0 shares"};
-    String[] actual = portfolio.getComposition(new Date(2024, 5, 26));
+    String[] actual = portfolio.getComposition(new Date(2024, 4, 3));
 
     assertEquals(Arrays.toString(expectedFirst), Arrays.toString(actual));
 
-    portfolio.purchase("GOOG", new Date(2024,5,24), 5);
-    portfolio.purchase("AAPL", new Date(2024,5,24), 7);
-    portfolio.purchase("MSFT", new Date(2024,5,24), 1);
+    portfolio.purchase("GOOG", new Date(2024,4,2), 5);
+    portfolio.purchase("AAPL", new Date(2024,4,2), 7);
+    portfolio.purchase("MSFT", new Date(2024,4,2), 1);
     String[] expected = new String[] {"GOOG: 10.0 shares", "AAPL: 7.0 shares", "MSFT: 1.0 share"};
 
-    actual = portfolio.getComposition(new Date(2024, 5, 26));
-    String[] actualBefore = portfolio.getComposition(new Date(2024, 5, 23));
+    actual = portfolio.getComposition(new Date(2024, 4, 3));
+    String[] actualBefore = portfolio.getComposition(new Date(2024, 4, 1));
 
     assertArrayEquals(expected, actual);
     assertArrayEquals(expectedFirst, actualBefore);
@@ -39,11 +42,11 @@ public class StockPortfolioTimedImplTest {
   public void testPurchaseAfterBefore() {
     StockPortfolioTimed portfolio = new StockPortfolioTimedImpl();
 
-    portfolio.purchase("GOOG", new Date(2024,5,22), 5);
-    portfolio.purchase("MSFT", new Date(2024,5,21), 2);
+    portfolio.purchase("GOOG", new Date(2024,4,2), 5);
+    portfolio.purchase("MSFT", new Date(2024,4,1), 2);
 
     String[] expectedFirst = new String[] {"GOOG: 5.0 shares", "MSFT: 2.0 shares"};
-    String[] actual = portfolio.getComposition(new Date(2024, 5, 26));
+    String[] actual = portfolio.getComposition(new Date(2024,4,3));
 
     assertArrayEquals(expectedFirst, actual);
   }
@@ -52,11 +55,11 @@ public class StockPortfolioTimedImplTest {
   public void testSell() {
     StockPortfolioTimed portfolio = new StockPortfolioTimedImpl();
 
-    portfolio.purchase("GOOG", new Date(2024,5,22), 5);
-    portfolio.sell("GOOG", new Date(2024, 5, 23), 2);
+    portfolio.purchase("GOOG", new Date(2024,4,1), 5);
+    portfolio.sell("GOOG", new Date(2024,4,2), 2);
 
     String[] expected = new String[] {"GOOG: 3.0 shares"};
-    String[] actual = portfolio.getComposition(new Date(2024, 5, 26));
+    String[] actual = portfolio.getComposition(new Date(2024,4,3));
 
     assertArrayEquals(expected, actual);
   }
@@ -81,11 +84,11 @@ public class StockPortfolioTimedImplTest {
   public void testSellSameDay() {
     StockPortfolioTimed portfolio = new StockPortfolioTimedImpl();
 
-    portfolio.purchase("GOOG", new Date(2024,5,22), 5);
-    portfolio.sell("GOOG", new Date(2024, 5, 22), 2);
+    portfolio.purchase("GOOG", new Date(2024,4,1), 5);
+    portfolio.sell("GOOG", new Date(2024,4,1), 2);
 
     String[] expected = new String[] {"GOOG: 3.0 shares"};
-    String[] actual = portfolio.getComposition(new Date(2024, 5, 26));
+    String[] actual = portfolio.getComposition(new Date(2024,4,3));
 
     assertArrayEquals(expected, actual);
   }
@@ -111,15 +114,15 @@ public class StockPortfolioTimedImplTest {
   public void testSellInBetweenNotTooMuch() {
     StockPortfolioTimed portfolio = new StockPortfolioTimedImpl();
 
-    portfolio.purchase("GOOG", new Date(2024,5,21), 5);
-    portfolio.sell("GOOG", new Date(2024, 5, 24), 2);
-    portfolio.sell("GOOG", new Date(2024, 5, 22), 2);
+    portfolio.purchase("GOOG", new Date(2024,4,1), 5);
+    portfolio.sell("GOOG", new Date(2024,4,3), 2);
+    portfolio.sell("GOOG", new Date(2024,4,2), 2);
 
     String[] expected22 = new String[] {"GOOG: 3.0 shares"};
-    String[] actual22 = portfolio.getComposition(new Date(2024, 5, 22));
+    String[] actual22 = portfolio.getComposition(new Date(2024,4,2));
 
     String[] expected24 = new String[] {"GOOG: 1.0 share"};
-    String[] actual24 = portfolio.getComposition(new Date(2024, 5, 24));
+    String[] actual24 = portfolio.getComposition(new Date(2024,4,3));
 
     assertArrayEquals(expected22, actual22);
     assertArrayEquals(expected24, actual24);
@@ -128,12 +131,11 @@ public class StockPortfolioTimedImplTest {
   @Test
   public void testSellAll() {
     StockPortfolioTimed portfolio = new StockPortfolioTimedImpl();
-    portfolio.purchase("GOOG", new Date(2024, 5, 21), 7);
-    portfolio.sellAll("GOOG", new Date(2024, 5, 22));
+    portfolio.purchase("GOOG", new Date(2024,4,1), 7);
+    portfolio.sellAll("GOOG", new Date(2024,4,2));
 
-    assertArrayEquals(new String[] {"GOOG: 0.0 shares"}, portfolio.getComposition(new Date(
-            2024, 5, 22
-    )));
+    assertArrayEquals(new String[] {"GOOG: 0.0 shares"}, portfolio.getComposition(
+            new Date(2024,4,2)));
   }
 
   @Test
@@ -144,7 +146,7 @@ public class StockPortfolioTimedImplTest {
     portfolio.purchase("AAPL", new Date(2024,4,24), 7);
     portfolio.purchase("MSFT", new Date(2024,4,24), 1);
     String[] expected = new String[] {
-            "GOOG: $881.6500000000001", "AAPL: $1329.86", "MSFT: $430.16"};
+        "GOOG: $881.6500000000001", "AAPL: $1329.86", "MSFT: $430.16"};
     String[] actual = portfolio.getDistribution(new Date(2024, 4, 24));
 
     assertArrayEquals(expected, actual);
@@ -176,7 +178,7 @@ public class StockPortfolioTimedImplTest {
     portfolio.rebalance(new Date(2024, 4, 29), percentages);
 
     String[] expected = new String[] {"GOOG: 1.0363303269447575 shares",
-            "AAPL: 0.9661306427032424 shares"};
+        "AAPL: 0.9661306427032424 shares"};
     assertArrayEquals(expected, portfolio.getComposition(new Date(2024, 4, 30)));
   }
 

@@ -6,11 +6,21 @@ import stocks.view.StockView;
 import java.util.Date;
 import java.util.Scanner;
 
+/**
+ * A command for a stock's performance over time bar graph.
+ */
 public class PerformanceOverTime implements StockControllerCommand {
   private final String portfolioName;
   private final Date startDate;
   private final Date endDate;
 
+
+  /**
+   * Constructs this command.
+   *
+   * @param s    : scanner for input
+   * @param view : to display prompts for user
+   */
   public PerformanceOverTime(Scanner s, StockView view) {
     view.show("Enter the portfolio name: ");
     this.portfolioName = s.next();
@@ -29,6 +39,7 @@ public class PerformanceOverTime implements StockControllerCommand {
     this.startDate = new Date(startYear, startMonth, startDay);
     this.endDate = new Date(endYear, endMonth, endDay);
   }
+
   @Override
   public void start(StockView view, StockModel model) {
     String s = model.performanceOverTimeForPortfolio(this.portfolioName, this.startDate,

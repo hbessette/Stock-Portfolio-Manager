@@ -2,6 +2,9 @@ package stocks.view;
 
 import java.awt.event.ActionListener;
 
+/**
+ * A view utilizing a GUI.
+ */
 public interface IStockViewGUI extends StockView {
   /**
    * Displays some message in a GUI, as confirmation for the action of creating a portfolio.
@@ -11,7 +14,8 @@ public interface IStockViewGUI extends StockView {
   void createPortfolioMessage(String message);
 
   /**
-   * Displays some message in a GUI, as confirmation for the action of saving or loading a portfolio from a file.
+   * Displays some message in a GUI,
+   * as confirmation for the action of saving or loading a portfolio from a file.
    *
    * @param message some confirmation or error message
    */
@@ -48,7 +52,7 @@ public interface IStockViewGUI extends StockView {
   String getComponentText(String componentName) throws IllegalArgumentException;
 
   /**
-   * Updates any GUI components with a list of portfolios to show the provided new portfolio name
+   * Updates any GUI components with a list of portfolios to show the provided new portfolio name.
    *
    * @param loadedPortfolio name of a portfolios
    */

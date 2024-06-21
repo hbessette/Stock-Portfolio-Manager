@@ -1,17 +1,9 @@
 Design changes:
-- Stocks and portfolios now work with a double amount of shares rather than an integer.
-  This change allows fractional shares.
+- One additional method was added to the model to return the monetary value of a portfolio.
+  This was added to better support getting the value of a portfolio for the GUI.
 
-- The portfolio class used in this program was a new implementation, because our previous
-  implementation could not support adding and removing stocks at specific dates.
-
-- All operations called by the controller are now public methods in the model, rather than the
-  model passing a portfolio or stock which the controller then operates on. This change prevents
-  an outsider from mutating the model without directly calling a method in the model interface.
-
-- The controller and view were changed so that the commands used sequential inputs, rather than
-  having the user input long commands with arguments. This change was made to prevent user error,
-  since it prompts the user for every field.
+- No other changes were made to existing code (except for the main method, which had to be changed).
+  Instead, a new controller and view were created for the GUI version.
 
 ================================================
 
@@ -53,14 +45,23 @@ This StockModel is the model used by the controller.
 The controller package contains a StockController class, which takes in some scanner for user input,
 a view object to push output to, and a StockModel to use to process data and get the results of
 operations.
-Similarly to the model having StockMacros, the controller has a collection of
+
+There are two StockControllers, one for the text version and one for the GUI.
+
+The GUI controller acts as a listener for swing events, and calls methods in the model to get the
+output. It calls methods from the view to update its components.
+
+Similarly to the model having StockMacros, the text controller has a collection of
 "StockControllerCommands", which it calls based on input. Each of these commands uses some function
 of the model and displays the result using the view. This too was used to allow more commands to be
 easily implemented in the future. Commands ask for sequential inputs for each field they require,
 to prevent user error.
 
 
+There are also two views, one for the text version and one for the GUI.
 
-The view package is the simplest, containing a view class which displays text to some PrintStream.
-The controller uses this to print to the console. The view contains methods for a welcome message,
-goodbye message, and commands list message.
+The GUI view uses Swing to create a simple GUI with buttons, text fields, and other elements.
+All listeners are directed to the controller, and a method exists to get the current values of
+elements in the GUI, for use in the controller.
+
+The text view is very simple, merely displaying text to some PrintStream.

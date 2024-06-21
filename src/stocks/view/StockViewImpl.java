@@ -1,6 +1,5 @@
 package stocks.view;
 
-import java.awt.event.ActionListener;
 import java.io.PrintStream;
 
 /**
@@ -9,41 +8,28 @@ import java.io.PrintStream;
 public class StockViewImpl implements StockView {
   private PrintStream out;
 
-  /**
-   * Initializes this view.
-   *
-   * @param out a PrintStream to print to
-   */
   public StockViewImpl(PrintStream out) {
     this.out = out;
   }
 
-  /**
-   * Prints the given text to the PrintStream.
-   *
-   * @param input the text to display
-   */
   @Override
   public void show(String input) {
     out.println(input);
   }
 
-  /**
-   * Shows a welcome message.
-   */
+  @Override
   public void welcomeMessage() {
     out.println("Welcome to Stock Manager");
   }
 
+  @Override
   public void printOptions() {
     out.println("Menu:");
     out.println("h or help shows commands");
     out.println("q or quit to exit program");
   }
 
-  /**
-   * Shows a list of commands.
-   */
+  @Override
   public void printHelp() {
     out.println("List of Commands: ");
     out.println("show-all-portfolios (to show current portfolios)");
@@ -63,9 +49,6 @@ public class StockViewImpl implements StockView {
     out.println("get-x-day-average (to get the average of a stock over a specific period)");
   }
 
-  /**
-   * Shows a goodbye message.
-   */
   @Override
   public void goodbyeMessage() {
     out.println("Thank You For Using Stock Manager");

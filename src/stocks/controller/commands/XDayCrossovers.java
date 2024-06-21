@@ -19,7 +19,12 @@ public class XDayCrossovers implements StockControllerCommand {
   private final Date startDate;
   private final int xDays;
 
-
+  /**
+   * Constructs this command.
+   *
+   * @param s    : scanner for input
+   * @param view : to display prompts for user
+   */
   public XDayCrossovers(Scanner s, StockView view) {
     view.show("Enter the stock symbol: ");
     this.symbol = s.next();

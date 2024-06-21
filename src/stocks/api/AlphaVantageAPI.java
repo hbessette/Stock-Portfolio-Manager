@@ -1,6 +1,12 @@
 package stocks.api;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -163,7 +169,8 @@ public class AlphaVantageAPI {
     File file = new File("StockData/" + this.symbol + "-" + LocalDate.now() + ".csv");
     try {
       file.createNewFile();
-      FileWriter fileWriter = new FileWriter("StockData/" + this.symbol + "-" + LocalDate.now() + ".csv");
+      FileWriter fileWriter = new FileWriter("StockData/" + this.symbol + "-"
+              + LocalDate.now() + ".csv");
       for (String line : output) {
         fileWriter.write(line + System.lineSeparator());
       }

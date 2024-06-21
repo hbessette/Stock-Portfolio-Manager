@@ -1,6 +1,22 @@
 package stocks.controller;
 
-import stocks.controller.commands.*;
+import stocks.controller.commands.AddPortfolio;
+import stocks.controller.commands.BuyStock;
+import stocks.controller.commands.EvaluatePortfolio;
+import stocks.controller.commands.GetComposition;
+import stocks.controller.commands.GetDistribution;
+import stocks.controller.commands.GetPriceChange;
+import stocks.controller.commands.LoadPortfolio;
+import stocks.controller.commands.PerformanceOverTime;
+import stocks.controller.commands.RebalancePortfolio;
+import stocks.controller.commands.RemovePortfolio;
+import stocks.controller.commands.SavePortfolio;
+import stocks.controller.commands.SellAllStock;
+import stocks.controller.commands.SellStock;
+import stocks.controller.commands.ShowAllPortfolios;
+import stocks.controller.commands.StockControllerCommand;
+import stocks.controller.commands.XDayCrossovers;
+import stocks.controller.commands.XDayMovingAverage;
 import stocks.model.StockModel;
 import stocks.view.StockView;
 

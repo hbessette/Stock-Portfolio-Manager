@@ -4,6 +4,9 @@ import stocks.model.portfolio.shares.StockAndShares;
 
 import java.util.List;
 
+/**
+ * Represents a list of portfolio stocks and their shares on a specific day.
+ */
 public class StockPortfolioTimeStatus {
   private List<StockAndShares> stocksAndShares;
 

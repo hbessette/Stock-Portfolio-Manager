@@ -2,6 +2,10 @@ package stocks.model.portfolio;
 
 import java.util.Date;
 
+/**
+ * An interface representing some stock portfolio.
+ * Other interfaces may extend this to add functionality.
+ */
 abstract public interface AStockPortfolio {
   /**
    * Evaluates the value of this portfolio on the given day.

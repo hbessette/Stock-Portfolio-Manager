@@ -1,9 +1,15 @@
 package stocks.model.portfolio;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.Set;
+
 import stocks.model.portfolio.shares.StockAndShares;
 import stocks.model.stock.Stocks;
-
-import java.util.*;
 
 /**
  * Represents a portfolio of stocks.

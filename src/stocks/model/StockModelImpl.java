@@ -8,9 +8,17 @@ import stocks.model.portfolio.StockPortfolioTimedImpl;
 import stocks.model.stock.Stocks;
 import stocks.model.stock.StocksImpl;
 
-import java.io.*;
-import java.util.*;
-
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.Set;
 
 /**
  * A model which allows the user to create portfolios.

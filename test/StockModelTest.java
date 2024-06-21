@@ -155,7 +155,7 @@ public class StockModelTest {
     model.rebalancePortfolio("e", new Date(2024, 4, 29), percentages);
 
     String[] expected = new String[] {"GOOG: 1.0363303269447575 shares",
-            "AAPL: 0.9661306427032424 shares"};
+        "AAPL: 0.9661306427032424 shares"};
     assertArrayEquals(expected, model.getCompositionForPortfolio("e", new Date(2024, 4, 30)));
   }
 

@@ -117,7 +117,8 @@ public class StockModelMock implements StockModel {
       s.append(f).append(":").append(percentages.get(f)).append(",");
     }
     this.log.append(String.format("name: %s, year: %d, month: %d, day: %d," + s,
-            portfolioName, date.getYear(), date.getMonth() + 1, date.getDate())).append(System.lineSeparator());
+            portfolioName, date.getYear(), date.getMonth() + 1, date.getDate()))
+            .append(System.lineSeparator());
   }
 
   @Override
