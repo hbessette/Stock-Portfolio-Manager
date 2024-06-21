@@ -96,7 +96,7 @@ public class AlphaVantageAPI {
     for (File file : filesInFolder) {
       if (
               file.getName().startsWith(this.symbol)
-                      && file.getName() != symbol + "-" + LocalDate.now() + ".csv"
+                      && !file.getName().equals(this.symbol + "-" + LocalDate.now() + ".csv")
       ) {
         file.delete();
       }
@@ -163,8 +163,7 @@ public class AlphaVantageAPI {
     File file = new File("StockData/" + this.symbol + "-" + LocalDate.now() + ".csv");
     try {
       file.createNewFile();
-      FileWriter fileWriter = new FileWriter("StockData/" + this.symbol + "-" +
-              LocalDate.now() + ".csv");
+      FileWriter fileWriter = new FileWriter("StockData/" + this.symbol + "-" + LocalDate.now() + ".csv");
       for (String line : output) {
         fileWriter.write(line + System.lineSeparator());
       }
